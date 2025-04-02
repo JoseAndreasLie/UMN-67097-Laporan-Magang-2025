@@ -1,3 +1,6 @@
+# OS-specific files
+.DS_Store
+*/.DS_Store
 
 # LaTeX temporary files
 *.aux
@@ -14,6 +17,8 @@
 *.ptc
 *.lol
 *.dvi
+*.apc
+*.equ
 
 # Bibliography auxiliary files
 *.bbl
@@ -45,3 +50,4 @@ figures/*/generated/
 MAGANG.toc
 MAGANG.synctex.gz
 MAGANG.aux
+MAGANG.pdf
