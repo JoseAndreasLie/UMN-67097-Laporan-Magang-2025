@@ -42,3 +42,6 @@
 
 # Generated figures and pdfs
 figures/*/generated/
+MAGANG.toc
+MAGANG.synctex.gz
+MAGANG.aux
