@@ -5,7 +5,74 @@
 %-----------------------------------------------------------------------------%
 \section{Latar Belakang Masalah}
 %-----------------------------------------------------------------------------%
-\lipsum[1-2]
+PT Ganda Visi Jayatama merupakan perusahaan yang bergerak di bidang penyediaan 
+jasa pengembangan dan pembuatan perangkat lunak. Sejak tahun 2023, perusahaan 
+mulai memperluas jumlah karyawan dan divisi pekerjaan yang ada. Seiring dengan 
+pertumbuhan ini, struktur organisasi menjadi lebih kompleks dan sistem pengelolaan 
+sumber daya manusia yang ada semakin tidak memadai, khususnya dalam hal 
+efisiensi, transparansi, dan manajemen hirarki kepegawaian. Oleh karena itu, 
+perusahaan mengembangkan CHRIS (Concise Human Resource Internal System), sebuah 
+sistem digital yang awalnya dirancang untuk mempermudah pencatatan absensi dan 
+cuti. Digitalisasi sistem ini menjadi krusial karena metode manual terbukti tidak 
+efektif dalam pengelolaan data kepegawaian yang semakin kompleks [1].
+
+Pada versi pertamanya, CHRIS tidak hanya menyediakan sistem absensi dan perizinan 
+cuti, tetapi juga mencakup fitur laporan Daily Stand-Up Meeting (DSM). DSM 
+merupakan praktik penting dalam metodologi agile seperti Scrum dan Extreme 
+Programming (XP), yang membantu meningkatkan komunikasi tim dalam proyek 
+perangkat lunak. Pertemuan ini berlangsung singkat setiap pagi dan bertujuan 
+untuk menyampaikan perkembangan pekerjaan secara efisien [2]. Namun, seiring 
+berkembangnya perusahaan, muncul kebutuhan untuk memperjelas struktur supervisi 
+antar pegawai yang belum terakomodasi dalam sistem yang ada.
+
+Selain itu, pertumbuhan jumlah karyawan juga menghasilkan tantangan baru dalam 
+pengelolaan kompensasi dan tunjangan. Sistem yang ada belum terintegrasi dengan 
+proses penggajian, sehingga perhitungan gaji masih dilakukan secara terpisah 
+dengan data kehadiran dan performa karyawan. Hal ini sering menyebabkan 
+inefisiensi dan potensi kesalahan dalam penggajian [3]. Pengelolaan berbagai 
+jenis tunjangan karyawan juga menjadi semakin kompleks dan membutuhkan sistem 
+yang lebih terstruktur.
+
+Pengembangan CHRIS direncanakan akan terus berlanjut dengan menambahkan 
+fitur manajemen proyek dan manajemen tugas pada versi-versi selanjutnya. 
+Fitur-fitur ini diadaptasi dari aplikasi ClickUp, yang populer dalam pengelolaan 
+proyek dan tugas. Namun, versi gratis ClickUp memiliki keterbatasan dalam jumlah 
+proyek yang dapat dibuat [4][5]. Oleh karena itu, CHRIS versi kedua difokuskan 
+untuk menghadirkan solusi yang lebih komprehensif dan terintegrasi melalui 
+pengembangan aplikasi web internal perusahaan.
+
+CHRIS dibangun menggunakan teknologi berbasis web untuk meningkatkan usability 
+dan efisiensi [6]. Proyek ini menggunakan PERN Stack yang terdiri dari PostgreSQL, 
+Express, React, dan Node.js untuk membangun sistem full-stack yang andal dan 
+mendukung operasi CRUD. PostgreSQL dipilih sebagai basis data karena kemampuannya 
+dalam menangani fitur NoSQL, transaksi, serta kesesuaiannya dengan standar 
+industri [7]. Arsitektur ini memberikan fleksibilitas yang dibutuhkan untuk 
+mengembangkan fitur-fitur baru yang saling terintegrasi dalam sistem.
+
+Sebagai Backend Engineer yang melanjutkan pengembangan sistem CHRIS, saya telah 
+menambahkan dan mengembangkan tiga fitur penting untuk mengatasi tantangan 
+yang dihadapi perusahaan dalam pengelolaan sumber daya manusia:
+
+\begin{enumerate}
+    \item \textbf{Pembuatan sistem Hierarchy Tree untuk atasan langsung}, 
+    memungkinkan struktur supervisi dan hubungan antarpegawai lebih jelas, 
+    sehingga alur persetujuan cuti dan pelaporan kinerja menjadi lebih efisien 
+    dan terstruktur.
+    
+    \item \textbf{Integrasi Payroll}, untuk menghubungkan sistem gaji dengan 
+    data kehadiran, performa, dan informasi kepegawaian lainnya secara otomatis, 
+    mengurangi kesalahan perhitungan dan meningkatkan transparansi dalam proses 
+    penggajian.
+    
+    \item \textbf{Penambahan sistem User Allowance yang terintegrasi dengan 
+    Slip Gaji}, untuk mendukung pencatatan dan perhitungan berbagai jenis tunjangan 
+    karyawan secara rinci, memudahkan departemen HR dalam mengelola kompensasi 
+    karyawan sesuai dengan kebijakan perusahaan.
+\end{enumerate}
+
+Ketiga fitur tersebut saling terintegrasi untuk menciptakan sistem pengelolaan 
+sumber daya manusia yang lebih komprehensif, transparan, dan efisien, sesuai 
+dengan kebutuhan PT Ganda Visi Jayatama yang terus berkembang.
 
 % %-----------------------------------------------------------------------------%
 % \section{Permasalahan}
