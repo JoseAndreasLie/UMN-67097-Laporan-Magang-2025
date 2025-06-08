@@ -199,11 +199,9 @@ Selama pelaksanaan kerja magang di PT Ganda Visi Jayatama, penulis diberikan tan
 % \end{equation}
 % }
 
-
+% -----------------------------------------------------------------------------%
 \section{Uraian Pelaksanaan Magang}
-
-% \lipsum[34-35]
-
+% -----------------------------------------------------------------------------%
 Pelaksanaan kerja magang diuraikan seperti pada Tabel~\ref{tab:tbl_uraian}.
 
 \begin{center}
@@ -216,7 +214,7 @@ Pelaksanaan kerja magang diuraikan seperti pada Tabel~\ref{tab:tbl_uraian}.
 \endfirsthead
 
 \multicolumn{2}{c}%
-{{\tablename\ \thetable{} -- lanjutan}} \\
+{{\tablename\ \thetable{} -- Pekerjaan yang dilakukan tiap minggu selama pelaksanaan kerja magang}} \\
 \hline
 \textbf{Minggu Ke -} & \textbf{Pekerjaan yang dilakukan} \\
 \hline
@@ -247,7 +245,7 @@ Pelaksanaan kerja magang diuraikan seperti pada Tabel~\ref{tab:tbl_uraian}.
 \hline
 9 & Fokus pada penyempurnaan fitur User Report, termasuk penambahan filter tanggal dan perbaikan minor, serta melakukan hashing biometrik dan refactor pada dashboard Leave Permit. \\
 \hline
-10 &  Memulai riset intensif terkait sistem Payroll dan skema tabelnya, merevisi dokumentasi di Apidog.\\
+10 &  Memulai riset intensif terkait sistem Payroll dan skema tabelnya, membuat dokumentasi di Apidog.\\
 \hline
 11 &  Melanjutkan pengembangan API Payroll berdasarkan hasil riset skema tabel, memperbarui dokumentasi di Apidog, serta mengikuti kegiatan Backlog Planning dan Sprint Closing.\\
 \hline
@@ -306,35 +304,83 @@ Pelaksanaan kerja magang diuraikan seperti pada Tabel~\ref{tab:tbl_uraian}.
 % \end{table}
 
 
-\subsection{Sub-section}
 
-% \lipsum[11-12]
+%-----------------------------------------------------------------------------%
+\section{Pengumpulan dan Analisis Kebutuhan}
+%-----------------------------------------------------------------------------%
+Kebutuhan sistem dalam proyek ini diperoleh melalui koordinasi langsung dengan supervisor dan tim backend internal. Sebagian besar requirement ditentukan secara iteratif berdasarkan kebutuhan bisnis dan sprint mingguan yang telah direncanakan oleh tim. Proses pengumpulan requirement dilakukan melalui diskusi teknis, retrospective meeting, dan task assignment harian.
+
+Berikut ini adalah uraian requirement utama yang berhasil diidentifikasi dan diimplementasikan dalam proyek selama masa kerja praktik.
+
+%-----------------------------------------------------------------------------%
+\subsection{Kebutuhan}
+%-----------------------------------------------------------------------------%
+\subsubsection{Refaktor User Management dan Validasi Data}
+
+Pengembangan dimulai dengan perbaikan sistem \textbf{User Management}, termasuk validasi \textit{form input} dan \textit{refactor} struktur tabel seperti \textbf{user} dan \textbf{employment status}. Hal ini bertujuan untuk memastikan integritas data pengguna dan kemudahan pengelolaan melalui backend maupun frontend.
+%-----------------------------------------------------------------------------%
+\subsubsection{Optimalisasi Leave Permit}
+
+Modul \textbf{Leave Permit} dikembangkan agar lebih efisien dan intuitif. Perubahan meliputi \textit{refactor} pada proses \textit{form submission}, penambahan tombol pembatalan (\textit{cancel}) pengajuan cuti, serta tampilan daftar cuti untuk atasan. Fitur-fitur ini dirancang agar mencerminkan alur persetujuan yang realistis dan terstruktur.
+%-----------------------------------------------------------------------------%
+\subsubsection{Implementasi Pagination}
+
+Untuk mendukung jumlah data yang besar, sistem pagination ditambahkan pada beberapa modul utama seperti User, Leave, dan Attendance. Hal ini dilakukan guna menjaga performa dan kenyamanan pengguna.
+%-----------------------------------------------------------------------------%
+\subsubsection{Pengembangan Sistem Hierarki}
+
+Dibuat fungsi \textit{tree hierarchy} berdasarkan struktur jabatan untuk mendukung fitur-fitur seperti izin cuti (\textit{accept}/\textit{reject}) dan tampilan dashboard atasan. Fungsi ini menjadi dasar logika akses dan pengelolaan hubungan antar pegawai.
+%-----------------------------------------------------------------------------%
+\subsubsection{Modul Payroll dan Slip Gaji}
+
+Modul \textbf{Payroll} dikembangkan untuk menghasilkan slip gaji yang dihitung berdasarkan tunjangan. Termasuk di dalamnya pengembangan API untuk CRUD data payroll, penyusunan salary slip, dan integrasi dengan frontend.
+%-----------------------------------------------------------------------------%
 
 
-\begin{figure}
-     \centering
-     \begin{subfigure}[b]{0.3\textwidth}
-         \centering
-         \includegraphics[width=\textwidth]{assets/pics/graph1.png}
-         \caption{$y=x$}
-         \label{fig:y equals x}
-     \end{subfigure}
-     \hfill
-     \begin{subfigure}[b]{0.3\textwidth}
-         \centering
-         \includegraphics[width=\textwidth]{assets/pics/graph2.png}
-         \caption{$y=3sinx$}
-         \label{fig:three sin x}
-     \end{subfigure}
-     \hfill
-     \begin{subfigure}[b]{0.3\textwidth}
-         \centering
-         \includegraphics[width=\textwidth]{assets/pics/graph3.jpg}
-         \caption{$y=5/x$}
-         \label{fig:five over x}
-     \end{subfigure}
-        \caption{Three simple graphs}
-        \label{fig:three graphs}
+%-----------------------------------------------------------------------------%
+\subsection{Framework dan Aplikasi yang Digunakan}
+%-----------------------------------------------------------------------------%
+
+%-----------------------------------------------------------------------------%
+\subsubsection{Express JS}
+
+Framework backend berbasis Node.js yang digunakan untuk membangun REST API\@. Express dipilih karena ringan, fleksibel, dan cocok untuk kebutuhan proyek berbasis modul seperti CHRIS\@.
+%-----------------------------------------------------------------------------%
+\subsubsection{DBeaver}
+
+DBeaver digunakan untuk pengelolaan database PostgreSQL secara visual. Tool ini memudahkan debugging query, analisis relasi, dan validasi data secara langsung.
+%-----------------------------------------------------------------------------%
+\subsubsection{Apidog}
+Apidog dimanfaatkan sebagai platform dokumentasi dan testing API\@. \textit{Tool} ini membantu frontend untuk memahami struktur \textit{request}/\textit{response} dan berperan sebagai \textit{single source of truth} untuk komunikasi antar tim.
+% ---------------------------------------------------------------------------------%
+\clearpage
+% ---------------------------------------------------------------------------------%
+\section{Design System}
+Bagian ini menjelaskan perancangan sistem yang mencakup struktur basis data dan alur sistem untuk fitur-fitur yang dikembangkan selama masa kerja praktik.
+
+\subsection{Database Diagram}
+Struktur basis data pada sistem CHRIS dirancang untuk mendukung modularitas fitur seperti User Management, Leave Permit, dan Payroll. 
+Beberapa tabel baru ditambahkan serta dilakukan refaktor pada tabel eksisting guna meningkatkan efisiensi dan skalabilitas.
+
+Adapun tabel yang dirancang atau dimodifikasi selama masa kerja praktik adalah sebagai berikut:
+
+\begin{itemize}
+    \item \textbf{users}: Menyimpan informasi dasar pegawai.
+    \item \textbf{employment\_statuses}: Menyimpan status kepegawaian (misal: fulltime, intern).
+    \item \textbf{permit\_records}: Menyimpan data pengajuan cuti oleh pegawai.
+    \item \textbf{payroll\_configurations}: Menyimpan data jenis payroll yang akan digunakan yang sudah menyimpan preset allowances yang sudah terikat dengan payroll ini (dengan tujuan supaya HR tidak perlu mengisi allowance yang sudah ada dari Payroll Configuration ini).
+    \item \textbf{allowance\_types}: Menyimpan data tunjangan yang ada pada sistem.
+    \item \textbf{user\_allowances}: Menyimpan data jumlah tunjangan per pengguna yang digunakan dalam perhitungan gaji.
+    \item \textbf{user\_payroll\_applications}: Menyimpan data pengguna dengan data payroll yang sudah pernah aktif.
+\end{itemize}
+
+\noindent Dokumentasi struktur tabel secara visual dapat dilihat pada Gambar \ref{fig:db-schema}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{assets/pics/fig_database_diagram.png}
+    \caption{Database Diagram}
+    \label{fig:db-schema}
 \end{figure}
 
 
