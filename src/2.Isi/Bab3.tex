@@ -316,7 +316,7 @@ Untuk mendukung jumlah data yang besar, sistem pagination ditambahkan pada beber
 
 Dibuat fungsi \textit{tree hierarchy} berdasarkan struktur jabatan untuk mendukung fitur-fitur seperti izin cuti (\textit{accept}/\textit{reject}) dan tampilan dashboard atasan. Fungsi ini menjadi dasar logika akses dan pengelolaan hubungan antar pegawai.
 %-----------------------------------------------------------------------------%
-\subsubsection{Modul Payroll dan Slip Gaji}
+\subsubsection{Modul Payroll}
 
 Modul \textbf{Payroll} dikembangkan untuk menghasilkan slip gaji yang dihitung berdasarkan tunjangan. Termasuk di dalamnya pengembangan API untuk CRUD data payroll, penyusunan salary slip, dan integrasi dengan frontend.
 %-----------------------------------------------------------------------------%
@@ -338,148 +338,74 @@ DBeaver digunakan untuk pengelolaan database PostgreSQL secara visual. Tool ini 
 \subsubsection{Apidog}
 Apidog dimanfaatkan sebagai platform dokumentasi dan testing API\@. \textit{Tool} ini membantu frontend untuk memahami struktur \textit{request}/\textit{response} dan berperan sebagai \textit{single source of truth} untuk komunikasi antar tim.
 % ---------------------------------------------------------------------------------%
-\clearpage
-% ---------------------------------------------------------------------------------%
-\section{Design System}
-Bagian ini menjelaskan perancangan sistem yang mencakup struktur basis data dan alur sistem untuk fitur-fitur yang dikembangkan selama masa kerja praktik.
+\section{Perancangan dan Pengembangan Sistem}
+Bagian ini menjelaskan perancangan dan pengembangan sistem yang mencakup struktur basis data dan alur sistem untuk fitur-fitur yang dikembangkan selama masa kerja praktik.
 
-\subsection{Database Diagram}
-Struktur basis data pada sistem CHRIS dirancang untuk mendukung modularitas fitur seperti User Management, Leave Permit, dan Payroll. 
-Beberapa tabel baru ditambahkan serta dilakukan refaktor pada tabel eksisting guna meningkatkan efisiensi dan skalabilitas.
+\subsection{Payroll}
+Pada bagian ini, penulis akan mejelaskan struktur basis data yang digunakan untuk modul Payroll, yang merupakan salah satu fitur utama dalam sistem CHRIS\@. Modul ini bertujuan untuk mengelola data penggajian pegawai, termasuk perhitungan gaji berdasarkan tunjangan yang telah ditentukan.
 
-Adapun tabel yang dirancang atau dimodifikasi selama masa kerja praktik adalah sebagai berikut:
+\subsubsection{Alur Sistem \textit{Payroll}}
 
-\begin{itemize}
-    \item \textbf{users}: Menyimpan informasi dasar pegawai.
-    \item \textbf{employment\_statuses}: Menyimpan status kepegawaian (misal: fulltime, intern).
-    \item \textbf{permit\_records}: Menyimpan data pengajuan cuti oleh pegawai.
-    \item \textbf{payroll\_configurations}: Menyimpan data jenis payroll yang akan digunakan yang sudah menyimpan preset allowances yang sudah terikat dengan payroll ini (dengan tujuan supaya HR tidak perlu mengisi allowance yang sudah ada dari Payroll Configuration ini).
-    \item \textbf{allowance\_types}: Menyimpan data tunjangan yang ada pada sistem.
-    \item \textbf{user\_allowances}: Menyimpan data jumlah tunjangan per pengguna yang digunakan dalam perhitungan gaji.
-    \item \textbf{user\_payroll\_applications}: Menyimpan data pengguna dengan data payroll yang sudah pernah aktif.
-\end{itemize}
+Alur sistem \textit{Payroll} diawali dengan pembuatan data \textit{Payroll Configuration}, yang mencakup nama konfigurasi, status kepegawaian (\textit{Employment Status}), serta daftar tunjangan (\textit{Allowances}) yang berlaku. Setelah konfigurasi dibuat, \textit{Superadmin} melanjutkan ke modul \textit{User Management} untuk mengatur data gaji setiap pegawai secara individual.
 
-\noindent Dokumentasi struktur tabel secara visual dapat dilihat pada Gambar \ref{fig:db-schema}.
+Dalam modul \textit{User Management}, \textit{Superadmin} memilih \textit{Payroll Configuration} berdasarkan status kepegawaian pengguna, mengisi besaran gaji pokok, serta melengkapi jumlah masing-masing tunjangan yang ditetapkan. Selain itu, \textit{Superadmin} juga dapat menambahkan tunjangan (\textit{allowance}) atau potongan (\textit{deduction}) khusus yang hanya berlaku bagi pengguna tersebut, guna menyesuaikan skema gaji secara fleksibel.
 
+Setelah data selesai disimpan, \textit{Superadmin} dapat mengakses modul \textit{Salary Slip} untuk melakukan finalisasi gaji. Finalisasi ini memungkinkan pengecekan akhir terhadap rincian gaji sebelum tanggal gajian. Di PT Ganda Visi Jayatama, proses penggajian dilakukan setiap tanggal 25, sehingga proses finalisasi disarankan dilakukan pada tanggal 24 setiap bulannya. Setelah tanggal 25, data tidak dapat lagi diubah.
+
+Pegawai yang telah memiliki data gaji terverifikasi dapat melihat slip gaji mereka masing-masing pada halaman \textit{Salary Slip} dan mengunduhnya dalam format PDF.
+\subsubsection{Diagram ERD Payroll}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\textwidth]{assets/pics/fig_database_diagram.png}
-    \caption{Database Diagram}
-    \label{fig:db-schema}
+    \includegraphics[width=0.8\textwidth]{assets/pics/fig_erd_payroll.png}
+    \caption{Diagram ERD untuk modul Payroll}
+    \label{fig:erd_payroll}
 \end{figure}
 
+\subsubsection{Struktur Basis Data Payroll}
+Struktur basis data untuk modul Payroll terdiri dari beberapa tabel utama yang saling berhubungan. Berikut adalah penjelasan singkat mengenai tabel-tabel tersebut:
+\begin{itemize}
+    \item \textbf{Payroll Configuration}: Tabel ini menyimpan konfigurasi penggajian yang mencakup nama, status kepegawaian, dan tunjangan yang berlaku. Setiap konfigurasi dapat memiliki beberapa tunjangan yang terkait.
+    \item \textbf{User Allowances}: Tabel ini menyimpan data tunjangan spesifik untuk setiap pegawai. Tabel ini berisi informasi mengenai jenis tunjangan, jumlah, dan referensi ke pegawai yang bersangkutan.
+    % \item \textbf{Salary Slip}: Tabel ini menyimpan slip gaji yang dihasilkan berdasarkan konfigurasi penggajian dan data pegawai. Setiap slip gaji berisi informasi mengenai gaji pokok, tunjangan, dan total gaji.
+    \item \textbf{User}: Tabel ini menyimpan data pegawai yang mencakup informasi pribadi, status kepegawaian, dan referensi ke konfigurasi penggajian yang digunakan.
+\end{itemize}
+
+%-----------------------------------------------------------------------------%
+
+% ---------------------------------------------------------------------------------%
+% ini cmd + enter
+\clearpage
+% ---------------------------------------------------------------------------------%
 
 
-\subsubsection{Subsub-section}
-
-\lipsum[13-14]
-
-
-\begin{center}
-\begin{longtable}{|l|l|l|}
-\caption{A sample long table} \label{tab:long} \\
-
-\hline \multicolumn{1}{|c|}{\textbf{First column}} & \multicolumn{1}{c|}{\textbf{Second column}} & \multicolumn{1}{c|}{\textbf{Third column}} \\ \hline 
-\endfirsthead
-
-\multicolumn{3}{c}%
-{{ \tablename\ \thetable{} \small A sample long table (lanjutan)}} \\
-\hline \multicolumn{1}{|c|}{\textbf{First column}} & \multicolumn{1}{c|}{\textbf{Second column}} & \multicolumn{1}{c|}{\textbf{Third column}} \\ \hline 
-\endhead
-
-\hline \multicolumn{3}{|r|}{{Lanjut pada halaman berikutnya}} \\ \hline
-\endfoot
-
-\hline \hline
-\endlastfoot
-
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-One & abcdef ghjijklmn & 123.456778 \\
-\end{longtable}
-\end{center}
-
+% \begin{figure}
+%      \centering
+%      \begin{subfigure}[b]{0.3\textwidth}
+%          \centering
+%          \includegraphics[width=\textwidth]{assets/pics/graph1.png}
+%          \caption{$y=x$}
+%          \label{fig:y equals x}
+%      \end{subfigure}
+%      \hfill
+%      \begin{subfigure}[b]{0.3\textwidth}
+%          \centering
+%          \includegraphics[width=\textwidth]{assets/pics/graph2.png}
+%          \caption{$y=3sinx$}
+%          \label{fig:three sin x}
+%      \end{subfigure}
+%      \hfill
+%      \begin{subfigure}[b]{0.3\textwidth}
+%          \centering
+%          \includegraphics[width=\textwidth]{assets/pics/graph3.jpg}
+%          \caption{$y=5/x$}
+%          \label{fig:five over x}
+%      \end{subfigure}
+%         \caption{Three simple graphs}
+%         \label{fig:three graphs}
+% \end{figure}
+% \subsubsection{Subsub-section}
 
 \paragraph{Paragraph 1}
-
-\lipsum[15-16]
 
 Contoh Python script yang digunakan dapat dilihat pada Kode \ref{kode1}.
 
