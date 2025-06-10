@@ -10,11 +10,20 @@
 \section{Kedudukan dan Koordinasi}
 %-----------------------------------------------------------------------------%
 
-Selama pelaksanaan kerja magang di PT Ganda Visi Jayatama, penulis tergabung dalam tim pengembangan sistem CHRIS (Concise Human Resources Information System), dan berperan sebagai Backend Engineer Intern. Dalam peran ini, penulis bertanggung jawab dalam proses pengembangan dan pengujian Application Programming Interface (API) yang digunakan oleh sistem, serta melakukan kolaborasi dengan anggota tim lainnya dalam menyusun dan menyempurnakan fitur-fitur sistem kepegawaian berbasis web.
+Selama pelaksanaan kerja magang di PT Ganda Visi Jayatama, peran yang dijalankan berada dalam tim pengembangan sistem CHRIS (Concise Human Resources Information System) sebagai \textit{Backend Engineer Intern}. Tanggung jawab utamanya mencakup pengembangan dan pengujian \textit{Application Programming Interface} (API) yang digunakan oleh sistem, serta kolaborasi dengan anggota tim lainnya dalam penyusunan dan penyempurnaan fitur-fitur sistem kepegawaian berbasis \textit{web}.
 
-Tim CHRIS terdiri dari beberapa anggota dengan peran yang saling terintegrasi. Bimbingan diberikan oleh Bapak Edo Setiawan selaku Supervisor sekaligus Head of Development, yang secara rutin melakukan evaluasi mingguan terhadap progres serta melakukan \textit{code review} terhadap hasil pengembangan backend. Koordinasi teknis lebih lanjut juga dilakukan bersama Bapak Muhammad Alwin Alamsyah Handoko Putra selaku Backend Lead, yang memimpin diskusi internal tim backend setiap hari Jumat dalam Backend Internal Meeting. Perencanaan dan distribusi tugas dikoordinasikan oleh Project Manager, Ibu Keshia Tiffany, yang bertanggung jawab membagi \textit{backlog} tugas kepada anggota tim, serta melakukan sesi evaluasi pribadi (\textit{one-on-one}) dengan masing-masing anggota tim magang. Dalam pengembangan tampilan antarmuka sistem, penulis berkolaborasi dengan Designer Amanda Citra Dewanti yang membuat wireframe dan desain hi-fi, serta dua Frontend Engineer Intern, Amanda Citra Dewanti dan Calista Belva, yang bertugas membangun tampilan web menggunakan React. Sementara itu, penulis dan rekan satu tim, Kevin Ken, menjalankan peran sebagai Backend Engineer menggunakan Express.js dan Node.js untuk pengembangan API, serta PostgreSQL sebagai sistem basis data.
+\begin{figure}[H]
+    \centering
+    \fbox{\includegraphics[width=0.8\textwidth]{assets/pics/fig_struktur_tim_chris.png}}
+    \caption{Struktur Tim CHRIS}
+    \label{fig:struktur_tim_CHRIS}
+\end{figure}
 
-Seluruh kegiatan kerja magang dilakukan secara langsung di kantor (Work From Office). Koordinasi dilakukan melalui daily standup setiap pagi untuk melaporkan progres harian, menyampaikan rencana kerja, serta mendiskusikan kendala yang dihadapi. Setiap dua minggu sekali, tim juga melaksanakan sprint retrospective untuk mengevaluasi hasil kerja dalam satu sprint dan menentukan perbaikan serta target sprint berikutnya. Penugasan proyek dikelola menggunakan platform Jira (Atlassian) dalam bentuk backlog sprint yang dibagikan kepada setiap anggota tim secara terstruktur dan terukur.
+Gambar \ref{fig:struktur_tim_CHRIS} merupakan struktur dari tim CHRIS yang terdiri dari sejumlah anggota dengan peran yang saling terintegrasi. Bimbingan diberikan oleh Bapak Edo Setiawan selaku \textit{Supervisor} sekaligus Head of Development, yang secara rutin melaksanakan evaluasi mingguan terhadap progres dan melakukan \textit{code review} atas hasil pengembangan \textit{backend}. Koordinasi teknis lebih lanjut dilaksanakan bersama Bapak Muhammad Alwin Alamsyah Handoko Putra selaku \textit{Backend Lead}, yang memimpin diskusi internal tim \textit{backend} setiap hari Jumat melalui \textit{Backend Internal Meeting}. Perencanaan serta distribusi tugas dikoordinasikan oleh \textit{Project Manager}, Ibu Keshia Tiffany, yang bertanggung jawab dalam pembagian \textit{backlog} kepada anggota tim, serta mengadakan sesi evaluasi pribadi (\textit{one-on-one}) dengan masing-masing anggota tim magang.
+
+Dalam pengembangan tampilan antarmuka sistem, kolaborasi dilakukan bersama \textit{Designer} Amanda Citra Dewanti yang merancang desain akhir dari \textit{web}, serta dua \textit{Frontend Engineer Intern}, Amanda Citra Dewanti dan Calista Belva, yang membangun antarmuka \textit{web} menggunakan React. Sementara itu, pengembangan API menggunakan Express.js dan Node.js, serta pengelolaan basis data dengan PostgreSQL, dijalankan oleh dua Backend Engineer, yaitu Kevin Ken dan satu rekan lainnya dalam tim.
+
+Seluruh kegiatan kerja magang dilakukan secara langsung di kantor (\textit{Work From Office}). Koordinasi dilakukan melalui \textit{daily standup} setiap pagi untuk melaporkan progres harian, menyampaikan rencana kerja, serta mendiskusikan kendala yang dihadapi. Setiap dua minggu sekali, tim juga melaksanakan \textit{sprint retrospective} untuk mengevaluasi hasil kerja dalam satu \textit{sprint} dan menentukan perbaikan serta target \textit{sprint} berikutnya. Penugasan proyek dikelola menggunakan \textit{platform} Jira (Atlassian) dalam bentuk \textit{backlog sprint} yang dibagikan kepada setiap anggota tim secara terstruktur dan terukur.
 
 
 % \noindent \begin{align}\label{eq:garis}
@@ -35,15 +44,15 @@ Seluruh kegiatan kerja magang dilakukan secara langsung di kantor (Work From Off
 
 %-----------------------------------------------------------------------------%
 \section{Tugas yang Dilakukan}
-\label{sec:multiEqu}
+% \label{sec:multiEqu}
 %-----------------------------------------------------------------------------%
 
-Selama pelaksanaan kerja magang di PT Ganda Visi Jayatama, penulis diberikan tanggung jawab utama dalam satu proyek utama, yaitu pengembangan aplikasi \textit{Internal System}. Tugas-tugas yang dijalankan selama magang terbagi ke dalam beberapa aktivitas utama sebagai berikut:
+Selama pelaksanaan kerja magang di PT Ganda Visi Jayatama, terdapat tanggung jawab utama dalam satu proyek utama, yaitu pengembangan aplikasi \textit{Internal System}. Tugas-tugas yang dijalankan selama magang terbagi ke dalam beberapa aktivitas utama sebagai berikut:
 
 \begin{enumerate}
     \item Mengembangkan API untuk kebutuhan aplikasi \textit{Internal System}, yang mencakup pembuatan fitur-fitur backend sesuai dengan spesifikasi fungsional.
-    \item Melakukan dokumentasi terhadap API yang telah dikembangkan menggunakan platform dokumentasi API, Apidog.
-    \item Melakukan pengujian secara mandiri terhadap API yang dibuat untuk memastikan bahwa seluruh endpoint berjalan sesuai dengan fungsinya, serta menangani error handling dan validasi data.
+    \item Melakukan dokumentasi terhadap API yang telah dikembangkan menggunakan \textit{platform} dokumentasi API, Apidog.
+    \item Melakukan pengujian secara mandiri terhadap API yang dibuat untuk memastikan bahwa seluruh \textit{endpoint} berjalan sesuai dengan fungsinya, serta menangani \textit{error handling} dan validasi data.
 \end{enumerate}
 
 
@@ -185,6 +194,7 @@ Selama pelaksanaan kerja magang di PT Ganda Visi Jayatama, penulis diberikan tan
 % }
 
 % -----------------------------------------------------------------------------%
+
 \section{Uraian Pelaksanaan Magang}
 % -----------------------------------------------------------------------------%
 Pelaksanaan kerja magang diuraikan seperti pada Tabel~\ref{tab:tbl_uraian}.
@@ -199,7 +209,7 @@ Pelaksanaan kerja magang diuraikan seperti pada Tabel~\ref{tab:tbl_uraian}.
 \endfirsthead
 
 \multicolumn{2}{c}%
-{{\tablename\ \thetable{} -- Pekerjaan yang dilakukan tiap minggu selama pelaksanaan kerja magang}} \\
+{{\parbox{\textwidth}{\centering \tablename\ \thetable{} -- Pekerjaan yang dilakukan tiap minggu selama pelaksanaan kerja magang (lanjutan)}}} \\
 \hline
 \textbf{Minggu Ke -} & \textbf{Pekerjaan yang dilakukan} \\
 \hline
@@ -293,12 +303,9 @@ Pelaksanaan kerja magang diuraikan seperti pada Tabel~\ref{tab:tbl_uraian}.
 %-----------------------------------------------------------------------------%
 \section{Pengumpulan dan Analisis Kebutuhan}
 %-----------------------------------------------------------------------------%
-Kebutuhan sistem dalam proyek ini diperoleh melalui koordinasi langsung dengan supervisor dan tim backend internal. Sebagian besar requirement ditentukan secara iteratif berdasarkan kebutuhan bisnis dan sprint mingguan yang telah direncanakan oleh tim. Proses pengumpulan requirement dilakukan melalui diskusi teknis, retrospective meeting, dan task assignment harian.
+Kebutuhan sistem dalam proyek ini diperoleh melalui koordinasi langsung dengan \textit{supervisor} dan tim \textit{backend internal}. Sebagian besar \textit{requirement} ditentukan secara iteratif berdasarkan kebutuhan bisnis dan sprint mingguan yang telah direncanakan oleh tim. Proses pengumpulan \textit{requirement} dilakukan melalui diskusi teknis, \textit{retrospective meeting}, dan \textit{task assignment} harian.
 
-Berikut ini adalah uraian requirement utama yang berhasil diidentifikasi dan diimplementasikan dalam proyek selama masa kerja praktik.
-
-%-----------------------------------------------------------------------------%
-\subsection{Kebutuhan}
+Berikut ini adalah uraian \textit{requirement} utama yang berhasil diidentifikasi dan diimplementasikan dalam proyek selama masa kerja praktik.
 %-----------------------------------------------------------------------------%
 \subsubsection{Refaktor User Management dan Validasi Data}
 
@@ -319,26 +326,9 @@ Dibuat fungsi \textit{tree hierarchy} berdasarkan struktur jabatan untuk menduku
 \subsubsection{Modul Payroll}
 
 Modul \textbf{Payroll} dikembangkan untuk menghasilkan slip gaji yang dihitung berdasarkan tunjangan. Termasuk di dalamnya pengembangan API untuk CRUD data payroll, penyusunan salary slip, dan integrasi dengan frontend.
-%-----------------------------------------------------------------------------%
-
-
-%-----------------------------------------------------------------------------%
-\subsection{Framework dan Aplikasi yang Digunakan}
-%-----------------------------------------------------------------------------%
-
-%-----------------------------------------------------------------------------%
-\subsubsection{Express JS}
-
-Framework backend berbasis Node.js yang digunakan untuk membangun REST API\@. Express dipilih karena ringan, fleksibel, dan cocok untuk kebutuhan proyek berbasis modul seperti CHRIS\@.
-%-----------------------------------------------------------------------------%
-\subsubsection{DBeaver}
-
-DBeaver digunakan untuk pengelolaan database PostgreSQL secara visual. Tool ini memudahkan debugging query, analisis relasi, dan validasi data secara langsung.
-%-----------------------------------------------------------------------------%
-\subsubsection{Apidog}
-Apidog dimanfaatkan sebagai platform dokumentasi dan testing API\@. \textit{Tool} ini membantu frontend untuk memahami struktur \textit{request}/\textit{response} dan berperan sebagai \textit{single source of truth} untuk komunikasi antar tim.
 % ---------------------------------------------------------------------------------%
 \section{Perancangan dan Pengembangan Sistem}
+% ---------------------------------------------------------------------------------%
 Bagian ini menjelaskan perancangan dan pengembangan sistem yang mencakup struktur basis data dan alur sistem untuk fitur-fitur yang dikembangkan selama masa kerja praktik.
 
 \subsection{Payroll}
@@ -370,10 +360,12 @@ Struktur basis data untuk modul Payroll terdiri dari beberapa tabel utama yang s
     \item \textbf{User}: Tabel ini menyimpan data pegawai yang mencakup informasi pribadi, status kepegawaian, dan referensi ke konfigurasi penggajian yang digunakan.
 \end{itemize}
 
-%-----------------------------------------------------------------------------%
-
 % ---------------------------------------------------------------------------------%
 % ini cmd + enter
+\clearpage
+.
+\clearpage
+.
 \clearpage
 % ---------------------------------------------------------------------------------%
 
