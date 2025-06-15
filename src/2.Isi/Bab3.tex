@@ -325,24 +325,15 @@ Dibuat fungsi \textit{tree hierarchy} berdasarkan struktur jabatan untuk menduku
 %-----------------------------------------------------------------------------%
 \subsubsection{Modul Payroll}
 
-Modul \textbf{Payroll} dikembangkan untuk menghasilkan slip gaji yang dihitung berdasarkan tunjangan. Termasuk di dalamnya pengembangan API untuk CRUD data payroll, penyusunan salary slip, dan integrasi dengan frontend.
+Modul \textbf{Payroll} dikembangkan untuk menghasilkan slip gaji setiap bulannya yang dihitung berdasarkan tunjangan. Termasuk di dalamnya pengembangan API untuk CRUD data payroll, penyusunan salary slip, dan integrasi dengan frontend.
 % ---------------------------------------------------------------------------------%
 \section{Perancangan dan Pengembangan Sistem}
 % ---------------------------------------------------------------------------------%
 Bagian ini menjelaskan perancangan dan pengembangan sistem yang mencakup struktur basis data dan alur sistem untuk fitur-fitur yang dikembangkan selama masa kerja praktik.
 
 \subsection{Payroll}
-Pada bagian ini, penulis akan mejelaskan struktur basis data yang digunakan untuk modul Payroll, yang merupakan salah satu fitur utama dalam sistem CHRIS\@. Modul ini bertujuan untuk mengelola data penggajian pegawai, termasuk perhitungan gaji berdasarkan tunjangan yang telah ditentukan.
+Modul \textit{Payroll} merupakan salah satu fitur utama dalam sistem CHRIS\@. Modul ini bertujuan untuk mengelola data penggajian pegawai, termasuk perhitungan gaji berdasarkan tunjangan yang telah ditentukan.
 
-\subsubsection{Alur Sistem \textit{Payroll}}
-
-Alur sistem \textit{Payroll} diawali dengan pembuatan data \textit{Payroll Configuration}, yang mencakup nama konfigurasi, status kepegawaian (\textit{Employment Status}), serta daftar tunjangan (\textit{Allowances}) yang berlaku. Setelah konfigurasi dibuat, \textit{Superadmin} melanjutkan ke modul \textit{User Management} untuk mengatur data gaji setiap pegawai secara individual.
-
-Dalam modul \textit{User Management}, \textit{Superadmin} memilih \textit{Payroll Configuration} berdasarkan status kepegawaian pengguna, mengisi besaran gaji pokok, serta melengkapi jumlah masing-masing tunjangan yang ditetapkan. Selain itu, \textit{Superadmin} juga dapat menambahkan tunjangan (\textit{allowance}) atau potongan (\textit{deduction}) khusus yang hanya berlaku bagi pengguna tersebut, guna menyesuaikan skema gaji secara fleksibel.
-
-Setelah data selesai disimpan, \textit{Superadmin} dapat mengakses modul \textit{Salary Slip} untuk melakukan finalisasi gaji. Finalisasi ini memungkinkan pengecekan akhir terhadap rincian gaji sebelum tanggal gajian. Di PT Ganda Visi Jayatama, proses penggajian dilakukan setiap tanggal 25, sehingga proses finalisasi disarankan dilakukan pada tanggal 24 setiap bulannya. Setelah tanggal 25, data tidak dapat lagi diubah.
-
-Pegawai yang telah memiliki data gaji terverifikasi dapat melihat slip gaji mereka masing-masing pada halaman \textit{Salary Slip} dan mengunduhnya dalam format PDF.
 \subsubsection{Diagram ERD Payroll}
 \begin{figure}[H]
     \centering
@@ -351,23 +342,151 @@ Pegawai yang telah memiliki data gaji terverifikasi dapat melihat slip gaji mere
     \label{fig:erd_payroll}
 \end{figure}
 
-\subsubsection{Struktur Basis Data Payroll}
 Struktur basis data untuk modul Payroll terdiri dari beberapa tabel utama yang saling berhubungan. Berikut adalah penjelasan singkat mengenai tabel-tabel tersebut:
 \begin{itemize}
-    \item \textbf{Payroll Configuration}: Tabel ini menyimpan konfigurasi penggajian yang mencakup nama, status kepegawaian, dan tunjangan yang berlaku. Setiap konfigurasi dapat memiliki beberapa tunjangan yang terkait.
-    \item \textbf{User Allowances}: Tabel ini menyimpan data tunjangan spesifik untuk setiap pegawai. Tabel ini berisi informasi mengenai jenis tunjangan, jumlah, dan referensi ke pegawai yang bersangkutan.
-    % \item \textbf{Salary Slip}: Tabel ini menyimpan slip gaji yang dihasilkan berdasarkan konfigurasi penggajian dan data pegawai. Setiap slip gaji berisi informasi mengenai gaji pokok, tunjangan, dan total gaji.
     \item \textbf{User}: Tabel ini menyimpan data pegawai yang mencakup informasi pribadi, status kepegawaian, dan referensi ke konfigurasi penggajian yang digunakan.
+    \item \textbf{Employment Status}: Tabel ini menyimpan data status kepegawaian yang digunakan sebagai referensi pada berbagai modul dalam sistem, salah satunya adalah modul \textit{Payroll}.
+    \item \textbf{Payroll Configuration}: Tabel ini menyimpan konfigurasi penggajian yang mencakup nama, status kepegawaian, dan tunjangan yang berlaku. Setiap konfigurasi dapat memiliki beberapa tunjangan yang terkait.
+    \item \textbf{Allowances Types}: Tabel ini menyimpan jenis-jenis tunjangan yang tersedia pada payroll configuraion yang telah dibuat, dan juga tunjangan tambahan untuk pegawai tertentu. Setiap jenis tunjangan memiliki nama, dan tipe (tunjangan atau potongan).
+    \item \textbf{User Payroll Application}: Tabel ini menyimpan data Payroll yang telah diisi oleh \textit{Superadmin} untuk setiap pegawai.
+    \item \textbf{User Allowances}: Tabel ini menyimpan data tunjangan spesifik untuk setiap pegawai. Tabel ini berisi informasi mengenai jenis tunjangan, jumlah, dan referensi ke pegawai yang bersangkutan.
 \end{itemize}
 
-% ---------------------------------------------------------------------------------%
+\subsubsection{Alur Sistem Payroll}
+\paragraph{Gambaran Umum Sistem Payroll}
+Alur sistem \textit{Payroll} diawali dengan pembuatan data \textit{Payroll Configuration}, yang mencakup nama konfigurasi, status kepegawaian (\textit{Employment Status}), serta daftar tunjangan (\textit{Allowances}) yang berlaku. Setelah konfigurasi dibuat, \textit{Superadmin} melanjutkan ke modul \textit{User Management} untuk mengatur data gaji setiap pegawai secara individual.
+
+Dalam modul \textit{User Management}, \textit{Superadmin} memilih \textit{Payroll Configuration} berdasarkan status kepegawaian pengguna, mengisi besaran gaji pokok, serta melengkapi jumlah masing-masing tunjangan yang ditetapkan. Selain itu, \textit{Superadmin} juga dapat menambahkan tunjangan (\textit{allowance}) atau potongan (\textit{deduction}) khusus yang hanya berlaku bagi pengguna tersebut, guna menyesuaikan skema gaji secara fleksibel.
+
+Setelah data selesai disimpan, \textit{Superadmin} dapat mengakses modul \textit{Salary Slip} untuk melakukan finalisasi gaji. Finalisasi ini memungkinkan pengecekan akhir terhadap rincian gaji sebelum tanggal gajian. Di PT Ganda Visi Jayatama, proses penggajian dilakukan setiap tanggal 25, sehingga proses finalisasi disarankan dilakukan pada tanggal 24 setiap bulannya. Setelah tanggal 25, data tidak dapat lagi diubah.
+
+Pegawai yang telah memiliki data gaji terverifikasi dapat melihat slip gaji mereka masing-masing pada halaman \textit{Salary Slip} dan mengunduhnya dalam format PDF.
+
+
+\paragraph{Penjabaran Sistem Payroll}
+
+\subparagraph{Payroll Configuration}
+
+Pada Gambar \ref{create_payroll_config}, \ref{update_payroll_config}, dan \ref{delete_payroll_config} merupakan alur sistem untuk Payroll Configuration yang dimulai dari pembuatan konfigurasi penggajian, di mana \textit{Superadmin} membuat konfigurasi baru dengan mengisi nama konfigurasi, status kepegawaian, dan daftar tunjangan (\textit{Allowances}) yang berlaku. Setelah itu, \textit{Superadmin} dapat mengakses modul \textit{User Management} untuk mengatur data gaji setiap pegawai.
+\begin{figure}[H]
+    \centering
+    \fbox{\includegraphics[width=0.8\textwidth]{assets/pics/payroll-config-create.jpg}}
+    \caption{\textit{Flowchart create payroll configuration}}
+    \label{fig:create_payroll_config}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \fbox{\includegraphics[width=0.8\textwidth]{assets/pics/payroll-config-update.jpg}}
+    \caption{\textit{Flowchart update payroll configuration}}
+    \label{fig:update_payroll_config}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \fbox{\includegraphics[width=0.8\textwidth]{assets/pics/payroll-config-delete.jpg}}
+    \caption{\textit{Flowchart delete payroll configuration}}
+    \label{fig:delete_payroll_config}
+\end{figure}
+
+Gambar \ref{fig:create_payroll_config}, \ref{fig:update_payroll_config}, dan \ref{fig:delete_payroll_config} menggambarkan alur proses pembuatan, pengubahan, dan penghapusan data \textit{Payroll Configuration}. Ketiga proses tersebut menerapkan validasi yang sama, yaitu pengecekan \textit{request} dan \textit{params}, dan pengecekan terhadap kombinasi nama Payroll Configuration dan Employment\textit{ Status} yang sudah terdaftar sebelumnya.
+
+Apabila \textit{request} atau \textit{parameter} yang dikirimkan tidak sesuai dengan format atau aturan yang telah ditentukan, sistem akan merespons dengan kode 422 (\textit{Invalid Format}) sebagai penolakan terhadap permintaan yang tidak valid. Selain itu, jika kombinasi nama \textit{Payroll Configuration} dan \textit{Employment Status} telah terdaftar sebelumnya, sistem akan mengembalikan respons kode 400 (\textit{Bad Request}) untuk mencegah terjadinya duplikasi data.
+
+Validasi ini bertujuan untuk menjaga konsistensi dan integritas data dalam sistem. Jika seluruh validasi berhasil dilewati, maka proses pembuatan, pengubahan, atau penghapusan akan dilanjutkan, dengan sistem memberikan respons berupa kode 201 (Created) untuk pembuatan, serta kode 200 (OK) untuk pengubahan dan penghapusan data.
+
+% ----------------------%
+\subparagraph{User Allowances}
+% ----------------------%
+Setelah \textit{Superadmin} membuat \textit{payroll configuration}, langkah selanjutnya adalah mengatur data gaji setiap pegawai. Proses ini dilakukan melalui modul \textit{User Management}, di mana \textit{Superadmin} memilih \textit{Payroll Configuration} berdasarkan status kepegawaian pengguna, mengisi besaran gaji pokok, serta melengkapi jumlah masing-masing tunjangan yang ditetapkan. 
+
+% -------------------- %
+\begin{figure}[H]
+    \centering
+    \fbox{\includegraphics[height=0.7\textheight]{assets/pics/payroll-untuk-setiap-user.jpg}}
+    \caption{\textit{Flowchart} implementasi payroll untuk setiap user}
+    \label{fig:payroll_untuk_setiap_user}
+\end{figure}
+
+Gambar \ref{fig:payroll_untuk_setiap_user} menunjukkan proses untuk validasi \textit{request} dan \textit{parameter} akan dilanjuti dengan proses menambahkan data untuk \textit{payroll information} secara \textit{general}.
+
+% -------------------- %
+\begin{figure}[H]
+    \centering
+    \fbox{\includegraphics[height=0.7\textheight]{assets/pics/menambahkan-data-untuk-payroll-information.jpg}}
+    \caption{\textit{Flowchart} menambahkan data untuk payroll information}
+    \label{fig:menambahkan_data_payroll_information}
+\end{figure}
+
+Pada \textit{user management}, terdapat suatu field bernama \textit{Payroll Information} yang berisi data gaji pegawai, dan field untuk memilih \textit{Payroll Configuration} yang telah dibuat sebelumnya. Setelah memilih \textit{Payroll Configuration}, \textit{Superadmin} dapat mengisi data gaji pokok, tunjangan, dan potongan yang berlaku untuk pegawai tersebut. Gambar \ref{fig:payroll_untuk_setiap_user} menunjukkan alur sistem untuk pembuatan data gaji pegawai.
+
+% -------------------- %
+\begin{figure}[H]
+    \centering
+    \fbox{\includegraphics[height=0.7\textheight]{assets/pics/mendaftarkan-data-untuk-salary.jpg}}
+    \caption{\textit{Flowchart} mendaftarkan data untuk salary}
+    \label{fig:mendaftarkan_data_untuk_salary}
+\end{figure}
+
+Gambar \ref{fig:mendaftarkan_data_untuk_salary} menunjukkan proses pembuatan data gaji pegawai yang dimulai dengan mencari data pegawai dan mengambil data gaji pegawai tersebut. Setelah itu, jika data tersebut ditemukan, sistem akan menghapus data gaji pegawai yang lama secara \textit{soft delete} dan membuat data gaji pegawai yang baru.
+% -------------------- %
+\begin{figure}[H]
+    \centering
+    \fbox{\includegraphics[height=0.6\textheight]{assets/pics/mendaftarkan-data-untuk-allowances-secara-general.jpg}}
+    \caption{\textit{Flowchart} mendaftarkan data user allowances secara \textit{general}}
+    \label{fig:mendaftarkan_data_user_allowances_secara_general}
+\end{figure}
+
+Gambar \ref{fig:mendaftarkan_data_user_allowances_secara_general} menggambarkan alur proses pendaftaran data tunjangan pegawai secara umum. Proses ini diawali dengan pengambilan data pegawai dan \textit{Payroll Configuration} yang telah tersedia. Selanjutnya, sistem mengekstraksi daftar tunjangan yang tercantum dalam \textit{Payroll Configuration} tersebut. Setelah itu, sistem akan memperbarui informasi \textit{Active Payroll} pada data pegawai, dan mendaftarkan entri baru pada \textit{User Payroll Application} guna menghubungkan pegawai dengan konfigurasi payroll yang aktif. Terakhir, sistem akan mendaftarkan data \textit{User Allowances} beserta nominal masing-masing tunjangan dan potongan yang telah ditentukan sebelumnya.
+
+% -------------------- %
+\begin{figure}[H]
+    \centering
+    \fbox{\includegraphics[height=0.8\textheight]{assets/pics/mendaftarkan-data-user-payroll-application.jpg}}
+    \caption{\textit{Flowchart} mendaftarkan data \textit{user payroll application}}
+    \label{fig:mendaftarkan_data_user_payroll_application}
+\end{figure}
+
+Gambar \ref{fig:mendaftarkan_data_user_payroll_application} menggambarkan proses pendaftaran data \textit{User Payroll Application} yang diawali dengan pencarian entri sebelumnya pada pegawai terkait. Jika tidak ditemukan, sistem akan langsung membuat entri baru pada tabel \textit{User Payroll Application}. Namun, apabila entri sudah ada, sistem akan terlebih dahulu melakukan \textit{soft delete} terhadap data tersebut, kemudian membuat entri baru guna memastikan hanya satu konfigurasi aktif yang tercatat untuk setiap pegawai. Pendekatan ini menjaga integritas historis tanpa menghapus data secara permanen.
+
+
+% -------------------- %
+\begin{figure}[H]
+    \centering
+    \fbox{\includegraphics[height=0.7\textheight]{assets/pics/mendaftarkan-data-user-allowances.jpg}}
+    \caption{\textit{Flowchart} mendaftarkan data \textit{user allowances}}
+    \label{fig:mendaftarkan_data_user_allowances}
+\end{figure}
+
+Gambar \ref{fig:mendaftarkan_data_user_allowances} menggambarkan proses pendaftaran data tunjangan pegawai yang diawali dengan pencarian data \textit{User Allowances} berdasarkan setiap \textit{Allowance Type} yang dimiliki pegawai. Apabila data tidak ditemukan, sistem akan membuat entri baru dengan mengisikan \textit{Allowance Type} beserta nominal tunjangan yang telah ditentukan. Namun, jika data ditemukan, sistem akan melakukan pengecekan terhadap kesesuaian nominal tunjangan. Jika nominal yang ditemukan sama, maka tidak ada perubahan yang dilakukan. Sebaliknya, jika terdapat perbedaan, sistem akan memperbarui nilai nominal dengan yang baru, serta melakukan \textit{soft delete} pada data lama. Pendekatan ini diterapkan untuk menjaga riwayat data dan memungkinkan pelacakan perubahan secara historis.
+
+% -------------------- %
+% -------------------- %
+% -------------------- %
+% -------------------- %
+% -------------------- %
+% -------------------- %
+% -------------------- %
+% -------------------- %
+% -------------------- %
+% -------------------- %
+% -------------------- %
 % ini cmd + enter
 \clearpage
 .
 \clearpage
 .
 \clearpage
-% ---------------------------------------------------------------------------------%
+% -------------------- %
+% -------------------- %
+% -------------------- %
+% -------------------- %
+% -------------------- %
+% -------------------- %
+% -------------------- %
+% -------------------- %
+% -------------------- %
+% -------------------- %
 
 
 % \begin{figure}
