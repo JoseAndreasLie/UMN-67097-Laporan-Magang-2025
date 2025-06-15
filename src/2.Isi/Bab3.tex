@@ -353,7 +353,6 @@ Struktur basis data untuk modul Payroll terdiri dari beberapa tabel utama yang s
 \end{itemize}
 
 \subsubsection{Alur Sistem Payroll}
-\paragraph{Gambaran Umum Sistem Payroll}
 Alur sistem \textit{Payroll} diawali dengan pembuatan data \textit{Payroll Configuration}, yang mencakup nama konfigurasi, status kepegawaian (\textit{Employment Status}), serta daftar tunjangan (\textit{Allowances}) yang berlaku. Setelah konfigurasi dibuat, \textit{Superadmin} melanjutkan ke modul \textit{User Management} untuk mengatur data gaji setiap pegawai secara individual.
 
 Dalam modul \textit{User Management}, \textit{Superadmin} memilih \textit{Payroll Configuration} berdasarkan status kepegawaian pengguna, mengisi besaran gaji pokok, serta melengkapi jumlah masing-masing tunjangan yang ditetapkan. Selain itu, \textit{Superadmin} juga dapat menambahkan tunjangan (\textit{allowance}) atau potongan (\textit{deduction}) khusus yang hanya berlaku bagi pengguna tersebut, guna menyesuaikan skema gaji secara fleksibel.
@@ -362,10 +361,7 @@ Setelah data selesai disimpan, \textit{Superadmin} dapat mengakses modul \textit
 
 Pegawai yang telah memiliki data gaji terverifikasi dapat melihat slip gaji mereka masing-masing pada halaman \textit{Salary Slip} dan mengunduhnya dalam format PDF.
 
-
-\paragraph{Penjabaran Sistem Payroll}
-
-\subparagraph{Payroll Configuration}
+\paragraph{Payroll Configuration}
 
 Pada Gambar \ref{create_payroll_config}, \ref{update_payroll_config}, dan \ref{delete_payroll_config} merupakan alur sistem untuk Payroll Configuration yang dimulai dari pembuatan konfigurasi penggajian, di mana \textit{Superadmin} membuat konfigurasi baru dengan mengisi nama konfigurasi, status kepegawaian, dan daftar tunjangan (\textit{Allowances}) yang berlaku. Setelah itu, \textit{Superadmin} dapat mengakses modul \textit{User Management} untuk mengatur data gaji setiap pegawai.
 \begin{figure}[H]
@@ -396,7 +392,7 @@ Apabila \textit{request} atau \textit{parameter} yang dikirimkan tidak sesuai de
 Validasi ini bertujuan untuk menjaga konsistensi dan integritas data dalam sistem. Jika seluruh validasi berhasil dilewati, maka proses pembuatan, pengubahan, atau penghapusan akan dilanjutkan, dengan sistem memberikan respons berupa kode 201 (Created) untuk pembuatan, serta kode 200 (OK) untuk pengubahan dan penghapusan data.
 
 % ----------------------%
-\subparagraph{User Allowances}
+\paragraph{User Allowances}
 % ----------------------%
 Setelah \textit{Superadmin} membuat \textit{payroll configuration}, langkah selanjutnya adalah mengatur data gaji setiap pegawai. Proses ini dilakukan melalui modul \textit{User Management}, di mana \textit{Superadmin} memilih \textit{Payroll Configuration} berdasarkan status kepegawaian pengguna, mengisi besaran gaji pokok, serta melengkapi jumlah masing-masing tunjangan yang ditetapkan. 
 
@@ -461,6 +457,69 @@ Gambar \ref{fig:mendaftarkan_data_user_payroll_application} menggambarkan proses
 Gambar \ref{fig:mendaftarkan_data_user_allowances} menggambarkan proses pendaftaran data tunjangan pegawai yang diawali dengan pencarian data \textit{User Allowances} berdasarkan setiap \textit{Allowance Type} yang dimiliki pegawai. Apabila data tidak ditemukan, sistem akan membuat entri baru dengan mengisikan \textit{Allowance Type} beserta nominal tunjangan yang telah ditentukan. Namun, jika data ditemukan, sistem akan melakukan pengecekan terhadap kesesuaian nominal tunjangan. Jika nominal yang ditemukan sama, maka tidak ada perubahan yang dilakukan. Sebaliknya, jika terdapat perbedaan, sistem akan memperbarui nilai nominal dengan yang baru, serta melakukan \textit{soft delete} pada data lama. Pendekatan ini diterapkan untuk menjaga riwayat data dan memungkinkan pelacakan perubahan secara historis.
 
 % -------------------- %
+% SALARY SLIP
+\paragraph{Salary Slip}
+% -------------------- %
+Setelah data gaji pegawai selesai dibuat, \textit{Superadmin} dapat mengakses modul \textit{Salary Slip} untuk melakukan finalisasi gaji. Proses finalisasi ini memungkinkan pengecekan akhir terhadap rincian gaji sebelum tanggal gajian. Di PT Ganda Visi Jayatama, proses penggajian dilakukan setiap tanggal 25, sehingga proses finalisasi disarankan dilakukan pada tanggal 24 setiap bulannya. Setelah tanggal 25, data tidak dapat lagi diubah.
+\begin{figure}[H]
+    \centering
+    \fbox{\includegraphics[height=0.8\textheight]{assets/pics/mendapatkan-salary-slip-dari-setiap-user.jpg}}
+    \caption{\textit{Flowchart} mendapatkan salary slip dari setiap user}
+    \label{fig:mendapatkan_salary_slip_dari_setiap_user}
+\end{figure}
+
+Gambar \ref{fig:mendapatkan_salary_slip_dari_setiap_user} menunjukkan proses mendapatkan slip gaji pegawai yang dimulai dengan mencari data pegawai berdasarkan \textit{Payroll Configuration} yang telah dibuat sebelumnya. Setelah itu, sistem akan mengambil data gaji pegawai, tunjangan-tunjangan yang telah dibuatkan sebelumnya, dan membuat slip gaji berdasarkan data tersebut. 
+
+Untuk pegawai yang telah memiliki data gaji terverifikasi, mereka dapat melihat slip gaji mereka masing-masing pada halaman \textit{Salary Slip} dan mengunduhnya dalam format PDF. Hal ini memungkinkan pegawai untuk mengakses informasi gaji mereka secara transparan dan mudah.
+
+Untuk mendapatkan slip gaji historis, sistem akan terlebih dahulu menentukan periode waktu berdasarkan tanggal yang diminta, yaitu awal hingga akhir bulan tersebut. Setelah itu, sistem akan mencari seluruh entri data gaji (\textit{User Salary}) yang memiliki tanggal pembuatan (\textit{created\_at}) sebelum atau sama dengan akhir periode, dan belum dihapus atau dihapus setelah periode tersebut berakhir. Seluruh data yang ditemukan kemudian diurutkan berdasarkan tanggal pembuatan dari yang terbaru ke yang terlama. Dari hasil pengurutan tersebut, sistem akan memilih satu entri data gaji paling terbaru yang masih berlaku pada periode tersebut. Entri tersebut kemudian digunakan untuk mengambil informasi tunjangan (\textit{User Allowances}) dan pemotongan berdasarkan konfigurasi yang berlaku, lalu disusun menjadi slip gaji pegawai.
+
+% ---------------------------------- %
+\subsection{Leave Permit}
+Modul \textit{Leave Permit} merupakan fitur yang memungkinkan pegawai untuk mengajukan cuti dan atasan untuk menyetujui atau menolak permohonan tersebut. Modul ini dirancang untuk mencerminkan alur persetujuan yang realistis dan terstruktur, dengan mempertimbangkan hierarki jabatan dalam perusahaan. Modul ini juga mencakup fitur-fitur seperti pagination, pengelolaan jenis cuti, dan sistem notifikasi untuk memastikan proses pengajuan cuti berjalan dengan lancar.
+
+Sistem ini sudah pernah digunakan sebelumnya, namun mengalami beberapa kendala yang perlu diperbaiki. Beberapa perbaikan yang dilakukan antara lain adalah:
+\begin{itemize}
+    \item \textbf{Refactor Form Submission}: Proses pengajuan cuti ditambahkan \textit{officer in charge} (\textit{oic}) dengan tujuan sebagai pengganti pegawai saat ia cuti.
+    \item \textbf{Cancel Button}: Ditambahkan fitur pembatalan (\textit{cancel}) pengajuan cuti, sehingga pegawai dapat membatalkan permohonan yang belum disetujui.
+    \item \textbf{Leave Permit Dashboard}: Tampilan daftar cuti ditampilkan di \textit{home page} supaya semua pegawai dapat melihat siapa saja yang mengajukan cuti di minggu itu.
+\end{itemize}
+
+
+\subsection{Sistem Hierarki Supervisi}
+Sistem CHRIS\@ menerapkan struktur hierarki berbasis pohon (\textit{tree hierarchy}) untuk mengelola hubungan antara pegawai dan atasan. Modul-modul dalam sistem ini, seperti pengajuan cuti, bergantung pada struktur tersebut, di mana permohonan cuti hanya dapat disetujui oleh atasan langsung dari pegawai yang bersangkutan.
+
+Dengan implementasi tree hierarchy, setiap pegawai dapat memiliki lebih dari satu atasan yang terhubung dalam rantai struktural. Hal ini memungkinkan sistem untuk secara efisien menentukan pihak yang berwenang dalam proses persetujuan, penolakan, serta pengelolaan data pegawai. Pendekatan ini juga membantu menciptakan struktur organisasi yang lebih fleksibel dan terintegrasi. Fungsi ini juga dapat digunakan untuk modul-modul yang lain yang memerlukan pengelolaan hubungan antar pegawai.
+
+\subsection{User Management dan Validasi Data}
+Sistem CHRIS\@ telah dilengkapi dengan modul \textit{User Management} yang berfungsi untuk mengelola data pegawai secara efisien. Modul ini mencakup fitur untuk menambahkan, memperbarui, dan menghapus data pegawai, serta melakukan validasi terhadap input yang diberikan melalui formulir. Validasi ini bertujuan untuk memastikan bahwa data yang dimasukkan sesuai dengan format dan ketentuan yang berlaku. Meskipun demikian, terdapat beberapa aspek yang perlu disempurnakan guna meningkatkan integritas data dan kemudahan pengelolaan.
+
+Adapun sejumlah perbaikan yang telah dilakukan meliputi:
+\begin{itemize}
+    \item \textbf{Refactor User Management}: Alur pengelolaan data pegawai diperbarui agar setiap pegawai memiliki status kepegawaian yang jelas, serta agar proses pengelolaannya menjadi lebih terstruktur dan mudah diakses.
+    \item \textbf{Validasi Form Input}: Validasi pada form input ditingkatkan untuk mencegah kesalahan dalam pengisian data, seperti format email yang tidak valid, nomor telepon yang tidak sesuai, atau bidang yang wajib diisi namun terlewatkan.
+    \item \textbf{Penyempurnaan Struktur Tabel}: Struktur tabel \textit{user} dan \texttt{employment\_status} disempurnakan untuk meningkatkan konsistensi dan integritas data, sekaligus memudahkan proses pengolahan dan pencarian informasi.
+\end{itemize}
+
+Sebelumnya, status kepegawaian (\textit{employment status}) masih didefinisikan secara \textit{hardcoded} melalui enumerasi di dalam sistem. Kini, status tersebut telah dipisahkan ke dalam tabel tersendiri yang lebih dinamis dan fleksibel. Perubahan ini dilakukan sebagai bagian dari penerapan praktik terbaik dalam pengembangan sistem, sekaligus menjadi sarana pembelajaran untuk memahami alur kerja sistem backend secara lebih mendalam.
+
+
+
+
+
+\section{Implementasi Sistem}
+% ---------------------------------- %
+\subsection{Implementasi \textit{Payroll}}
+\subsubsection{API \textit{Endpoints}}
+\subsubsection{Contoh \textit{Request} dan \textit{Response}}
+
+\subsection{Implementasi \textit{Leave Permit}}
+\subsubsection{API \textit{Endpoints}}
+\subsubsection{Contoh \textit{Request} dan \textit{Response}}
+
+
+
+
 % -------------------- %
 % -------------------- %
 % -------------------- %
