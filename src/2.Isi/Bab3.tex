@@ -326,12 +326,163 @@ Dibuat fungsi \textit{tree hierarchy} berdasarkan struktur jabatan untuk menduku
 \subsubsection{Modul Payroll}
 
 Modul \textbf{Payroll} dikembangkan untuk menghasilkan slip gaji setiap bulannya yang dihitung berdasarkan tunjangan. Termasuk di dalamnya pengembangan API untuk CRUD data payroll, penyusunan salary slip, dan integrasi dengan frontend.
+
+
+
 % ---------------------------------------------------------------------------------%
 \section{Perancangan dan Pengembangan Sistem}
 % ---------------------------------------------------------------------------------%
 Bagian ini menjelaskan perancangan dan pengembangan sistem yang mencakup struktur basis data dan alur sistem untuk fitur-fitur yang dikembangkan selama masa kerja praktik.
 
+% ---------------------------------- %
+\subsection{User Management dan Validasi Data}
+% ---------------------------------- %
+Sistem CHRIS\@ telah dilengkapi dengan modul \textit{User Management} yang berfungsi untuk mengelola data pegawai secara efisien. Modul ini mencakup fitur untuk menambahkan, memperbarui, dan menghapus data pegawai, serta melakukan validasi terhadap input yang diberikan melalui formulir. Validasi ini bertujuan untuk memastikan bahwa data yang dimasukkan sesuai dengan format dan ketentuan yang berlaku. Meskipun demikian, terdapat beberapa aspek yang perlu disempurnakan guna meningkatkan integritas data dan kemudahan pengelolaan.
+
+Adapun sejumlah perbaikan yang telah dilakukan meliputi:
+\begin{itemize}
+    \item \textbf{Refactor User Management}: Alur pengelolaan data pegawai diperbarui agar setiap pegawai memiliki status kepegawaian yang jelas, serta agar proses pengelolaannya menjadi lebih terstruktur dan mudah diakses.
+    \item \textbf{Validasi Form Input}: Validasi pada form input ditingkatkan untuk mencegah kesalahan dalam pengisian data, seperti format email yang tidak valid, nomor telepon yang tidak sesuai, atau bidang yang wajib diisi namun terlewatkan.
+    \item \textbf{Penyempurnaan Struktur Tabel}: Struktur tabel \textit{user} disempurnakan dan \textit{employment\_status} ditambahkan untuk meningkatkan konsistensi dan integritas data, sekaligus memudahkan proses pengolahan dan pencarian informasi.
+\end{itemize}
+
+Sebelumnya, status kepegawaian (\textit{employment status}) masih didefinisikan secara \textit{hardcoded} melalui enumerasi di dalam sistem. Kini, status tersebut telah dipisahkan ke dalam tabel tersendiri yang lebih dinamis dan fleksibel. Perubahan ini dilakukan sebagai bagian dari penerapan praktik terbaik dalam pengembangan sistem, sekaligus menjadi sarana pembelajaran untuk memahami alur kerja sistem backend secara lebih mendalam.
+
+\subsubsection{Diagram ERD User Management}
+\subsubsection{Alur Sistem User Management}
+
+
+% ---------------------------------- %
+\subsection{Leave Permit}
+% ---------------------------------- %
+Modul \textit{Leave Permit} merupakan fitur yang memungkinkan pegawai mengajukan permohonan cuti, serta memberikan wewenang kepada atasan untuk menyetujui atau menolak permohonan tersebut. Setiap jenis cuti memiliki jatah tersendiri, dan modul ini juga berfungsi untuk menghitung secara otomatis sisa cuti yang dimiliki oleh masing-masing pegawai. Sistem ini dirancang untuk mencerminkan alur persetujuan yang terstruktur dan realistis, dengan memperhatikan hierarki jabatan di dalam perusahaan.
+
+Sistem ini sudah pernah digunakan sebelumnya, namun mengalami beberapa kendala yang perlu diperbaiki. Beberapa perbaikan yang dilakukan antara lain adalah:
+\begin{itemize}
+    \item \textbf{Refactor Form Submission}: Proses pengajuan cuti ditambahkan \textit{officer in charge} (\textit{oic}) dengan tujuan sebagai pengganti pegawai saat ia cuti.
+    \item \textbf{Cancel Button}: Ditambahkan fitur pembatalan (\textit{cancel}) pengajuan cuti, sehingga pegawai dapat membatalkan permohonan yang belum disetujui.
+    \item \textbf{Leave Permit Dashboard}: Tampilan daftar cuti ditampilkan di \textit{home page} supaya semua pegawai dapat melihat siapa saja yang mengajukan cuti di minggu itu.
+\end{itemize}
+
+
+\subsubsection{Diagram ERD Leave Permit}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{assets/pics/fig_erd_leave_permit.png}
+    \caption{Diagram ERD untuk modul Leave Permit}
+    \label{fig:erd_leave_permit}
+\end{figure}
+
+Gambar \ref{fig:erd_leave_permit} menunjukkan struktur basis data untuk modul Leave Permit yang dimodifikasi. Terdapat beberapa tabel utama yang saling berhubungan, yaitu:
+\begin{itemize}
+    \item \textbf{User}: Tabel ini menyimpan data pegawai yang mengajukan cuti, termasuk informasi pribadi dan status kepegawaian.
+    \item \textbf{Leave Types}: Tabel ini menyimpan jenis-jenis cuti yang tersedia, termasuk nama, deskripsi, dan jatah cuti yang diberikan kepada pegawai.
+    \item \textbf{Permit Records}: Tabel ini menyimpan data permohonan cuti yang diajukan oleh pegawai, termasuk tanggal pengajuan, tanggal mulai dan selesai cuti, status persetujuan, dan pegawai lain yang menggantikan dia sebagai \textit{office in charge}.
+\end{itemize}
+
+
+\subsubsection{Alur Sistem Leave Permit}
+
+\begin{figure}[H]
+    \centering
+    \fbox{\includegraphics[height=0.8\textheight]{assets/pics/fig_mengajukan_leave_permit_sebagai_user.jpg}}
+    \caption{\textit{Flowchart} alur sistem Leave Permit}
+    \label{fig:flowchart_leave_permit}
+\end{figure}
+
+Gambar \ref{fig:flowchart_leave_permit} menunjukkan alur sistem \textit{Leave Permit} yang diawali oleh pegawai yang mengajukan cuti melalui formulir yang tersedia. Informasi yang diisi mencakup jenis cuti, rentang tanggal, alasan pengajuan, serta penunjukan \textit{officer in charge} sebagai pengganti selama periode cuti. Setelah permohonan dikirimkan, sistem akan menyimpan data ke dalam tabel \textit{Permit Records}, dan atasan dapat memberikan persetujuan atau penolakan. Selama permohonan belum diproses, pegawai memiliki opsi untuk membatalkannya. Jika disetujui, sistem secara otomatis akan memperbarui sisa jatah cuti sesuai jenis cuti yang diajukan. Status pengajuan dapat dipantau melalui dashboard yang menampilkan daftar cuti yang aktif dalam minggu berjalan.
+
+Sebagai bagian dari pengembangan lanjutan modul ini, dilakukan penyesuaian struktur data dengan menambahkan kolom \textit{oic\_id} pada tabel \textit{Permit Records}. Penambahan ini ditujukan untuk memenuhi kebutuhan bisnis dalam menjamin kesinambungan operasional saat pegawai cuti, dengan menunjuk rekan kerja yang bertanggung jawab selama periode tersebut. Perubahan ini turut memperkuat logika bisnis sistem dan memastikan distribusi tugas tetap berjalan secara efisien.
+
+
+\subsubsection{Alur Sistem Cancel Leave Permit}
+\begin{figure}[H]
+    \centering
+    \fbox{\includegraphics[height=0.8\textheight]{assets/pics/fig_cancel_leave_permit_sebagai_user.jpg}}
+    \caption{\textit{Flowchart} alur sistem Cancel Leave Permit}
+    \label{fig:flowchart_cancel_leave_permit}
+\end{figure}
+
+Gambar \ref{fig:flowchart_cancel_leave_permit} menggambarkan alur proses pembatalan permohonan cuti oleh pegawai. Setelah pengajuan dilakukan, pegawai dapat membatalkan permohonan selama statusnya belum disetujui oleh atasan. Permintaan pembatalan dikirim melalui formulir yang tersedia, kemudian sistem akan memverifikasi status permohonan. Jika permohonan belum disetujui, sistem akan melakukan \textit{soft delete} pada data di tabel \textit{Permit Records}. Namun, apabila permohonan telah disetujui, sistem akan menolak proses pembatalan dan menampilkan notifikasi kesalahan bahwa pengajuan tidak dapat dibatalkan.
+
+\subsubsection{Alur Sistem Leave Permit Dashboard}
+Alur pengambilan dan penampilan data cuti pada halaman \textit{dashboard} digunakan untuk menampilkan pegawai-pegawai yang sedang cuti di minggu berjalan. Proses dimulai saat pegawai mengakses dashboard dan sistem kemudian melakukan query terhadap data \textit{permit records} yang memiliki rentang tanggal cuti berada dalam minggu berjalan dan status pengajuan sudah aktif. Data yang diambil mencakup nama pegawai, jenis cuti, tanggal mulai dan selesai, serta \textit{officer in charge} yang ditunjuk.
+
+Informasi tersebut disajikan dalam bentuk tabel agar mudah dipahami dan dapat digunakan oleh pegawai untuk mengetahui siapa saja yang sedang atau akan cuti, serta mengetahui siapa rekan pengganti yang dapat dihubungi untuk keperluan operasional. Fitur ini ditujukan untuk meningkatkan transparansi dan mendukung koordinasi lintas tim selama periode cuti berlangsung.
+
+
+% ---------------------------------- %
+\subsection{Sistem Hierarki Supervisi}
+% ---------------------------------- %
+Sistem CHRIS\@ menerapkan struktur hierarki berbasis pohon (\textit{tree hierarchy}) untuk mengelola hubungan antara pegawai dan atasan. Modul-modul dalam sistem ini, seperti pengajuan cuti, bergantung pada struktur tersebut, di mana permohonan cuti hanya dapat disetujui oleh atasan langsung dari pegawai yang bersangkutan.
+
+Diagram pada Gambar \ref{fig:logika_fungsi_hierarki_mencari_semua_bawahan} menggambarkan alur logika sistem dalam mencari seluruh bawahan dari seorang pegawai. Fungsi ini dimulai dengan mengambil seluruh data pengguna dari basis data, kemudian melakukan pencarian rekursif terhadap pegawai yang memiliki \textit{supervisor\_id} yang sesuai dengan \textit{id} pegawai tersebut. Pencarian dilakukan secara berlapis hingga seluruh struktur bawahan ditemukan.
+
+\begin{figure}
+    \centering
+    \fbox{\includegraphics[height=0.8\textheight]{assets/pics/fig_logika_fungsi_hierarki_mencari_semua_bawahan.jpg}}
+    \caption{Logika Fungsi Hierarki untuk Mencari Semua Bawahan}
+    \label{fig:logika_fungsi_hierarki_mencari_semua_bawahan}
+\end{figure}
+
+Dengan pendekatan ini, sistem mampu menentukan siapa saja yang berada dalam rantai struktur supervisi, baik secara langsung maupun tidak langsung. Hal ini memungkinkan sistem untuk secara efisien menetapkan pihak yang berwenang dalam proses seperti persetujuan cuti, pelacakan struktur organisasi, maupun pengelolaan akses modul internal.
+
+Fungsi ini telah digunakan secara langsung dalam modul \textit{Leave Permit} untuk memastikan bahwa pengajuan cuti hanya dapat ditinjau dan disetujui oleh atasan yang sesuai. Selain itu, logika ini juga dapat diterapkan pada modul lain yang membutuhkan pemetaan hubungan antarpegawai secara hierarkis, seperti monitoring kinerja, delegasi tugas, atau manajemen tim lintas divisi.
+
+% {\footnotesize
+% \begin{lstlisting}[basicstyle=\linespread{0.8}, caption= Potongan Kode untuk mendapatkan bawahan-bawahan dari \textit{Supervisor}, label= code:hierarchy_functions]
+
+% export async function checkChildren(userId: string): Promise<any[]> {
+%     try {
+%         // Get all users from the database
+%         const allUsers = await models.user.findAll({
+%             attributes: ['id', 'fullname', 'supervisor_id'],
+%             where: {
+%                 is_active: true,
+%                 deleted_at: null,
+%             },
+%         });
+
+%         // Convert to plain objects for easier manipulation
+%         const users = allUsers.map((user) => user.get({ plain: true }));
+
+%         // Find direct subordinates (users whose supervisor_id matches the userId)
+%         const findSubordinates = (parentId: string): any[] => {
+%             // Find direct subordinates
+%             const directSubordinates = users.filter((user) => user.supervisor_id === parentId);
+
+%             // For each direct subordinate, find their subordinates recursively
+%             let allSubordinates = [...directSubordinates];
+
+%             directSubordinates.forEach((subordinate) => {
+%                 const childSubordinates = findSubordinates(subordinate.id);
+%                 allSubordinates = [...allSubordinates, ...childSubordinates];
+%             });
+
+%             return allSubordinates;
+%         };
+
+%         return findSubordinates(userId);
+%     } catch (error) {
+%         console.log('Error finding subordinates:', error);
+%         throw error;
+%     }
+% }
+
+% // if you only need the ids of the subordinates, use this function!
+% export async function checkChildrenIds(userId: string): Promise<string[]> {
+%     const subordinates = await checkChildren(userId);
+%     return subordinates.map((subordinate) => subordinate.id);
+% }
+
+% \end{lstlisting}
+% }
+
+
+
+% ---------------------------------- %
 \subsection{Payroll}
+% ---------------------------------- %
 Modul \textit{Payroll} merupakan salah satu fitur utama dalam sistem CHRIS\@. Modul ini bertujuan untuk mengelola data penggajian pegawai, termasuk perhitungan gaji berdasarkan tunjangan yang telah ditentukan.
 
 \subsubsection{Diagram ERD Payroll}
@@ -475,38 +626,6 @@ Untuk pegawai yang telah memiliki data gaji terverifikasi, mereka dapat melihat 
 Untuk mendapatkan slip gaji historis, sistem akan terlebih dahulu menentukan periode waktu berdasarkan tanggal yang diminta, yaitu awal hingga akhir bulan tersebut. Setelah itu, sistem akan mencari seluruh entri data gaji (\textit{User Salary}) yang memiliki tanggal pembuatan (\textit{created\_at}) sebelum atau sama dengan akhir periode, dan belum dihapus atau dihapus setelah periode tersebut berakhir. Seluruh data yang ditemukan kemudian diurutkan berdasarkan tanggal pembuatan dari yang terbaru ke yang terlama. Dari hasil pengurutan tersebut, sistem akan memilih satu entri data gaji paling terbaru yang masih berlaku pada periode tersebut. Entri tersebut kemudian digunakan untuk mengambil informasi tunjangan (\textit{User Allowances}) dan pemotongan berdasarkan konfigurasi yang berlaku, lalu disusun menjadi slip gaji pegawai.
 
 % ---------------------------------- %
-\subsection{Leave Permit}
-Modul \textit{Leave Permit} merupakan fitur yang memungkinkan pegawai untuk mengajukan cuti dan atasan untuk menyetujui atau menolak permohonan tersebut. Modul ini dirancang untuk mencerminkan alur persetujuan yang realistis dan terstruktur, dengan mempertimbangkan hierarki jabatan dalam perusahaan. Modul ini juga mencakup fitur-fitur seperti pagination, pengelolaan jenis cuti, dan sistem notifikasi untuk memastikan proses pengajuan cuti berjalan dengan lancar.
-
-Sistem ini sudah pernah digunakan sebelumnya, namun mengalami beberapa kendala yang perlu diperbaiki. Beberapa perbaikan yang dilakukan antara lain adalah:
-\begin{itemize}
-    \item \textbf{Refactor Form Submission}: Proses pengajuan cuti ditambahkan \textit{officer in charge} (\textit{oic}) dengan tujuan sebagai pengganti pegawai saat ia cuti.
-    \item \textbf{Cancel Button}: Ditambahkan fitur pembatalan (\textit{cancel}) pengajuan cuti, sehingga pegawai dapat membatalkan permohonan yang belum disetujui.
-    \item \textbf{Leave Permit Dashboard}: Tampilan daftar cuti ditampilkan di \textit{home page} supaya semua pegawai dapat melihat siapa saja yang mengajukan cuti di minggu itu.
-\end{itemize}
-
-
-\subsection{Sistem Hierarki Supervisi}
-Sistem CHRIS\@ menerapkan struktur hierarki berbasis pohon (\textit{tree hierarchy}) untuk mengelola hubungan antara pegawai dan atasan. Modul-modul dalam sistem ini, seperti pengajuan cuti, bergantung pada struktur tersebut, di mana permohonan cuti hanya dapat disetujui oleh atasan langsung dari pegawai yang bersangkutan.
-
-Dengan implementasi tree hierarchy, setiap pegawai dapat memiliki lebih dari satu atasan yang terhubung dalam rantai struktural. Hal ini memungkinkan sistem untuk secara efisien menentukan pihak yang berwenang dalam proses persetujuan, penolakan, serta pengelolaan data pegawai. Pendekatan ini juga membantu menciptakan struktur organisasi yang lebih fleksibel dan terintegrasi. Fungsi ini juga dapat digunakan untuk modul-modul yang lain yang memerlukan pengelolaan hubungan antar pegawai.
-
-\subsection{User Management dan Validasi Data}
-Sistem CHRIS\@ telah dilengkapi dengan modul \textit{User Management} yang berfungsi untuk mengelola data pegawai secara efisien. Modul ini mencakup fitur untuk menambahkan, memperbarui, dan menghapus data pegawai, serta melakukan validasi terhadap input yang diberikan melalui formulir. Validasi ini bertujuan untuk memastikan bahwa data yang dimasukkan sesuai dengan format dan ketentuan yang berlaku. Meskipun demikian, terdapat beberapa aspek yang perlu disempurnakan guna meningkatkan integritas data dan kemudahan pengelolaan.
-
-Adapun sejumlah perbaikan yang telah dilakukan meliputi:
-\begin{itemize}
-    \item \textbf{Refactor User Management}: Alur pengelolaan data pegawai diperbarui agar setiap pegawai memiliki status kepegawaian yang jelas, serta agar proses pengelolaannya menjadi lebih terstruktur dan mudah diakses.
-    \item \textbf{Validasi Form Input}: Validasi pada form input ditingkatkan untuk mencegah kesalahan dalam pengisian data, seperti format email yang tidak valid, nomor telepon yang tidak sesuai, atau bidang yang wajib diisi namun terlewatkan.
-    \item \textbf{Penyempurnaan Struktur Tabel}: Struktur tabel \textit{user} dan \texttt{employment\_status} disempurnakan untuk meningkatkan konsistensi dan integritas data, sekaligus memudahkan proses pengolahan dan pencarian informasi.
-\end{itemize}
-
-Sebelumnya, status kepegawaian (\textit{employment status}) masih didefinisikan secara \textit{hardcoded} melalui enumerasi di dalam sistem. Kini, status tersebut telah dipisahkan ke dalam tabel tersendiri yang lebih dinamis dan fleksibel. Perubahan ini dilakukan sebagai bagian dari penerapan praktik terbaik dalam pengembangan sistem, sekaligus menjadi sarana pembelajaran untuk memahami alur kerja sistem backend secara lebih mendalam.
-
-
-
-
-
 \section{Implementasi Sistem}
 % ---------------------------------- %
 \subsection{Implementasi \textit{Payroll}}
@@ -548,32 +667,34 @@ Sebelumnya, status kepegawaian (\textit{employment status}) masih didefinisikan 
 % -------------------- %
 
 
-% \begin{figure}
-%      \centering
-%      \begin{subfigure}[b]{0.3\textwidth}
-%          \centering
-%          \includegraphics[width=\textwidth]{assets/pics/graph1.png}
-%          \caption{$y=x$}
-%          \label{fig:y equals x}
-%      \end{subfigure}
-%      \hfill
-%      \begin{subfigure}[b]{0.3\textwidth}
-%          \centering
-%          \includegraphics[width=\textwidth]{assets/pics/graph2.png}
-%          \caption{$y=3sinx$}
-%          \label{fig:three sin x}
-%      \end{subfigure}
-%      \hfill
-%      \begin{subfigure}[b]{0.3\textwidth}
-%          \centering
-%          \includegraphics[width=\textwidth]{assets/pics/graph3.jpg}
-%          \caption{$y=5/x$}
-%          \label{fig:five over x}
-%      \end{subfigure}
-%         \caption{Three simple graphs}
-%         \label{fig:three graphs}
-% \end{figure}
-% \subsubsection{Subsub-section}
+\begin{figure}
+     \centering
+     \begin{subfigure}[b]{0.3\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{assets/pics/graph1.png}
+         \caption{$y=x$}
+         \label{fig:y equals x}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.3\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{assets/pics/graph2.png}
+         \caption{$y=3sinx$}
+         \label{fig:three sin x}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.3\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{assets/pics/graph3.jpg}
+         \caption{$y=5/x$}
+         \label{fig:five over x}
+     \end{subfigure}
+        \caption{Three simple graphs}
+        \label{fig:three graphs}
+\end{figure}
+
+
+\subsubsection{Subsub-section}
 
 \paragraph{Paragraph 1}
 
