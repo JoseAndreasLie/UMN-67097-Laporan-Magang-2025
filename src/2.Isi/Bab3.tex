@@ -309,7 +309,7 @@ Berikut ini adalah uraian \textit{requirement} utama yang berhasil diidentifikas
 %-----------------------------------------------------------------------------%
 \subsubsection{Refaktor User Management dan Validasi Data}
 
-Pengembangan dimulai dengan perbaikan sistem \textbf{User Management}, termasuk validasi \textit{form input} dan \textit{refactor} struktur tabel seperti \textbf{user} dan \textbf{employment status}. Hal ini bertujuan untuk memastikan integritas data pengguna dan kemudahan pengelolaan melalui backend maupun frontend.
+Pengembangan dimulai dengan perbaikan sistem \textbf{User Management}, termasuk validasi \textit{form input} dan \textit{refactor} struktur tabel seperti \textit{user} dan \textit{employment status}. Hal ini bertujuan untuk memastikan integritas data pengguna dan kemudahan pengelolaan melalui \textit{backend} maupun \textit{frontend}.
 %-----------------------------------------------------------------------------%
 \subsubsection{Optimalisasi Leave Permit}
 
@@ -317,7 +317,12 @@ Modul \textbf{Leave Permit} dikembangkan agar lebih efisien dan intuitif. Peruba
 %-----------------------------------------------------------------------------%
 \subsubsection{Implementasi Pagination}
 
-Untuk mendukung jumlah data yang besar, sistem pagination ditambahkan pada beberapa modul utama seperti User, Leave, dan Attendance. Hal ini dilakukan guna menjaga performa dan kenyamanan pengguna.
+Untuk mendukung jumlah data yang besar, sistem pagination ditambahkan pada beberapa modul utama seperti \textbf{User}, \textbf{Leave}, dan \textbf{Attendance}. Hal ini dilakukan guna menjaga performa dan kenyamanan pengguna.
+%-----------------------------------------------------------------------------%
+\subsubsection{Penambahan Fitur Biometrik untuk CHRIS Mobile}
+
+Fitur biometrik ditambahkan untuk mendukung proses autentikasi pada sistem CHRIS Mobile (CHRISM). Pengguna dapat melakukan login menggunakan data biometrik seperti sidik jari yang telah di-hash dan disimpan dalam kolom khusus pada tabel \textit{users}. Fitur ini ditujukan untuk meningkatkan keamanan serta kenyamanan akses pengguna terhadap sistem.
+
 %-----------------------------------------------------------------------------%
 \subsubsection{Pengembangan Sistem Hierarki}
 
@@ -325,7 +330,8 @@ Dibuat fungsi \textit{tree hierarchy} berdasarkan struktur jabatan untuk menduku
 %-----------------------------------------------------------------------------%
 \subsubsection{Modul Payroll}
 
-Modul \textbf{Payroll} dikembangkan untuk menghasilkan slip gaji setiap bulannya yang dihitung berdasarkan tunjangan. Termasuk di dalamnya pengembangan API untuk CRUD data payroll, penyusunan salary slip, dan integrasi dengan frontend.
+Modul \textbf{Payroll} dikembangkan untuk menghasilkan slip gaji setiap bulannya yang dihitung berdasarkan tunjangan. Termasuk di dalamnya pengembangan API untuk CRUD \textit{data payroll}, penyusunan \textit{salary slip}, dan integrasi dengan \textit{frontend}.
+%-----------------------------------------------------------------------------%
 
 
 
@@ -335,22 +341,54 @@ Modul \textbf{Payroll} dikembangkan untuk menghasilkan slip gaji setiap bulannya
 Bagian ini menjelaskan perancangan dan pengembangan sistem yang mencakup struktur basis data dan alur sistem untuk fitur-fitur yang dikembangkan selama masa kerja praktik.
 
 % ---------------------------------- %
-\subsection{User Management dan Validasi Data}
+\subsection{\textit{User Management} dan Validasi Data}
 % ---------------------------------- %
-Sistem CHRIS\@ telah dilengkapi dengan modul \textit{User Management} yang berfungsi untuk mengelola data pegawai secara efisien. Modul ini mencakup fitur untuk menambahkan, memperbarui, dan menghapus data pegawai, serta melakukan validasi terhadap input yang diberikan melalui formulir. Validasi ini bertujuan untuk memastikan bahwa data yang dimasukkan sesuai dengan format dan ketentuan yang berlaku. Meskipun demikian, terdapat beberapa aspek yang perlu disempurnakan guna meningkatkan integritas data dan kemudahan pengelolaan.
+Sistem CHRIS\@ telah dilengkapi dengan modul \textit{User Management} yang berfungsi untuk mengelola data pegawai secara efisien. Modul ini mencakup fitur untuk menambahkan, memperbarui, dan menghapus data pegawai, serta melakukan validasi terhadap input yang dimasukkan melalui formulir. Validasi ini bertujuan untuk memastikan bahwa data yang diterima sesuai dengan format dan ketentuan yang berlaku. Meskipun demikian, sejumlah aspek dari modul ini memerlukan penyempurnaan guna meningkatkan integritas data dan mempermudah pengelolaan sistem.
 
-Adapun sejumlah perbaikan yang telah dilakukan meliputi:
+Adapun perbaikan dan pengembangan yang telah dilakukan antara lain:
 \begin{itemize}
-    \item \textbf{Refactor User Management}: Alur pengelolaan data pegawai diperbarui agar setiap pegawai memiliki status kepegawaian yang jelas, serta agar proses pengelolaannya menjadi lebih terstruktur dan mudah diakses.
-    \item \textbf{Validasi Form Input}: Validasi pada form input ditingkatkan untuk mencegah kesalahan dalam pengisian data, seperti format email yang tidak valid, nomor telepon yang tidak sesuai, atau bidang yang wajib diisi namun terlewatkan.
-    \item \textbf{Penyempurnaan Struktur Tabel}: Struktur tabel \textit{user} disempurnakan dan \textit{employment\_status} ditambahkan untuk meningkatkan konsistensi dan integritas data, sekaligus memudahkan proses pengolahan dan pencarian informasi.
+    \item \textbf{\textit{Refactor User Management}}: Alur pengelolaan data pegawai diperbarui agar setiap entri memiliki status kepegawaian yang terdefinisi dengan baik, sehingga struktur data menjadi lebih sistematis dan mudah diakses.
+    \item \textbf{Validasi Form Input}: Validasi terhadap form input ditingkatkan, mencakup pengecekan format email, nomor telepon, serta memastikan bidang yang wajib diisi tidak terlewat, guna mencegah terjadinya inkonsistensi data.
+    \item \textbf{Penyempurnaan Struktur Tabel}: Struktur tabel \textit{users} diperbarui dengan menambahkan beberapa referensi eksternal untuk meningkatkan normalisasi data, antara lain:
+    \begin{itemize}
+        \item Penambahan \textit{employment\_status\_id} yang mereferensikan tabel \textit{employment\_statuses}, menggantikan pendekatan enumerasi yang sebelumnya digunakan secara \textit{hardcoded}.
+        \item Penambahan \textit{bank\_id} yang mereferensikan tabel \textit{banks}, menggantikan kolom nama bank dalam bentuk \textit{string} pada tabel \textit{users} untuk menjamin konsistensi data dan memudahkan pengelompokan informasi perbankan.
+    \end{itemize}
 \end{itemize}
 
-Sebelumnya, status kepegawaian (\textit{employment status}) masih didefinisikan secara \textit{hardcoded} melalui enumerasi di dalam sistem. Kini, status tersebut telah dipisahkan ke dalam tabel tersendiri yang lebih dinamis dan fleksibel. Perubahan ini dilakukan sebagai bagian dari penerapan praktik terbaik dalam pengembangan sistem, sekaligus menjadi sarana pembelajaran untuk memahami alur kerja sistem backend secara lebih mendalam.
+Perubahan ini dilakukan sebagai bagian dari penerapan praktik terbaik dalam pengembangan sistem backend berbasis relasional. Selain itu, modifikasi ini juga memberikan fleksibilitas lebih tinggi dalam pengelolaan data serta meningkatkan skalabilitas modul User Management dalam jangka panjang.
 
 \subsubsection{Diagram ERD User Management}
-\subsubsection{Alur Sistem User Management}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{assets/pics/fig_erd_user_management.png}
+    \caption{Diagram ERD untuk modul User Management}
+    \label{fig:erd_user_management}
+\end{figure}
 
+Gambar \ref{fig:erd_user_management} menunjukkan struktur basis data untuk modul User Management yang telah dimodifikasi. Terdapat beberapa tabel utama yang saling berhubungan, yaitu:
+\begin{itemize}
+    \item \textbf{Users}: Tabel ini menyimpan data pegawai, termasuk informasi pribadi, status kepegawaian, dan referensi bank.
+    \item \textbf{Employment Statuses}: Tabel ini menyimpan berbagai status kepegawaian yang dapat dimiliki oleh pegawai, seperti aktif, cuti, atau tidak aktif.
+    \item \textbf{Banks}: Tabel ini menyimpan informasi mengenai bank yang digunakan oleh pegawai untuk penggajian.
+\end{itemize}
+
+Sebelumnya modul User Management menggunakan pendekatan \textit{hardcoded} untuk status kepegawaian dan bank, namun kini telah diubah menjadi referensi tabel yang lebih fleksibel. Hal ini memungkinkan penambahan atau perubahan status kepegawaian dan bank tanpa perlu mengubah kode sumber, sehingga meningkatkan efisiensi pengelolaan data.
+
+\subsubsection{Validasi Data pada Formulir User Management}
+Validasi data pada formulir \textit{User Management} dilakukan untuk menjamin integritas, konsistensi, dan keamanan data yang masuk ke dalam sistem. Validasi dilakukan baik di sisi \textit{frontend} maupun di sisi \textit{backend}, dengan ketentuan sebagai berikut:
+
+\begin{itemize}
+    \item \textbf{\textit{Fullname}}: Nama lengkap pegawai harus diisi dengan format yang benar, yaitu merupakan huruf \textit{alphanumeric}. Validasi ini bertujuan untuk memastikan bahwa nama pegawai dapat dikenali dan diidentifikasi dengan jelas dalam sistem.
+    \item \textbf{\textit{Email}}: Hanya alamat email dengan domain \textit{@concise.co.id} yang diperbolehkan. Validasi ini diterapkan untuk memastikan bahwa hanya pegawai internal yang terdaftar di sistem. Format email juga diverifikasi menggunakan ekspresi reguler untuk menghindari entri tidak valid.
+    \item \textbf{NIK}: Nomor Induk Kependudukan (NIK) harus diisi dengan format yang benar, yaitu terdiri dari 16 digit angka. Validasi ini penting untuk memastikan bahwa NIK yang dimasukkan sesuai dengan standar yang berlaku di Indonesia.
+    \item \textbf{\textit{Contact}}: Hanya nomor telepon yang dimulai dengan \textit{prefix} \textit{+62} atau \textit{0} yang diterima. Validasi ini bertujuan untuk memastikan bahwa nomor telepon yang dimasukkan sesuai dengan format nomor telepon pada umumnya.
+    \item \textbf{\textit{Emergency Contact}}: Sama seperti nomor telepon, hanya nomor yang dimulai dengan \textit{prefix} \textit{+62} atau \textit{0} yang diterima. Hal ini untuk memastikan bahwa kontak darurat yang dimasukkan dapat dihubungi dengan mudah.
+    \item \textbf{\textit{Bank Holder}}: Nama pemegang rekening bank harus diisi dengan format yang benar, yaitu merupakan huruf \textit{alphanumeric}. Validasi ini bertujuan untuk memastikan bahwa nama pemegang rekening sesuai dengan nama pegawai yang terdaftar dalam sistem.
+    \item \textbf{\textit{Bank Account Number}}: Validasi dilakukan untuk memastikan bahwa nomor rekening bank yang dimasukkan hanya terdiri dari angka. Hal ini penting untuk menghindari kesalahan dalam proses penggajian.
+\end{itemize}
+
+Validasi ini tidak hanya berfungsi untuk memperbaiki pengalaman pengguna, tetapi juga mencegah terjadinya kesalahan logika dan duplikasi data di tingkat basis data. Seluruh ketentuan ini dirancang berdasarkan standar praktik terbaik dalam pengelolaan data karyawan di lingkungan perusahaan.
 
 % ---------------------------------- %
 \subsection{Leave Permit}
@@ -409,6 +447,37 @@ Gambar \ref{fig:flowchart_cancel_leave_permit} menggambarkan alur proses pembata
 Alur pengambilan dan penampilan data cuti pada halaman \textit{dashboard} digunakan untuk menampilkan pegawai-pegawai yang sedang cuti di minggu berjalan. Proses dimulai saat pegawai mengakses dashboard dan sistem kemudian melakukan query terhadap data \textit{permit records} yang memiliki rentang tanggal cuti berada dalam minggu berjalan dan status pengajuan sudah aktif. Data yang diambil mencakup nama pegawai, jenis cuti, tanggal mulai dan selesai, serta \textit{officer in charge} yang ditunjuk.
 
 Informasi tersebut disajikan dalam bentuk tabel agar mudah dipahami dan dapat digunakan oleh pegawai untuk mengetahui siapa saja yang sedang atau akan cuti, serta mengetahui siapa rekan pengganti yang dapat dihubungi untuk keperluan operasional. Fitur ini ditujukan untuk meningkatkan transparansi dan mendukung koordinasi lintas tim selama periode cuti berlangsung.
+
+
+% ---------------------------------- %
+\subsection{Fitur Autentikasi Biometrik pada CHRIS Mobile}
+% ---------------------------------- %
+Sebagai bagian dari pengembangan sistem CHRIS Mobile (CHRISM), ditambahkan fitur autentikasi berbasis biometrik untuk meningkatkan kenyamanan dan keamanan akses pengguna. Implementasi ini dilakukan dengan menambahkan kolom baru biometric pada tabel \textit{users}. Kolom ini menyimpan hasil \textit{hash} sepanjang maksimal 255 karakter dari data biometrik pengguna seperti sidik jari.
+
+Fitur ini memberikan alternatif \textit{login} selain kata sandi serta mendukung praktik keamanan modern, termasuk \textit{multi-factor authentication}. Karena data biometrik telah melalui proses hashing, informasi yang disimpan tetap aman dan tidak dapat digunakan kembali secara langsung. Fitur ini hanya tersedia pada aplikasi CHRIS Mobile dan tidak memengaruhi sistem versi web atau \textit{desktop}.
+
+\subsubsection{Alur Register Biometrik}
+\begin{figure}[H]
+    \centering
+    \fbox{\includegraphics[height=0.8\textheight]{assets/pics/fig_register_biometric.jpg}}
+    \caption{\textit{Flowchart} alur sistem registrasi biometrik pada CHRIS Mobile}
+    \label{fig:flowchart_register_biometrik_chris_mobile}
+\end{figure}
+Gambar \ref{fig:flowchart_register_biometrik_chris_mobile} menunjukkan alur sistem registrasi dan autentikasi biometrik pada aplikasi CHRIS Mobile (CHRISM). Proses dimulai ketika pengguna mengakses halaman profil dan memilih opsi “\textit{Activate Biometric}”. Setelah itu, aplikasi akan memicu pemindaian biometrik menggunakan sensor sidik jari pada perangkat. Jika proses pemindaian berhasil, sistem akan secara otomatis menghasilkan \textit{random} string sepanjang 255 karakter yang mewakili identitas biometrik pengguna. Nilai ini kemudian dikirimkan ke \textit{backend} melalui API khusus untuk proses pendaftaran biometrik.
+
+Di sisi \textit{backend}, data tersebut akan di-hash dan disimpan pada kolom \textit{biometric} di tabel \textit{users} untuk keperluan autentikasi selanjutnya.
+
+Dalam implementasi autentikasi, saat aplikasi dibuka, CHRISM\@ akan kembali meminta verifikasi biometrik dari perangkat. Jika sidik jari cocok, sistem akan menembakkan \textit{payload} berupa \textit{random string} 255 karakter yang identik dengan yang telah didaftarkan sebelumnya, lalu mengirimkannya ke \textit{endpoint login biometrik}. \textit{Backend} akan mencocokkan hasil \textit{hash} dari \textit{string} tersebut dengan data yang tersimpan di basis data. Jika sesuai, maka autentikasi dinyatakan berhasil dan pengguna dapat langsung masuk ke sistem tanpa perlu menggunakan kata sandi. Proses ini dirancang untuk meningkatkan keamanan serta memberikan pengalaman masuk aplikasi yang lebih praktis dan efisien bagi pengguna CHRISM\@.
+
+\subsubsection{Alur Autentikasi Login Menggunakan Biometrik}
+\begin{figure}[H]
+    \centering
+    \fbox{\includegraphics[height=0.8\textheight]{assets/pics/fig_login_by_biometric.jpg}}
+    \caption{\textit{Flowchart} alur sistem autentikasi biometrik pada CHRIS Mobile}
+    \label{fig:flowchart_autentikasi_biometrik_chris_mobile}
+\end{figure}
+Gambar \ref{fig:flowchart_autentikasi_biometrik_chris_mobile} menunjukkan alur sistem autentikasi biometrik pada CHRIS Mobile. Proses dimulai ketika pengguna memilih opsi \textit{login} menggunakan biometrik. Sistem kemudian akan meminta data biometrik dari perangkat, yang selanjutnya di-hash dan dibandingkan dengan data yang tersimpan di basis data. Jika cocok, pengguna akan berhasil masuk ke dalam aplikasi. Jika tidak, sistem akan menampilkan pesan kesalahan dan meminta pengguna untuk mencoba kembali. Fitur ini dirancang untuk memberikan pengalaman pengguna yang lebih cepat dan aman, serta mengurangi ketergantungan pada kata sandi yang dapat dilupakan atau dicuri.
+
 
 
 % ---------------------------------- %
@@ -628,7 +697,7 @@ Untuk mendapatkan slip gaji historis, sistem akan terlebih dahulu menentukan per
 % ---------------------------------- %
 \section{Implementasi Sistem}
 % ---------------------------------- %
-\subsection{Implementasi \textit{Payroll}}
+\subsection{Implementasi \textit{User Management}, \textit{Employment Status}, dan Validasi Data}
 \subsubsection{API \textit{Endpoints}}
 \subsubsection{Contoh \textit{Request} dan \textit{Response}}
 
@@ -636,6 +705,9 @@ Untuk mendapatkan slip gaji historis, sistem akan terlebih dahulu menentukan per
 \subsubsection{API \textit{Endpoints}}
 \subsubsection{Contoh \textit{Request} dan \textit{Response}}
 
+\subsection{Implementasi \textit{Payroll}}
+\subsubsection{API \textit{Endpoints}}
+\subsubsection{Contoh \textit{Request} dan \textit{Response}}
 
 
 
