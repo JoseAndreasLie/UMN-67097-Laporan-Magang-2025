@@ -682,7 +682,69 @@ Berikut adalah struktur \textit{response} untuk \textit{endpoint} \texttt{/banks
 
 \subsection{Implementasi Fitur Autentikasi Biometrik pada CHRIS \textit{Mobile}}
 \subsubsection{API \textit{Endpoints}}
+Berikut adalah daftar \textit{endpoint} yang telah ditambahkan untuk fitur autentikasi biometrik pada CHRIS \textit{Mobile}:
+\begin{center}
+    \begin{longtable}{|c|p{0.37\textwidth}|c|p{0.33\textwidth}|}
+    \caption{\textit{Biometric Authentication} API \textit{Endpoints}} 
+    \label{tab:tbl_biometric_authentication_endpoints} \\
+    \hline
+    \textbf{No.} & \textbf{Endpoint} & \textbf{Method} & \textbf{Deskripsi Singkat} \\
+    \hline
+    \endfirsthead
+
+    \multicolumn{4}{c}%
+    {{\tablename\ \thetable{} -- lanjutan}} \\
+    \hline
+    \textbf{No.} & \textbf{Endpoint} & \textbf{Method} & \textbf{Deskripsi Singkat} \\
+    \hline
+    \endhead
+
+    \hline 
+    \multicolumn{4}{|r|}{{Lanjut di halaman berikutnya}} \\
+    \hline
+    \endfoot
+
+    \hline
+    \endlastfoot
+
+    1 & \texttt{/auth/biometric/register} & POST & Mendaftarkan data biometrik pegawai baru untuk autentikasi. \\ \hline
+    2 & \texttt{/auth/biometric/login} & POST & Melakukan autentikasi pegawai menggunakan data biometrik yang telah didaftarkan. \\
+
+    \end{longtable}
+\end{center}
+Pada Tabel \ref{tab:tbl_biometric_authentication_endpoints}, ditampilkan daftar \textit{endpoint} yang telah ditambahkan untuk fitur autentikasi biometrik pada CHRIS \textit{Mobile}. Setiap \textit{endpoint} dilengkapi dengan metode HTTP yang sesuai dengan tujuannya: \textit{POST} digunakan untuk pendaftaran data biometrik pegawai baru dan autentikasi pegawai menggunakan data biometrik yang telah didaftarkan.
+
 \subsubsection{Contoh \textit{Request} dan \textit{Response}}
+\begin{figure}
+    \centering
+    \fbox{\includegraphics[width=0.8\textwidth]{assets/pics/fig_request_biometric_register.png}}
+    \caption{Contoh struktur \textit{request} untuk \texttt{/auth/biometric/register}}
+    \label{fig:request_biometric_register}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \fbox{\includegraphics[width=0.8\textwidth]{assets/pics/fig_response_biometric_register.png}}
+    \caption{Contoh struktur \textit{response} untuk \texttt{/auth/biometric/register}}
+    \label{fig:response_biometric_register}
+\end{figure}
+
+Pada gambar \ref{fig:request_biometric_register}, terlihat struktur \textit{request} yang dikirimkan ke \textit{endpoint} \texttt{/auth/biometric/register}. Data yang dikirim berupa nilai \textit{biometric} yang berisi string acak sepanjang 255 karakter yang dihasilkan oleh aplikasi CHRISM dan akan disimpan pada penyimpanan lokal perangkat. String ini berfungsi sebagai representasi dari data biometrik pengguna, bukan data biometrik aktual yang dikirim ke server. Setelah \textit{request} berhasil diproses, sistem akan mengembalikan respons seperti pada gambar \ref{fig:response_biometric_register}, yang menunjukkan bahwa pendaftaran data biometrik pegawai berhasil dengan kode status 201 (\textit{Created}) dan pesan yang sesuai.
+\begin{figure}
+    \centering
+    \fbox{\includegraphics[width=0.8\textwidth]{assets/pics/fig_request_biometric_login.png}}
+    \caption{Contoh struktur \textit{request} untuk \texttt{/auth/biometric/login}}
+    \label{fig:request_biometric_login}
+\end{figure}
+\begin{figure}
+    \centering
+    \fbox{\includegraphics[width=0.8\textwidth]{assets/pics/fig_response_biometric_login.png}}
+    \caption{Contoh struktur \textit{response} untuk \texttt{/auth/biometric/login}}
+    \label{fig:response_biometric_login}
+\end{figure}
+
+Pada gambar \ref{fig:request_biometric_login}, terlihat struktur \textit{request} yang dikirimkan ke \textit{endpoint} \texttt{/auth/biometric/login}. Data yang dikirim hanya berupa nilai \textit{biometric} yang berisi string acak sepanjang 255 karakter yang telah dibuat dan disimpan di storage lokal CHRISM saat proses registrasi biometrik sebelumnya. Nilai ini berfungsi sebagai representasi dari data biometrik pengguna. Setelah \textit{request} berhasil diproses, sistem akan mengembalikan respons seperti pada gambar \ref{fig:response_biometric_login}, yang menunjukkan bahwa autentikasi pegawai menggunakan data biometrik berhasil dengan kode status 200 (\textit{OK}), pesan yang sesuai dan data lainnya.
+
 
 
 
