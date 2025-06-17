@@ -772,11 +772,11 @@ Pada gambar \ref{fig:request_biometric_login}, terlihat struktur \textit{request
 % -------------------- %
 % -------------------- %
 % ini cmd + enter
-\clearpage
-.
-\clearpage
-.
-\clearpage
+% \clearpage
+% .
+% \clearpage
+% .
+% \clearpage
 % -------------------- %
 % -------------------- %
 % -------------------- %
@@ -927,111 +927,111 @@ Pada gambar \ref{fig:request_biometric_login}, terlihat struktur \textit{request
 % -----------------------------------------------------------------------------%
 
 
-\begin{figure}
-     \centering
-     \begin{subfigure}[b]{0.3\textwidth}
-         \centering
-         \includegraphics[width=\textwidth]{assets/pics/graph1.png}
-         \caption{$y=x$}
-         \label{fig:y equals x}
-     \end{subfigure}
-     \hfill
-     \begin{subfigure}[b]{0.3\textwidth}
-         \centering
-         \includegraphics[width=\textwidth]{assets/pics/graph2.png}
-         \caption{$y=3sinx$}
-         \label{fig:three sin x}
-     \end{subfigure}
-     \hfill
-     \begin{subfigure}[b]{0.3\textwidth}
-         \centering
-         \includegraphics[width=\textwidth]{assets/pics/graph3.jpg}
-         \caption{$y=5/x$}
-         \label{fig:five over x}
-     \end{subfigure}
-        \caption{Three simple graphs}
-        \label{fig:three graphs}
-\end{figure}
+% \begin{figure}
+%      \centering
+%      \begin{subfigure}[b]{0.3\textwidth}
+%          \centering
+%          \includegraphics[width=\textwidth]{assets/pics/graph1.png}
+%          \caption{$y=x$}
+%          \label{fig:y equals x}
+%      \end{subfigure}
+%      \hfill
+%      \begin{subfigure}[b]{0.3\textwidth}
+%          \centering
+%          \includegraphics[width=\textwidth]{assets/pics/graph2.png}
+%          \caption{$y=3sinx$}
+%          \label{fig:three sin x}
+%      \end{subfigure}
+%      \hfill
+%      \begin{subfigure}[b]{0.3\textwidth}
+%          \centering
+%          \includegraphics[width=\textwidth]{assets/pics/graph3.jpg}
+%          \caption{$y=5/x$}
+%          \label{fig:five over x}
+%      \end{subfigure}
+%         \caption{Three simple graphs}
+%         \label{fig:three graphs}
+% \end{figure}
 
 
-\subsubsection{Subsub-section}
+% \subsubsection{Subsub-section}
 
-\paragraph{Paragraph 1}
+% \paragraph{Paragraph 1}
 
-Contoh Python script yang digunakan dapat dilihat pada Kode \ref{kode1}.
+% Contoh Python script yang digunakan dapat dilihat pada Kode \ref{kode1}.
 
-{\footnotesize
-\begin{lstlisting}[basicstyle=\linespread{0.8},language=Python, caption= Contoh potongan kode, label= kode1]
-import numpy as np
+% {\footnotesize
+% \begin{lstlisting}[basicstyle=\linespread{0.8},language=Python, caption= Contoh potongan kode, label= kode1]
+% import numpy as np
     
-def incmatrix(genl1,genl2):
-    m = len(genl1)
-    n = len(genl2)
-    M = None #to become the incidence matrix
-    VT = np.zeros((n*m,1), int)  #dummy variable
+% def incmatrix(genl1,genl2):
+%     m = len(genl1)
+%     n = len(genl2)
+%     M = None #to become the incidence matrix
+%     VT = np.zeros((n*m,1), int)  #dummy variable
     
-    #compute the bitwise xor matrix
-    M1 = bitxormatrix(genl1)
-    M2 = np.triu(bitxormatrix(genl2),1) 
+%     #compute the bitwise xor matrix
+%     M1 = bitxormatrix(genl1)
+%     M2 = np.triu(bitxormatrix(genl2),1) 
 
-    for i in range(m-1):
-        for j in range(i+1, m):
-            [r,c] = np.where(M2 == M1[i,j])
-            for k in range(len(r)):
-                VT[(i)*n + r[k]] = 1;
-                VT[(i)*n + c[k]] = 1;
-                VT[(j)*n + r[k]] = 1;
-                VT[(j)*n + c[k]] = 1;
+%     for i in range(m-1):
+%         for j in range(i+1, m):
+%             [r,c] = np.where(M2 == M1[i,j])
+%             for k in range(len(r)):
+%                 VT[(i)*n + r[k]] = 1;
+%                 VT[(i)*n + c[k]] = 1;
+%                 VT[(j)*n + r[k]] = 1;
+%                 VT[(j)*n + c[k]] = 1;
                 
-                if M is None:
-                    M = np.copy(VT)
-                else:
-                    M = np.concatenate((M, VT), 1)
+%                 if M is None:
+%                     M = np.copy(VT)
+%                 else:
+%                     M = np.concatenate((M, VT), 1)
                 
-                VT = np.zeros((n*m,1), int)
+%                 VT = np.zeros((n*m,1), int)
     
-    return M
-\end{lstlisting}
-}
+%     return M
+% \end{lstlisting}
+% }
 
-\subparagraph{Sub-paragraph 1.1}
+% \subparagraph{Sub-paragraph 1.1}
 
-\lipsum[17-18]
+% \lipsum[17-18]
 
-\subparagraph{Sub-paragraph 1.2}
+% \subparagraph{Sub-paragraph 1.2}
 
-\lipsum[19-20]
+% \lipsum[19-20]
 
-\subsubsection{Subsub-section}
+% \subsubsection{Subsub-section}
 
-\lipsum[21-22]
+% \lipsum[21-22]
 
-\paragraph{Paragraph}
+% \paragraph{Paragraph}
 
-\subparagraph{Sub-paragraph}
+% \subparagraph{Sub-paragraph}
 
-\subparagraph{Sub-paragraph}
+% \subparagraph{Sub-paragraph}
 
-\subsection{Sub-section}
+% \subsection{Sub-section}
 
-\lipsum[25-26]
+% \lipsum[25-26]
 
-\section{Section}
+% \section{Section}
 
-\subsection{Sub-Section}
+% \subsection{Sub-Section}
 
-\subsubsection{Sub-sub-section}
+% \subsubsection{Sub-sub-section}
 
-\paragraph{Paragraph}
+% \paragraph{Paragraph}
 
-\subparagraph{Sub-paragraph}
+% \subparagraph{Sub-paragraph}
 
-\lipsum[27]
+% \lipsum[27]
 
-\paragraph{Paragraph}
+% \paragraph{Paragraph}
 
-\subparagraph{Sub-paragraph}
-\subparagraph{Sub-paragraph}
+% \subparagraph{Sub-paragraph}
+% \subparagraph{Sub-paragraph}
 
 
 \section{Kendala dan Solusi yang Ditemukan}
