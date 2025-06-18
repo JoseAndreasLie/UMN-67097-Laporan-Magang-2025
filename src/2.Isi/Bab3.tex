@@ -1104,12 +1104,24 @@ Pada gambar \ref{fig:request_salary_slip_get}, terlihat struktur \textit{request
 % ---------------------------------------- %
 \section{Kendala dan Solusi yang Ditemukan}
 % -------------------- %
+
 \subsection{Kendala}
-Kendala yang dihadapi selama proses kerja praktik magang ini meliputi beberapa hal, antara lain:
+Selama pelaksanaan kerja praktik, ditemukan beberapa kendala teknis dan struktural dalam proses pengembangan sistem, yaitu sebagai berikut:
+\begin{enumerate}
+\item Beberapa bagian kode tidak mengikuti prinsip \textit{best practice} dalam pengembangan backend, sehingga menyulitkan proses pengembangan lanjutan dan pemeliharaan sistem.
+\item Terdapat penggunaan nilai yang masih ditulis secara \textit{hardcoded}, seperti \textit{job title}, yang seharusnya dikelola melalui relasi ke dalam basis data agar lebih fleksibel dan dapat disesuaikan.
+\item Modul Payroll memiliki kompleksitas tinggi, khususnya dalam pengambilan data historis pengguna, yang menjadi tantangan dalam perhitungan gaji berdasarkan riwayat data.
+\item Proses \textit{migration} dan \textit{seeding} data belum optimal dan membutuhkan waktu lama karena struktur data yang belum efisien.
+\end{enumerate}
 
 \subsection{Solusi}
-Sollusi yang dilakukan untuk menyelesaikan kendala yang dihadapi selama proses kerja praktik magang ini adalah sebagai berikut:
-
+Berikut adalah langkah-langkah solusi yang dilakukan untuk mengatasi kendala-kendala tersebut:
+\begin{enumerate}
+    \item Melakukan proses \textit{code review} secara berkala bersama tim \textit{backend} untuk memastikan bahwa setiap kode yang ditulis mengikuti standar \textit{best practice} dan dapat dikembangkan dengan mudah di masa depan.
+    \item Melakukan \textit{refactoring} pada bagian kode yang masih menggunakan pendekatan \textit{hardcoded}, seperti pengelolaan \textit{job title}, dengan menggantinya menjadi referensi ke tabel \textit{job\_titles}.
+    \item Menambahkan tabel transaksi (\textit{transaction table}) pada modul Payroll untuk menyimpan data historis penggajian secara terpisah, sehingga proses perhitungan gaji dapat dilakukan secara lebih akurat dan efisien.
+    \item Mengoptimalkan proses \textit{migration} dan \textit{seeding} dengan menyusun ulang struktur data serta membuat script yang lebih modular untuk mempercepat inisialisasi sistem.
+\end{enumerate}
 
 
 
