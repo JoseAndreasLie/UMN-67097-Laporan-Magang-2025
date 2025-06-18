@@ -580,7 +580,7 @@ Berikut adalah daftar \textit{endpoint} yang telah dimodifikasi dan ditambahkan 
     \endfirsthead
 
     \multicolumn{4}{c}%
-    {{\tablename\ \thetable{} -- lanjutan}} \\
+    {{\tablename\ \thetable{} \textit{User Management} API \textit{Endpoints} (lanjutan)}} \\
     \hline
     \textbf{No.} & \textbf{Endpoint} & \textbf{Method} & \textbf{Deskripsi Singkat} \\
     \hline
@@ -746,18 +746,370 @@ Pada gambar \ref{fig:request_biometric_register}, terlihat struktur \textit{requ
 Pada gambar \ref{fig:request_biometric_login}, terlihat struktur \textit{request} yang dikirimkan ke \textit{endpoint} \texttt{/auth/biometric/login}. Data yang dikirim hanya berupa nilai \textit{biometric} yang berisi string acak sepanjang 255 karakter yang telah dibuat dan disimpan di storage lokal CHRISM saat proses registrasi biometrik sebelumnya. Nilai ini berfungsi sebagai representasi dari data biometrik pengguna. Setelah \textit{request} berhasil diproses, sistem akan mengembalikan respons seperti pada gambar \ref{fig:response_biometric_login}, yang menunjukkan bahwa autentikasi pegawai menggunakan data biometrik berhasil dengan kode status 200 (\textit{OK}), pesan yang sesuai dan data lainnya.
 
 
-
-
-
-
-
+% ---------------------------------------- %
 \subsection{Implementasi \textit{Leave Permit}}
+% -------------------- %
 \subsubsection{API \textit{Endpoints}}
-\subsubsection{Contoh \textit{Request} dan \textit{Response}}
+% -------------------- %
+Berikut adalah daftar \textit{endpoint} yang telah ditambahkan untuk modul \textit{Leave Permit}:
+\begin{center}
+    \begin{longtable}{|c|p{0.37\textwidth}|c|p{0.33\textwidth}|}
+    \caption{\textit{Leave Permit} API \textit{Endpoints}} 
+    \label{tab:tbl_leave_permit} \\
+    \hline
+    \textbf{No.} & \textbf{Endpoint} & \textbf{Method} & \textbf{Deskripsi Singkat} \\
+    \hline
+    \endfirsthead
 
+    \multicolumn{4}{c}%
+    {{\tablename\ \thetable{} \textit{Leave Permit} API \textit{Endpoints} (lanjutan)}} \\
+    \hline
+    \textbf{No.} & \textbf{Endpoint} & \textbf{Method} & \textbf{Deskripsi Singkat} \\
+    \hline
+    \endhead
+
+    \hline 
+    \multicolumn{4}{|r|}{{Lanjut di halaman berikutnya}} \\
+    \hline
+    \endfoot
+
+    \hline
+    \endlastfoot
+
+    1 & \texttt{/leave-permit} & GET & Menampilkan data leave permit pada user yang login. \\ \hline
+    2 & \texttt{/leave-permit/{:id}} & GET & Mengambil data leave permit berdasarkan id. \\ \hline
+    3 & \texttt{/leave-permit} & POST & Membuat data leave permit baru. \\ \hline
+    4 & \texttt{/leave-permit/{:id}} & DELETE & Menghapus data leave permit berdasarkan id. \\ \hline
+    5 & \texttt{/leave-permit/dashboard} & GET & Mengambil data leave permit yang telah diterima oleh atasan dan yang berjalan di minggu ini untuk dashboard page. \\ \hline
+    6 & \texttt{/leave-permit/all} & GET & Mengambil data leave permit berdasarkan hirarki atasan. \\ \hline
+    \end{longtable}
+\end{center}
+
+Pada Tabel \ref{tab:tbl_leave_permit}, ditampilkan sebagian \textit{endpoint} yang telah dimodifikasi dan ditambahkan untuk modul \textit{Leave Permit}. Tabel ini tidak mencakup seluruh \textit{endpoint} yang ada, melainkan hanya yang relevan dengan pengembangan selama masa kerja praktik. Setiap \textit{endpoint} dilengkapi dengan metode HTTP yang sesuai dengan tujuannya: \textit{GET} digunakan untuk mengambil data dari basis data, \textit{POST} digunakan untuk pembuatan data baru, dan \textit{DELETE} digunakan untuk menghapus data.
+
+
+% -------------------- %
+\subsubsection{Contoh \textit{Request} dan \textit{Response}}
+% -------------------- %
+\begin{figure}
+    \centering
+    \fbox{\includegraphics[width=0.8\textwidth]{assets/pics/fig_response_leave_permit_get.png}}
+    \caption{Contoh struktur \textit{response} untuk GET \texttt{/leave-permit}}
+    \label{fig:response_leave_permit}
+\end{figure}
+Pada gambar \ref{fig:response_leave_permit}, terlihat struktur \textit{response} yang dikembalikan oleh sistem ketika melakukan permintaan GET ke \textit{endpoint} \texttt{/leave-permit}. Respons ini berisi daftar permohonan cuti yang telah dibuat oleh pegawai yang sedang login, dengan informasi seperti id, jenis cuti, tanggal mulai dan berakhir, status permohonan dan lain-lain.
+
+
+\begin{figure}
+    \centering
+    \fbox{\includegraphics[width=0.8\textwidth]{assets/pics/fig_request_leave_permit_by_id_get.png}}
+    \caption{Contoh struktur \textit{request} untuk GET \texttt{/leave-permit/{id}}}
+    \label{fig:request_leave_permit_by_id_get}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \fbox{\includegraphics[width=0.8\textwidth]{assets/pics/fig_response_leave_permit_by_id_get.png}}
+    \caption{Contoh struktur \textit{response} untuk GET \texttt{/leave-permit/{:id}}}
+    \label{fig:response_leave_permit_by_id_get}
+\end{figure}
+
+Pada gambar \ref{fig:request_leave_permit_by_id_get}, terlihat struktur \textit{request} yang dikirimkan ke \textit{endpoint} \texttt{/leave-permit/{id}}. Data yang dikirim hanya berupa \textit{id} permohonan cuti yang ingin diambil datanya. Setelah \textit{request} berhasil diproses, sistem akan mengembalikan respons seperti pada gambar \ref{fig:response_leave_permit_by_id_get}, yang menunjukkan bahwa pengambilan data leave permit berdasarkan id berhasil dengan kode status 200 (\textit{OK}) dan pesan yang sesuai.
+
+
+\begin{figure}
+    \centering
+    \fbox{\includegraphics[width=0.8\textwidth]{assets/pics/fig_request_leave_permit_post.png}}
+    \caption{Contoh struktur \textit{request} untuk POST \texttt{/leave-permit}}
+    \label{fig:request_leave_permit}
+\end{figure}
+\begin{figure}
+    \centering
+    \fbox{\includegraphics[width=0.8\textwidth]{assets/pics/fig_response_leave_permit_post.png}}
+    \caption{Contoh struktur \textit{response} untuk POST \texttt{/leave-permit}}
+    \label{fig:response_leave_permit}
+\end{figure}
+Pada gambar \ref{fig:request_leave_permit}, terlihat struktur \textit{request} yang dikirimkan ke \textit{endpoint} \texttt{/leave-permit}. Data yang dikirim berupa informasi terkait permohonan cuti, seperti jenis cuti, tanggal mulai dan berakhir, serta alasan permohonan. Setelah \textit{request} berhasil diproses, sistem akan mengembalikan respons seperti pada gambar \ref{fig:response_leave_permit}, yang menunjukkan bahwa pembuatan data leave permit berhasil dengan kode status 201 (\textit{Created}) dan pesan yang sesuai.
+
+\begin{figure}
+    \centering
+    \fbox{\includegraphics[width=0.8\textwidth]{assets/pics/fig_request_leave_permit_by_id_delete.png}}
+    \caption{Contoh struktur \textit{request} untuk DELETE \texttt{/leave-permit}}
+    \label{fig:request_leave_permit}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \fbox{\includegraphics[width=0.8\textwidth]{assets/pics/fig_response_leave_permit_by_id_delete.png}}
+    \caption{Contoh struktur \textit{response} untuk DELETE \texttt{/leave-permit/{:id}}}
+    \label{fig:response_leave_permit_by_id_get}
+\end{figure}
+
+Pada gambar \ref{fig:request_leave_permit_by_id_delete}, terlihat struktur \textit{request} yang dikirimkan ke \textit{endpoint} \texttt{/leave-permit/{id}}. Data yang dikirim hanya berupa \textit{id} permohonan cuti yang ingin dihapus. Setelah \textit{request} berhasil diproses, sistem akan mengembalikan respons seperti pada gambar \ref{fig:response_leave_permit_by_id_get}, yang menunjukkan bahwa penghapusan data leave permit berdasarkan id berhasil dengan kode status 200 (\textit{OK}) dan pesan yang sesuai.
+
+
+\begin{figure}
+    \centering
+    \fbox{\includegraphics[width=0.8\textwidth]{assets/pics/fig_response_leave_permit_dashboard_get.png}}
+    \caption{Contoh struktur \textit{response} untuk GET \texttt{/leave-permit/dashboard}}
+    \label{fig:response_leave_permit_dashboard_get}
+\end{figure}
+Pada gambar \ref{fig:response_leave_permit_dashboard_get}, terlihat struktur \textit{response} yang dikembalikan oleh sistem ketika melakukan permintaan GET ke \textit{endpoint} \texttt{/leave-permit/dashboard}. Respons ini berisi data leave permit yang telah diterima oleh atasan dan yang sedang berjalan di minggu ini, dengan informasi seperti id, jenis cuti, tanggal mulai dan berakhir, status permohonan, pegawai yang mengajukan cuti, pegawai yang menerima cuti, dan \textit{officer in charge} yang dipilih. Data ini digunakan untuk menampilkan informasi terkait permohonan cuti pada halaman dashboard.
+
+
+\begin{figure}
+    \centering
+    \fbox{\includegraphics[width=0.8\textwidth]{assets/pics/fig_response_leave_permit_all_get.png}}
+    \caption{Contoh struktur \textit{response} untuk GET \texttt{/leave-permit/all}}
+    \label{fig:response_leave_permit_all_get}
+\end{figure}
+Pada gambar \ref{fig:response_leave_permit_all_get}, terlihat struktur \textit{response} yang dikembalikan oleh sistem ketika melakukan permintaan GET ke \textit{endpoint} \texttt{/leave-permit/all}. Respons ini berisi data leave permit berdasarkan hirarki atasan, dengan informasi seperti id, jenis cuti, tanggal mulai dan berakhir, status permohonan, pegawai yang mengajukan cuti, pegawai yang menerima cuti, dan \textit{officer in charge} yang dipilih. Data ini digunakan untuk menampilkan informasi terkait permohonan cuti pada halaman yang dapat diakses oleh atasan.
+% ---------------------------------------- %
+
+% ---------------------------------------- %
 \subsection{Implementasi \textit{Payroll}}
 \subsubsection{API \textit{Endpoints}}
+Berikut adalah daftar \textit{endpoint} yang telah ditambahkan untuk modul \textit{Payroll}:
+\begin{center}
+    \begin{longtable}{|c|p{0.4\textwidth}|c|p{0.3\textwidth}|}
+    \caption{\textit{Payroll} API \textit{Endpoints}} 
+    \label{tab:tbl_payroll_endpoints} \\
+    \hline
+    \textbf{No.} & \textbf{Endpoint} & \textbf{Method} & \textbf{Deskripsi Singkat} \\
+    \hline
+    \endfirsthead
+
+    \multicolumn{4}{c}%
+    {{\tablename\ \thetable{} \textit{Payroll} API \textit{Endpoints} (lanjutan)}} \\
+    \hline
+    \textbf{No.} & \textbf{Endpoint} & \textbf{Method} & \textbf{Deskripsi Singkat} \\
+    \hline
+    \endhead
+
+    \hline 
+    \multicolumn{4}{|r|}{{Lanjut di halaman berikutnya}} \\
+    \hline
+    \endfoot
+
+    \hline  
+    \endlastfoot
+
+    1 & \texttt{/payroll-configuration/all} & GET & Mengambil daftar data konfigurasi penggajian yang telah dibuat. \\ \hline
+    2 & \texttt{/payroll-configuration/{:id}} & GET & Mengambil data konfigurasi penggajian berdasarkan id. \\ \hline
+    3 & \texttt{/payroll-configuration} & POST & Membuat data konfigurasi penggajian baru. \\ \hline
+    4 & \texttt{/payroll-configuration/{:id}} & DELETE & Menghapus data konfigurasi penggajian berdasarkan id. \\ \hline
+    5 & \texttt{/payroll-configuration/{:id}} & PATCH & Mengubah data konfigurasi penggajian berdasarkan id. \\ \hline
+
+    6 & \texttt{/users/{:user\_id}/ payroll-configuration} & GET & Mengambil daftar data konfigurasi penggajian berdasarkan id pegawai. \\ \hline
+    7 & \texttt{/users/{:user\_id}/salary} & GET & Mengambil data gaji pegawai berdasarkan id pegawai. \\ \hline
+    8 & \texttt{/user-allowance/ {:user\_id}/ {:payroll\_configuration\_id}} & GET & Mengambil data tunjangan berdasarkan id pegawai dan id konfigurasi penggajian. \\ \hline
+    9 & \texttt{/users/{:user\_id}/ with-details} & PATCH & Menyimpan data pegawai, gaji, dan semua tunjangan yang sudah dikirimkan. \\ \hline
+    10 & \texttt{/salary-slip/all?date=YYYY-MM} & GET & Mengambil daftar slip gaji pegawai yang telah dibuat. \\ \hline
+    11 & \texttt{/salary-slip/{:id}} & GET & Mengambil data slip gaji pegawai berdasarkan id. \\ \hline
+    12 & \texttt{/salary-slip?date=YYYY-MM} & GET & Mengambil data slip gaji pengguna yang sedang aktif pada bulan tertentu. \\ \hline
+    \end{longtable}
+\end{center}
+
+Pada Tabel \ref{tab:tbl_payroll_endpoints}, ditampilkan daftar \textit{endpoint} yang telah ditambahkan untuk modul \textit{Payroll}. Setiap \textit{endpoint} dilengkapi dengan metode HTTP yang sesuai dengan tujuannya: \textit{GET} digunakan untuk mengambil data dari basis data, \textit{POST} digunakan untuk pembuatan data baru, \textit{DELETE} digunakan untuk menghapus data, dan \textit{PATCH} digunakan untuk memperbarui data yang ada.
+
 \subsubsection{Contoh \textit{Request} dan \textit{Response}}
+\begin{figure}
+    \centering
+    \fbox{\includegraphics[width=0.8\textwidth]{assets/pics/fig_response_payroll_configuration_all_get.png}}
+    \caption{Contoh struktur \textit{request} untuk GET \texttt{/payroll-configuration/all}}
+    \label{fig:response_payroll_configuration_all_get}
+\end{figure}
+Pada gambar \ref{fig:response_payroll_configuration_all_get}, terlihat struktur \textit{response} yang dikembalikan oleh sistem ketika melakukan permintaan GET ke \textit{endpoint} \texttt{/payroll-configuration/all}. Respons ini berisi daftar konfigurasi penggajian yang telah dibuat, dengan informasi seperti id, nama konfigurasi, dan status kepegawaian.
+
+\begin{figure}
+    \centering
+    \fbox{\includegraphics[width=0.8\textwidth]{assets/pics/fig_request_payroll_configuration_by_id_get.png}}
+    \caption{Contoh struktur \textit{request} untuk GET \texttt{/payroll-configuration/{:id}}}
+    \label{fig:request_payroll_configuration_by_id_get}
+\end{figure}
+\begin{figure}
+    \centering
+    \fbox{\includegraphics[width=0.8\textwidth]{assets/pics/fig_response_payroll_configuration_by_id_get.png}}
+    \caption{Contoh struktur \textit{response} untuk GET \texttt{/payroll-configuration/{:id}}}
+    \label{fig:response_payroll_configuration_by_id_get}
+\end{figure}
+Pada gambar \ref{fig:request_payroll_configuration_by_id_get}, terlihat struktur \textit{request} yang dikirimkan ke \textit{endpoint} \texttt{/payroll-configuration/{id}}. Data yang dikirim hanya berupa \textit{id} konfigurasi penggajian yang ingin diambil datanya. Setelah \textit{request} berhasil diproses, sistem akan mengembalikan respons seperti pada gambar \ref{fig:response_payroll_configuration_by_id_get}, yang menunjukkan bahwa pengambilan data konfigurasi penggajian berdasarkan id berhasil dengan kode status 200 (\textit{OK}) dan pesan yang sesuai.
+
+
+\begin{figure}
+    \centering
+    \fbox{\includegraphics[width=0.8\textwidth]{assets/pics/fig_request_payroll_configuration_post.png}}
+    \caption{Contoh struktur \textit{request} untuk POST \texttt{/payroll-configuration}}
+    \label{fig:request_payroll_configuration_post}
+\end{figure}
+\begin{figure}
+    \centering
+    \fbox{\includegraphics[width=0.8\textwidth]{assets/pics/fig_response_payroll_configuration_post.png}}
+    \caption{Contoh struktur \textit{response} untuk POST \texttt{/payroll-configuration}}
+    \label{fig:response_payroll_configuration_post}
+\end{figure}
+Pada gambar \ref{fig:request_payroll_configuration_post}, terlihat struktur \textit{request} yang dikirimkan ke \textit{endpoint} \texttt{/payroll-configuration}. Data yang dikirim berupa informasi terkait konfigurasi penggajian, seperti nama konfigurasi, status kepegawaian, dan tunjangan-tunjangan. Setelah \textit{request} berhasil diproses, sistem akan mengembalikan respons seperti pada gambar \ref{fig:response_payroll_configuration_post}, yang menunjukkan bahwa pembuatan data konfigurasi penggajian berhasil dengan kode status 201 (\textit{Created}) dan pesan yang sesuai.
+
+\begin{figure}
+    \centering
+    \fbox{\includegraphics[width=0.8\textwidth]{assets/pics/fig_request_payroll_configuration_by_id_delete.png}}
+    \caption{Contoh struktur \textit{request} untuk DELETE \texttt{/payroll-configuration/{:id}}}
+    \label{fig:request_payroll_configuration_by_id_delete}
+\end{figure}
+\begin{figure}
+    \centering
+    \fbox{\includegraphics[width=0.8\textwidth]{assets/pics/fig_response_payroll_configuration_by_id_delete.png}}
+    \caption{Contoh struktur \textit{response} untuk DELETE \texttt{/payroll-configuration/{:id}}}
+    \label{fig:response_payroll_configuration_by_id_delete}
+\end{figure}
+
+Pada gambar \ref{fig:request_payroll_configuration_by_id_delete}, terlihat struktur \textit{request} yang dikirimkan ke \textit{endpoint} \texttt{/payroll-configuration/{id}}. Data yang dikirim hanya berupa \textit{id} konfigurasi penggajian yang ingin dihapus. Setelah \textit{request} berhasil diproses, sistem akan mengembalikan respons seperti pada gambar \ref{fig:response_payroll_configuration_by_id_delete}, yang menunjukkan bahwa penghapusan data konfigurasi penggajian berdasarkan id berhasil dengan kode status 200 (\textit{OK}) dan pesan yang sesuai.
+
+\begin{figure}
+    \centering
+    \fbox{\includegraphics[width=0.8\textwidth]{assets/pics/fig_params_payroll_configuration_by_id_patch.png}}
+    \caption{Contoh struktur \textit{params} untuk PATCH \texttt{/payroll-configuration/{:id}}}
+    \label{fig:request_payroll_configuration_by_id_patch}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \fbox{\includegraphics[width=0.8\textwidth]{assets/pics/fig_request_payroll_configuration_by_id_patch.png}}
+    \caption{Contoh struktur \textit{request} untuk PATCH \texttt{/payroll-configuration/{:id}}}
+    \label{fig:request_payroll_configuration_by_id_patch}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \fbox{\includegraphics[width=0.8\textwidth]{assets/pics/fig_response_payroll_configuration_by_id_patch.png}}
+    \caption{Contoh struktur \textit{response} untuk PATCH \texttt{/payroll-configuration/{:id}}}
+    \label{fig:response_payroll_configuration_by_id_patch}
+\end{figure}
+
+Pada gambar \ref{fig:params_payroll_configuration_by_id_patch}, terlihat parameter yang dikirimkan ke path \textit{endpoint} \texttt{/payroll-configuration/{:id}} yang berisi ID konfigurasi penggajian yang ingin dimodifikasi. Sementara pada gambar \ref{fig:request_payroll_configuration_by_id_patch}, terlihat struktur \textit{request body} yang berisi field-field yang ingin direvisi, seperti nama konfigurasi, status kepegawaian, dan tunjangan-tunjangan. Setelah \textit{request} berhasil diproses, sistem akan mengembalikan respons seperti pada gambar \ref{fig:response_payroll_configuration_by_id_patch}, yang menunjukkan bahwa pembaruan data konfigurasi penggajian berdasarkan id berhasil dengan kode status 200 (\textit{OK}) dan pesan yang sesuai.
+
+\begin{figure}
+    \centering
+    \fbox{\includegraphics[width=0.8\textwidth]{assets/pics/fig_request_users_payroll_configuration_by_user_id_get.png}}
+    \caption{Contoh struktur \textit{request} untuk GET \texttt{/users/{:user\_id}/ payroll-configuration}}
+    \label{fig:response_payroll_configuration_by_user_id_get}
+\end{figure}
+\begin{figure}
+    \centering
+    \fbox{\includegraphics[width=0.8\textwidth]{assets/pics/fig_response_users_payroll_configuration_by_user_id_get.png}}
+    \caption{Contoh struktur \textit{response} untuk GET \texttt{/users/{:user\_id}/ payroll-configuration}}
+    \label{fig:request_payroll_configuration_by_user_id_get}
+\end{figure}
+Pada gambar \ref{fig:request_payroll_configuration_by_user_id_get}, terlihat struktur \textit{request} yang dikirimkan ke \textit{endpoint} \texttt{/users/{:user\_id}/payroll-configuration}, yang berisi parameter id pegawai yang ingin diambil data konfigurasi penggajiannya. Setelah \textit{request} berhasil diproses, sistem akan mengembalikan respons seperti pada gambar \ref{fig:response_payroll_configuration_by_user_id_get}, yang menunjukkan daftar konfigurasi penggajian yang tersedia berdasarkan status kepegawaian pegawai tersebut, dengan kode status 200 (\textit{OK}) dan pesan yang sesuai.
+
+
+\begin{figure}
+    \centering
+    \fbox{\includegraphics[width=0.8\textwidth]{assets/pics/fig_request_users_salary_by_user_id_get.png}}
+    \caption{Contoh struktur \textit{request} untuk GET \texttt{/users/{:user\_id}/salary}}
+    \label{fig:request_users_salary_by_user_id_get}
+\end{figure}
+\begin{figure}
+    \centering
+    \fbox{\includegraphics[width=0.8\textwidth]{assets/pics/fig_response_users_salary_by_user_id_get.png}}
+    \caption{Contoh struktur \textit{response} untuk GET \texttt{/users/{:user\_id}/salary}}
+    \label{fig:response_users_salary_by_user_id_get}
+\end{figure}
+
+Pada gambar \ref{fig:request_users_salary_by_user_id_get}, terlihat struktur \textit{request} yang dikirimkan ke \textit{endpoint} \texttt{/users/{:user\_id}/salary}, yang berisi parameter id pegawai yang ingin diambil data gajinya. Setelah \textit{request} berhasil diproses, sistem akan mengembalikan respons seperti pada gambar \ref{fig:response_users_salary_by_user_id_get}, yang menunjukkan data gaji pegawai berdasarkan id pegawai tersebut, dengan kode status 200 (\textit{OK}) dan pesan yang sesuai.
+
+\begin{figure}
+    \centering
+    \fbox{\includegraphics[width=0.8\textwidth]{assets/pics/fig_request_user_allowance_by_user_id_and_payroll_configuration_id_get.png}}
+    \caption{Contoh struktur \textit{request} untuk GET \texttt{/user-allowance/{:user\_id}/ {:payroll\_configuration\_id}}}
+    \label{fig:request_user_allowance_by_user_id_and_payroll_configuration_id_get}
+\end{figure}
+\begin{figure}
+    \centering
+    \fbox{\includegraphics[width=0.8\textwidth]{assets/pics/fig_response_user_allowance_by_user_id_and_payroll_configuration_id_get.png}}
+    \caption{Contoh struktur \textit{response} untuk GET \texttt{/user-allowance/{:user\_id}/ {:payroll\_configuration\_id}}}
+    \label{fig:response_user_allowance_by_user_id_and_payroll_configuration_id_get}
+\end{figure}
+Pada gambar \ref{fig:request_user_allowance_by_user_id_and_payroll_configuration_id_get}, terlihat struktur \textit{request} yang dikirimkan ke \textit{endpoint} \texttt{/user-allowance/{:user\_id}/ {:payroll\_configuration\_id}}, yang berisi parameter id pegawai dan id konfigurasi penggajian yang ingin diambil data tunjangannya. Setelah \textit{request} berhasil diproses, sistem akan mengembalikan respons seperti pada gambar \ref{fig:response_user_allowance_by_user_id_and_payroll_configuration_id_get}, yang menunjukkan data tunjangan pegawai berdasarkan id pegawai dan id konfigurasi penggajian tersebut, dengan kode status 200 (\textit{OK}) dan pesan yang sesuai.
+
+\begin{figure}
+    \centering
+    \fbox{\includegraphics[width=0.8\textwidth]{assets/pics/fig_params_users_with_details_patch.png}}
+    \caption{Contoh struktur \textit{params} untuk PATCH \texttt{/users/{:user\_id}/ with-details}}
+    \label{fig:params_users_with_details_patch}
+\end{figure}
+\begin{figure}
+    \centering
+    \fbox{\includegraphics[width=0.8\textwidth]{assets/pics/fig_request_users_with_details_patch.png}}
+    \caption{Contoh struktur \textit{request} untuk PATCH \texttt{/users/{:user\_id}/ with-details}}
+    \label{fig:request_users_with_details_patch}
+\end{figure}
+\begin{figure}
+    \centering
+    \fbox{\includegraphics[width=0.8\textwidth]{assets/pics/fig_response_users_with_details_patch.png}}
+    \caption{Contoh struktur \textit{response} untuk PATCH \texttt{/users/{:user\_id}/ with-details}}
+    \label{fig:response_users_with_details_patch}
+\end{figure}
+
+Pada gambar \ref{fig:params_users_with_details_patch}, terlihat parameter yang dikirimkan ke path \textit{endpoint} \texttt{/users/{:user\_id}/ with-details} yang berisi ID pegawai yang ingin dimodifikasi. Sementara pada gambar \ref{fig:request_users_with_details_patch}, terlihat struktur \textit{request body} yang berisi field-field yang ingin direvisi, seperti data pegawai, gaji, dan tunjangan-tunjangan. Setelah \textit{request} berhasil diproses, sistem akan mengembalikan respons seperti pada gambar \ref{fig:response_users_with_details_patch}, yang menunjukkan bahwa pembaruan data pegawai, gaji, dan tunjangan berdasarkan id pegawai berhasil dengan kode status 200 (\textit{OK}) dan pesan yang sesuai.
+
+
+\begin{figure}
+    \centering
+    \fbox{\includegraphics[width=0.8\textwidth]{assets/pics/fig_request_salary_slip_all_get.png}}
+    \caption{Contoh struktur \textit{request} untuk GET \texttt{/salary-slip/all}}
+    \label{fig:request_salary_slip_all_get}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \fbox{\includegraphics[width=0.8\textwidth]{assets/pics/fig_response_salary_slip_all_get.png}}
+    \caption{Contoh struktur \textit{response} untuk GET \texttt{/salary-slip/all}}
+    \label{fig:response_salary_slip_all_get}
+\end{figure}
+
+Pada gambar \ref{fig:request_salary_slip_all_get}, terlihat struktur \textit{request} yang dikirimkan ke \textit{endpoint} \texttt{/salary-slip/all}, yang berisi query parameter \texttt{date=YYYY-MM} untuk menyaring slip gaji pada bulan dan tahun tertentu. Setelah \textit{request} berhasil diproses, sistem akan mengembalikan respons seperti pada gambar \ref{fig:response_salary_slip_all_get}, yang menunjukkan daftar slip gaji pegawai yang telah dibuat untuk periode yang diminta, dengan kode status 200 (\textit{OK}) dan pesan yang sesuai.
+
+\begin{figure}
+    \centering
+    \fbox{\includegraphics[width=0.8\textwidth]{assets/pics/fig_request_salary_slip_by_user_id_get.png}}
+    \caption{Contoh struktur \textit{request} untuk GET \texttt{/salary-slip/{:user\_id}}}
+    \label{fig:request_salary_slip_by_id_get}
+\end{figure}
+\begin{figure}
+    \centering
+    \fbox{\includegraphics[width=0.8\textwidth]{assets/pics/fig_response_salary_slip_by_user_id_get.png}}
+    \caption{Contoh struktur \textit{response} untuk GET \texttt{/salary-slip/{:user\_id}}}
+    \label{fig:response_salary_slip_by_id_get}
+\end{figure}
+
+Pada gambar \ref{fig:request_salary_slip_by_id_get}, terlihat struktur \textit{request} yang dikirimkan ke \textit{endpoint} \texttt{/salary-slip/{:id}}, yang berisi parameter id pegawai yang ingin diambil datanya. Selain itu, terdapat query parameter \texttt{date=YYYY-MM} yang digunakan untuk menyaring slip gaji pada bulan dan tahun tertentu. Setelah \textit{request} berhasil diproses, sistem akan mengembalikan respons seperti pada gambar \ref{fig:response_salary_slip_by_id_get}, yang menunjukkan data slip gaji pegawai berdasarkan id pegawai tersebut pada periode waktu yang diminta, dengan kode status 200 (\textit{OK}) dan pesan yang sesuai.
+
+
+\begin{figure}
+    \centering
+    \fbox{\includegraphics[width=0.8\textwidth]{assets/pics/fig_request_salary_slip_get.png}}
+    \caption{Contoh struktur \textit{request} untuk GET \texttt{/salary-slip}}
+    \label{fig:request_salary_slip_get}
+\end{figure}
+\begin{figure}
+    \centering
+    \fbox{\includegraphics[width=0.8\textwidth]{assets/pics/fig_response_salary_slip_get.png}}
+    \caption{Contoh struktur \textit{response} untuk GET \texttt{/salary-slip?date=YYYY-MM}}
+    \label{fig:response_salary_slip_get}
+\end{figure}
+
+Pada gambar \ref{fig:request_salary_slip_get}, terlihat struktur \textit{request} yang dikirimkan ke \textit{endpoint} \texttt{/salary-slip}, yang berisi query parameter \texttt{date=YYYY-MM} untuk menyaring slip gaji pada bulan dan tahun tertentu. Setelah \textit{request} berhasil diproses, sistem akan mengembalikan respons seperti pada gambar \ref{fig:response_salary_slip_get}, yang menunjukkan data slip gaji pengguna yang sedang aktif pada periode waktu yang diminta, dengan kode status 200 (\textit{OK}) dan pesan yang sesuai.
+
+% ---------------------------------------- %
+\section{Kendala dan Solusi yang Ditemukan}
+% -------------------- %
+\subsection{Kendala}
+Kendala yang dihadapi selama proses kerja praktik magang ini meliputi beberapa hal, antara lain:
+
+\subsection{Solusi}
+Sollusi yang dilakukan untuk menyelesaikan kendala yang dihadapi selama proses kerja praktik magang ini adalah sebagai berikut:
+
 
 
 
@@ -1032,6 +1384,3 @@ Pada gambar \ref{fig:request_biometric_login}, terlihat struktur \textit{request
 
 % \subparagraph{Sub-paragraph}
 % \subparagraph{Sub-paragraph}
-
-
-\section{Kendala dan Solusi yang Ditemukan}
