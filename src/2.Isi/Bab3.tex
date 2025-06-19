@@ -314,7 +314,7 @@ Informasi tersebut disajikan dalam bentuk tabel agar mudah dipahami dan dapat di
 % ---------------------------------- %
 \subsection{Fitur Autentikasi Biometrik pada CHRIS Mobile}
 % ---------------------------------- %
-Sebagai bagian dari pengembangan sistem CHRIS Mobile (CHRISM), ditambahkan fitur autentikasi berbasis biometrik untuk meningkatkan kenyamanan dan keamanan akses pengguna. Implementasi ini dilakukan dengan menambahkan kolom baru biometric pada tabel \textit{users}. Kolom ini menyimpan hasil \textit{hash} sepanjang maksimal 255 karakter dari data biometrik pengguna seperti sidik jari.
+Sebagai bagian dari pengembangan sistem CHRIS Mobile (CHRISM), ditambahkan fitur autentikasi berbasis biometrik untuk meningkatkan kenyamanan, kecepatan dan keamanan akses pengguna. Implementasi ini dilakukan dengan menambahkan kolom baru biometric pada tabel \textit{users}. Kolom ini menyimpan hasil \textit{hash} sepanjang maksimal 255 karakter dari data biometrik pengguna seperti sidik jari.
 
 Fitur ini memberikan alternatif \textit{login} selain kata sandi serta mendukung praktik keamanan modern, termasuk \textit{multi-factor authentication}. Karena data biometrik telah melalui proses hashing, informasi yang disimpan tetap aman dan tidak dapat digunakan kembali secara langsung. Fitur ini hanya tersedia pada aplikasi CHRIS Mobile dan tidak memengaruhi sistem versi web atau \textit{desktop}.
 
@@ -991,13 +991,13 @@ Pada gambar \ref{fig:params_payroll_configuration_by_id_patch}, terlihat paramet
 \begin{figure}
     \centering
     \fbox{\includegraphics[width=0.8\textwidth]{assets/pics/fig_request_users_payroll_configuration_by_user_id_get.png}}
-    \caption{Contoh struktur \textit{request} untuk GET \texttt{/users/{:user\_id}/ payroll-configuration}}
+    \caption{Contoh struktur \textit{request} untuk GET \texttt{/users/{:user\_id}/payroll-configuration}}
     \label{fig:response_payroll_configuration_by_user_id_get}
 \end{figure}
 \begin{figure}
     \centering
     \fbox{\includegraphics[width=0.8\textwidth]{assets/pics/fig_response_users_payroll_configuration_by_user_id_get.png}}
-    \caption{Contoh struktur \textit{response} untuk GET \texttt{/users/{:user\_id}/ payroll-configuration}}
+    \caption{Contoh struktur \textit{response} untuk GET \texttt{/users/{:user\_id}/payroll-configuration}}
     \label{fig:request_payroll_configuration_by_user_id_get}
 \end{figure}
 Pada gambar \ref{fig:request_payroll_configuration_by_user_id_get}, terlihat struktur \textit{request} yang dikirimkan ke \textit{endpoint} \texttt{/users/{:user\_id}/payroll-configuration}, yang berisi parameter id pegawai yang ingin diambil data konfigurasi penggajiannya. Setelah \textit{request} berhasil diproses, sistem akan mengembalikan respons seperti pada gambar \ref{fig:response_payroll_configuration_by_user_id_get}, yang menunjukkan daftar konfigurasi penggajian yang tersedia berdasarkan status kepegawaian pegawai tersebut, dengan kode status 200 (\textit{OK}) dan pesan yang sesuai.
@@ -1021,13 +1021,13 @@ Pada gambar \ref{fig:request_users_salary_by_user_id_get}, terlihat struktur \te
 \begin{figure}
     \centering
     \fbox{\includegraphics[width=0.8\textwidth]{assets/pics/fig_request_user_allowance_by_user_id_and_payroll_configuration_id_get.png}}
-    \caption{Contoh struktur \textit{request} untuk GET \texttt{/user-allowance/{:user\_id}/ {:payroll\_configuration\_id}}}
+    \caption{Contoh struktur \textit{request} untuk GET \texttt{/user-allowance/{:user\_id}/{:payroll\_configuration\_id}}}
     \label{fig:request_user_allowance_by_user_id_and_payroll_configuration_id_get}
 \end{figure}
 \begin{figure}
     \centering
     \fbox{\includegraphics[width=0.8\textwidth]{assets/pics/fig_response_user_allowance_by_user_id_and_payroll_configuration_id_get.png}}
-    \caption{Contoh struktur \textit{response} untuk GET \texttt{/user-allowance/{:user\_id}/ {:payroll\_configuration\_id}}}
+    \caption{Contoh struktur \textit{response} untuk GET \texttt{/user-allowance/{:user\_id}/{:payroll\_configuration\_id}}}
     \label{fig:response_user_allowance_by_user_id_and_payroll_configuration_id_get}
 \end{figure}
 Pada gambar \ref{fig:request_user_allowance_by_user_id_and_payroll_configuration_id_get}, terlihat struktur \textit{request} yang dikirimkan ke \textit{endpoint} \texttt{/user-allowance/{:user\_id}/ {:payroll\_configuration\_id}}, yang berisi parameter id pegawai dan id konfigurasi penggajian yang ingin diambil data tunjangannya. Setelah \textit{request} berhasil diproses, sistem akan mengembalikan respons seperti pada gambar \ref{fig:response_user_allowance_by_user_id_and_payroll_configuration_id_get}, yang menunjukkan data tunjangan pegawai berdasarkan id pegawai dan id konfigurasi penggajian tersebut, dengan kode status 200 (\textit{OK}) dan pesan yang sesuai.
@@ -1035,23 +1035,23 @@ Pada gambar \ref{fig:request_user_allowance_by_user_id_and_payroll_configuration
 \begin{figure}
     \centering
     \fbox{\includegraphics[width=0.8\textwidth]{assets/pics/fig_params_users_with_details_patch.png}}
-    \caption{Contoh struktur \textit{params} untuk PATCH \texttt{/users/{:user\_id}/ with-details}}
+    \caption{Contoh struktur \textit{params} untuk PATCH \texttt{/users/{:user\_id}/with-details}}
     \label{fig:params_users_with_details_patch}
 \end{figure}
 \begin{figure}
     \centering
     \fbox{\includegraphics[width=0.8\textwidth]{assets/pics/fig_request_users_with_details_patch.png}}
-    \caption{Contoh struktur \textit{request} untuk PATCH \texttt{/users/{:user\_id}/ with-details}}
+    \caption{Contoh struktur \textit{request} untuk PATCH \texttt{/users/{:user\_id}/with-details}}
     \label{fig:request_users_with_details_patch}
 \end{figure}
 \begin{figure}
     \centering
     \fbox{\includegraphics[width=0.8\textwidth]{assets/pics/fig_response_users_with_details_patch.png}}
-    \caption{Contoh struktur \textit{response} untuk PATCH \texttt{/users/{:user\_id}/ with-details}}
+    \caption{Contoh struktur \textit{response} untuk PATCH \texttt{/users/{:user\_id}/with-details}}
     \label{fig:response_users_with_details_patch}
 \end{figure}
 
-Pada gambar \ref{fig:params_users_with_details_patch}, terlihat parameter yang dikirimkan ke path \textit{endpoint} \texttt{/users/{:user\_id}/ with-details} yang berisi ID pegawai yang ingin dimodifikasi. Sementara pada gambar \ref{fig:request_users_with_details_patch}, terlihat struktur \textit{request body} yang berisi field-field yang ingin direvisi, seperti data pegawai, gaji, dan tunjangan-tunjangan. Setelah \textit{request} berhasil diproses, sistem akan mengembalikan respons seperti pada gambar \ref{fig:response_users_with_details_patch}, yang menunjukkan bahwa pembaruan data pegawai, gaji, dan tunjangan berdasarkan id pegawai berhasil dengan kode status 200 (\textit{OK}) dan pesan yang sesuai.
+Pada gambar \ref{fig:params_users_with_details_patch}, terlihat parameter yang dikirimkan ke path \textit{endpoint} \texttt{/users/{:user\_id}/with-details} yang berisi ID pegawai yang ingin dimodifikasi. Sementara pada gambar \ref{fig:request_users_with_details_patch}, terlihat struktur \textit{request body} yang berisi field-field yang ingin direvisi, seperti data pegawai, gaji, dan tunjangan-tunjangan. Setelah \textit{request} berhasil diproses, sistem akan mengembalikan respons seperti pada gambar \ref{fig:response_users_with_details_patch}, yang menunjukkan bahwa pembaruan data pegawai, gaji, dan tunjangan berdasarkan id pegawai berhasil dengan kode status 200 (\textit{OK}) dan pesan yang sesuai.
 
 
 \begin{figure}
