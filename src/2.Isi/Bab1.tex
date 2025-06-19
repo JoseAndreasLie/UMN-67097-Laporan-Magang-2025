@@ -4,20 +4,26 @@
 
 %-----------------------------------------------------------------------------%
 \section{Latar Belakang Masalah}
-\todo{KERJAKAN, MINIMAL 10 SITASI.}
 %-----------------------------------------------------------------------------%
-PT Ganda Visi Jayatama merupakan perusahaan yang bergerak di bidang penyediaan jasa pengembangan dan pembuatan perangkat lunak. Seiring bertambahnya jumlah karyawan dan divisi pada tahun 2023, kompleksitas organisasi meningkat dan muncul kebutuhan akan sistem pengelolaan sumber daya manusia yang efisien, terintegrasi, dan transparan.
 
-Sistem manual yang sebelumnya digunakan terbukti kurang efisien dalam mengelola data absensi, cuti, struktur organisasi, dan penggajian. Oleh karena itu, perusahaan mulai mengembangkan CHRIS (Concise Human Resource Internal System), sebuah sistem berbasis \textit{web} yang awalnya berfokus pada pencatatan absensi dan pengajuan cuti. Namun, seiring pertumbuhan organisasi, kebutuhan sistem berkembang lebih jauh mencakup hierarki supervisi dan sistem penggajian yang terotomatisasi.
+Transformasi digital dalam pengelolaan sumber daya manusia (SDM) telah menjadi kebutuhan penting di era industri 4.0. Penerapan sistem informasi kepegawaian atau Human Resource Information System (HRIS) memungkinkan organisasi untuk mengotomatisasi proses administratif, meningkatkan akurasi data, dan mempercepat pengambilan keputusan strategis \cite{normalini2012antecedents}. Dalam konteks ini, PT Ganda Visi Jayatama, sebuah perusahaan yang bergerak di bidang teknologi informasi, mengembangkan sebuah sistem HRIS internal bernama CHRIS (Concise Human Resource Information System) sebagai solusi terintegrasi untuk mendukung pengelolaan pegawai.
 
-Era digitalisasi telah mengubah paradigma pengelolaan sumber daya manusia dalam organisasi modern. Sistem Informasi Sumber Daya Manusia (HRIS) menjadi komponen vital dalam mendukung efektivitas dan efisiensi operasional perusahaan. Penelitian menunjukkan bahwa implementasi HRIS memberikan dampak positif signifikan terhadap kinerja organisasi melalui peningkatan efisiensi dan efektivitas pengelolaan kepegawaian \cite{khashman2016impact}.
+Sistem CHRIS dirancang sebagai platform yang menangani data kepegawaian, proses absensi, hingga pengajuan cuti. Seiring berjalannya waktu dan meningkatnya kompleksitas kebutuhan perusahaan, sistem ini memerlukan pengembangan lebih lanjut untuk memastikan performa dan skalabilitasnya tetap optimal \cite{panjaitan2023implementing}. Sistem sebelumnya dinilai belum mampu mengakomodasi seluruh proses operasional SDM secara menyeluruh, khususnya pada aspek \textit{payroll}, manajemen struktur organisasi, dan otentikasi pengguna.
 
-Kompleksitas pengelolaan data karyawan dalam skala besar memerlukan sistem yang terintegrasi dan terautomatisasi. HRIS berfungsi sebagai platform digital yang membantu organisasi dalam mengelola sumber daya manusia dengan memusatkan, mengorganisir, dan mengotomatisasi proses-proses yang terkait dengan fungsi HR \cite{abdullah2023impact}. Sistem ini tidak hanya mengatasi keterbatasan sistem manual yang rentan error, tetapi juga memberikan dukungan strategis dalam pengambilan keputusan manajemen.
+Salah satu permasalahan yang muncul adalah proses penggajian yang masih dilakukan secara manual atau menggunakan aplikasi terpisah, yang rentan menimbulkan kesalahan perhitungan dan redundansi data. Menurut Ahmed dan Ali (2023), digitalisasi modul \textit{payroll} dapat mengurangi kesalahan penghitungan gaji hingga 85\% dan mempercepat proses pembayaran \cite{ahmed2023web}. Oleh karena itu, integrasi modul \textit{Payroll} yang mampu menghitung gaji secara otomatis berdasarkan data tunjangan dan absensi menjadi sangat krusial.
 
-Pentingnya pengembangan HRIS semakin diperkuat oleh dampak globalisasi dan teknologi yang mendorong organisasi untuk mengadopsi sistem informasi dalam berbagai fungsi departemen. Penelitian menunjukkan bahwa HRIS membantu manajemen senior dalam mengidentifikasi kebutuhan tenaga kerja untuk memenuhi rencana bisnis jangka panjang organisasi, sekaligus mendukung aktivitas identifikasi calon karyawan potensial dan penciptaan program pengembangan talenta \cite{ozel2012importance}.
+Selain itu, sistem pengajuan cuti atau Leave Permit yang digunakan sebelumnya memiliki keterbatasan dalam mendukung alur persetujuan yang merefleksikan struktur organisasi perusahaan. Proses perizinan masih bersifat statis, hanya mengizinkan atasan tertentu untuk menyetujui permohonan cuti, tanpa mempertimbangkan dinamika hubungan struktural antar pegawai. Kelemahan ini berdampak pada kurangnya fleksibilitas serta potensi keterlambatan dalam proses persetujuan. Penyesuaian terhadap logika hierarchy-based approval menjadi penting guna memperkuat kontrol, meningkatkan akuntabilitas, dan memastikan bahwa setiap permohonan ditinjau oleh pihak yang tepat sesuai dengan struktur jabatan.
 
-Efektivitas implementasi HRIS telah terbukti dalam berbagai konteks industri, termasuk sektor rumah sakit swasta, di mana sistem ini berkontribusi signifikan terhadap peningkatan kinerja organisasi. Studi empiris menunjukkan korelasi positif yang kuat antara pentingnya HRIS dengan kinerja organisasi, dengan nilai korelasi mencapai R = 0.889 \cite{khashman2016impact}.
+Penelitian oleh Ujianto et al. (2024) menunjukkan bahwa ketiadaan sistem yang terkomputerisasi dalam proses cuti dan lembur menyebabkan karyawan tidak mengetahui status pengajuan yang telah dilakukan, dan pihak HRD mengalami kesulitan dalam mengontrol proses kepegawaian. Sistem yang masih mengandalkan formulir manual memperlambat proses dan meningkatkan risiko miskomunikasi antar bagian. Oleh karena itu, pengembangan HRIS dengan alur pengajuan cuti berbasis digital dan terstruktur secara hierarkis sangat diperlukan demi mendukung efisiensi dan efektivitas proses operasional perusahaan secara menyeluruh \cite{ujianto2024human}.
 
+Aspek kenyamanan dan keamanan sistem juga menjadi fokus utama dalam pengembangan CHRIS\@, terutama dengan diperkenalkannya aplikasi mobile CHRISM\@. Untuk memperkuat keamanan dan kenyamanan akses, autentikasi biometrik berbasis sidik jari diimplementasikan. Teknologi ini dinilai lebih aman dan praktis dibandingkan metode tradisional berbasis kata sandi.
+
+Masalah lain yang ditemukan adalah kurangnya normalisasi data pada tabel-tabel utama, seperti status kepegawaian dan data bank. Sebelumnya, data seperti status kepegawaian ditulis secara \textit{hardcoded} dalam bentuk \textit{string}, yang berpotensi menimbulkan inkonsistensi data. Dengan diterapkannya referensi tabel untuk \textit{employment\_status} dan \textit{bank}, sistem kini lebih fleksibel dan mendukung pengelolaan data yang lebih terstruktur.
+
+Lebih lanjut, kebutuhan akan struktur organisasi yang dinamis mendorong implementasi sistem hierarki berbasis pohon atau tree hierarchy. Sistem ini digunakan untuk mendefinisikan hubungan antara pegawai dan atasan secara fleksibel, yang tidak hanya berguna dalam pengelolaan alur cuti, tetapi juga dapat diperluas ke fitur-fitur lain seperti evaluasi kinerja, distribusi tugas, dan pelaporan. Struktur organisasi semacam ini memungkinkan sistem untuk menelusuri hubungan antar-entitas dengan efisien dan menetapkan tanggung jawab berdasarkan posisi dalam hierarki. Menurut Evrendilek et al. (2017), struktur pohon dalam organisasi menciptakan tantangan dan peluang tersendiri dalam hal penugasan kerja karena setiap entitas yang diberi tugas akan mempengaruhi keseluruhan sub-struktur di bawahnya \cite{evrendilek2017task}. Pendekatan ini memberikan fondasi logis untuk pengembangan sistem yang mempertimbangkan keterhubungan antar pegawai secara hierarkis.
+
+
+Pengembangan sistem CHRIS selama masa kerja praktik ini bertujuan untuk mengatasi berbagai permasalahan di atas dengan mengimplementasikan modul-modul baru yang terintegrasi, memperkuat validasi input, serta menyusun ulang struktur data yang ada. Proyek ini merupakan kelanjutan dari sistem yang telah dikembangkan sebelumnya oleh tim internal PT Ganda Visi Jayatama. Pengembangan dilakukan secara iteratif menggunakan prinsip Agile dan dilakukan bersama dengan tim backend, frontend, dan desainer, untuk memastikan integrasi sistem yang solid dan relevan dengan kebutuhan pengguna akhir \cite{jahan2014human, wandhe2020role}.
 % Sistem ini dikembangkan menggunakan arsitektur PERN Stack (PostgreSQL, Express.js, React.js, Node.js). Pemilihan PostgreSQL didasarkan pada kemampuannya menangani relasi kompleks dan transaksi skala enterprise, sesuai dengan standar yang digunakan dalam pengembangan sistem informasi perusahaan modern \cite{arnold2019hrdbms}.
 
 
@@ -53,10 +59,30 @@ Efektivitas implementasi HRIS telah terbukti dalam berbagai konteks industri, te
 
 %-----------------------------------------------------------------------------%
 \section{Maksud dan Tujuan Kerja Magang}
-
-\todo{KERJAKAN, HARUS MENJAWAB JUDUL.}
 %-----------------------------------------------------------------------------%
 
+Pelaksanaan kerja magang di PT Ganda Visi Jayatama bertujuan untuk memberikan pengalaman langsung kepada mahasiswa dalam menghadapi permasalahan riil di industri, serta berkontribusi terhadap pengembangan sistem informasi yang sedang berjalan. Melalui kegiatan magang ini, peserta memperoleh pemahaman yang lebih mendalam mengenai praktik terbaik dalam pengembangan perangkat lunak, khususnya dalam konteks pengelolaan sistem kepegawaian berbasis web.
+
+Secara khusus, maksud dari kerja magang ini adalah:
+
+\begin{itemize}
+    \item Mengimplementasikan pengetahuan akademik yang telah diperoleh selama masa perkuliahan dalam lingkungan kerja profesional.
+    \item Mengasah keterampilan teknis dan kolaboratif melalui kerja tim lintas divisi dalam proyek pengembangan perangkat lunak yang kompleks.
+    \item Mengamati, mempelajari, dan memahami alur kerja profesional dalam pengembangan sistem backend yang terstruktur dan terdokumentasi.
+\end{itemize}
+
+Adapun tujuan utama dari pelaksanaan magang ini, yang difokuskan pada pengembangan sistem CHRIS, meliputi:
+
+\begin{enumerate}
+    \item Mengembangkan dan menyempurnakan modul \textbf{Payroll}, agar proses penggajian dapat dilakukan secara otomatis, terstandarisasi, dan efisien.
+    \item Mengoptimalkan modul \textbf{Leave Permit} agar mendukung alur persetujuan berdasarkan struktur organisasi dan menyediakan fitur pembatalan cuti yang fleksibel.
+    \item Meningkatkan \textbf{keamanan akses sistem} melalui penerapan autentikasi biometrik pada aplikasi mobile CHRISM.
+    \item Menyusun dan menerapkan struktur \textbf{hierarki supervisi} berbasis pohon (\textit{tree hierarchy}) untuk mendukung proses persetujuan yang lebih fleksibel.
+    \item Melakukan \textbf{refaktor dan validasi form input} pada modul \textbf{User Management} untuk meningkatkan akurasi dan integritas data pegawai.
+    \item Mengembangkan \textbf{RESTful API} yang mendukung integrasi antara frontend dan backend secara optimal.
+\end{enumerate}
+
+Dengan pencapaian tujuan-tujuan tersebut, diharapkan sistem CHRIS dapat mendukung operasional perusahaan secara lebih efisien, aman, dan terukur, serta memberikan kontribusi nyata dalam peningkatan kualitas pengelolaan sumber daya manusia di PT Ganda Visi Jayatama.
 
 % MAKSUD DAN TUJUAN HARUS MENJAWAB JUDUL
 % Program kerja magang ini dilaksanakan dengan maksud untuk menerapkan berbagai 
@@ -86,7 +112,7 @@ Pelaksanaan kerja magang berlangsung dari tanggal 13 Januari 2025 sampai dengan
     \item Pelaksanaan kerja magang dilakukan secara \textit{Work From Office} (WFO).
 \end{enumerate}
 
-Selama menjalani program kerja magang, penulis mengikuti sejumlah prosedur yang telah ditetapkan, antara lain:
+Selama menjalani program kerja magang, terdapat sejumlah prosedur yang telah ditetapkan, antara lain:
 
 \begin{enumerate}
     \item Mengikuti sesi orientasi (\textit{onboarding}) pada minggu pertama kerja magang.
