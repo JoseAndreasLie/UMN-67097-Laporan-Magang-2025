@@ -1,7 +1,5 @@
 %-----------------------------------------------------------------------------%
 \chapter*{\Judul}
-
-\todo{ABSTRAK}
 %-----------------------------------------------------------------------------%
 \singlespacing
 \begin{center}
@@ -25,12 +23,17 @@
 	\bigskip
 	\bigskip
 
-\verb|<<Isi Abstrak>>|. (Meliputi dari Latar Belakang penelitian, Metode/Teori yang digunakan, Hasil Penelitian, Kesimpulan dari penelitian)
+	Laporan ini membahas proses pengembangan lanjutan \textit{backend} dari sistem informasi kepegawaian CHRIS (Concise Human Resource Information System) yang digunakan di PT Ganda Visi Jayatama. Fokus utama pengembangan mencakup penambahan modul baru dan penyempurnaan modul yang telah ada. Beberapa fitur utama yang dikembangkan meliputi: integrasi otentikasi biometrik pada aplikasi \textit{mobile} CHRISM, penerapan sistem hierarki berbasis pohon pada modul cuti, serta perancangan dan implementasi modul \textit{Payroll} yang baru. Selain itu, perbaikan juga dilakukan pada modul \textit{User Management} dengan peningkatan validasi form input.
+
+	Pengembangan dilakukan menggunakan teknologi PERN Stack (\textit{PostgreSQL}, \textit{Express.js}, \textit{React.js}, dan \textit{Node.js}) dengan pendekatan \textit{Agile} sebagai metodologi kerja tim. Selama pelaksanaan proyek, telah dibuat 17 \textit{endpoint API} baru dan pengembangan terhadap 7 \textit{endpoint} eksisting, sehingga total terdapat 24 \textit{endpoint} yang mendukung berbagai fitur sistem. Seluruh pengujian dilakukan secara manual.
+
+	Dampak dari pengembangan ini antara lain peningkatan efisiensi dan akurasi dalam proses penggajian melalui modul \textit{Payroll}, peningkatan keamanan akses melalui autentikasi biometrik, serta sistem persetujuan cuti yang lebih fleksibel melalui implementasi struktur hierarki dinamis. Adapun kendala yang dihadapi mencakup kode yang tidak sesuai \textit{best practice}, struktur data yang belum optimal, dan kompleksitas dalam pengolahan data historis. Seluruh kendala tersebut diatasi melalui \textit{refactoring kode}, penambahan struktur data baru, dan optimalisasi proses migrasi.
+
 	\bigskip
  
 % Kata kunci urut abjad
 % 3 – 5 kata kunci
-	\textbf{Kata kunci:} kata kunci 1, kata kunci 2, kata kunci 3
-} (urut abjad)
+	\textbf{Kata kunci:} Backend development, Biometrik, Payroll, Sistem informasi kepegawaian, Struktur hierarki.
+}
 
 \onehalfspacing
