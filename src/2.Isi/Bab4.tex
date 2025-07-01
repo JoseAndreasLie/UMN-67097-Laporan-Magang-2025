@@ -1,15 +1,22 @@
 %---------------------------------------------------------------
 \chapter{\babEmpat}
 %---------------------------------------------------------------
-\todo{Tuliskan simpulan dan saran terkait dengan pekerjaan 
-	yang dilakukan.}
-
-
-%---------------------------------------------------------------
 \section{Simpulan}
 %---------------------------------------------------------------
+Selama pelaksanaan kerja praktik di PT Ganda Visi Jayatama, pengembangan lanjutan backend pada sistem informasi kepegawaian CHRIS telah berhasil diselesaikan dengan mencakup beberapa modul penting, seperti \textit{User Management}, \textit{Leave Permit}, Sistem Hierarki Supervisi, serta modul \textit{Payroll}. Pengembangan dilakukan melalui penambahan fitur baru, refaktorisasi struktur data, validasi \textit{form input}, serta optimalisasi logika sistem sesuai kebutuhan bisnis.
+
+Pengembangan ini menghasilkan berbagai endpoint API yang telah diuji secara manual dan terintegrasi secara fungsional dengan sisi frontend. Salah satu pencapaian utama adalah penyempurnaan alur cuti berbasis sistem hierarki jabatan, penambahan fitur cancel leave permit, serta perhitungan gaji otomatis berdasarkan konfigurasi payroll dan data tunjangan. Selain itu, fitur otentikasi biometrik juga telah berhasil diimplementasikan guna meningkatkan kecepatan akses pada aplikasi mobile CHRIS (CHRISM).
+
+Secara keseluruhan, pengembangan ini berkontribusi dalam meningkatkan efisiensi proses internal, memperkuat keamanan sistem, dan memastikan transparansi serta keterlacakan data kepegawaian secara lebih terstruktur dan terintegrasi.
 
 
 %---------------------------------------------------------------
 \section{Saran}
 %---------------------------------------------------------------
+Ada beberapa saran yang dapat dipertimbangkan untuk pengembangan sistem CHRIS ke depannya:
+
+\begin{enumerate}
+	\item \textbf{Otomasi Pengujian}: Disarankan untuk menambahkan unit testing dan integrasi testing otomatis pada setiap modul yang dikembangkan. Hal ini akan memastikan bahwa setiap perubahan kode dapat langsung tervalidasi, sehingga meminimalkan risiko bug yang tidak terdeteksi.
+	\item \textbf{Standarisasi Kode}: Perlu dilakukan standarisasi terhadap penulisan kode dan struktur direktori backend. Hal ini akan membantu menjaga konsistensi dalam pengembangan di masa mendatang, sehingga memudahkan pemeliharaan dan kolaborasi antar pengembang.
+	\item \textbf{Integrasi Notifikasi}: Modul seperti Leave Permit atau Payroll dapat dikembangkan lebih lanjut dengan integrasi sistem notifikasi real-time (misal: email atau push notification). Hal ini akan meningkatkan responsivitas pengguna terhadap pembaruan status, sehingga mereka dapat segera mengambil tindakan yang diperlukan.
+\end{enumerate}

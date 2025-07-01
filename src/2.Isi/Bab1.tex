@@ -2,12 +2,52 @@
 \chapter{\babSatu}
 %-----------------------------------------------------------------------------%
 
-\lipsum[1-1]
-
 %-----------------------------------------------------------------------------%
 \section{Latar Belakang Masalah}
 %-----------------------------------------------------------------------------%
-\lipsum[2-3]
+
+Transformasi digital dalam pengelolaan sumber daya manusia (SDM) telah menjadi kebutuhan penting di era industri 4.0. Penerapan sistem informasi kepegawaian atau Human Resource Information System (HRIS) memungkinkan organisasi untuk mengotomatisasi proses administratif, meningkatkan akurasi data, dan mempercepat pengambilan keputusan strategis \cite{normalini2012antecedents}. Dalam konteks ini, PT Ganda Visi Jayatama, sebuah perusahaan yang bergerak di bidang teknologi informasi, mengembangkan sebuah sistem HRIS internal bernama CHRIS (Concise Human Resource Information System) sebagai solusi terintegrasi untuk mendukung pengelolaan pegawai.
+
+Sistem CHRIS dirancang sebagai platform yang menangani data kepegawaian, proses absensi, hingga pengajuan cuti. Seiring berjalannya waktu dan meningkatnya kompleksitas kebutuhan perusahaan, sistem ini memerlukan pengembangan lebih lanjut untuk memastikan performa dan skalabilitasnya tetap optimal \cite{panjaitan2023implementing}. Sistem sebelumnya dinilai belum mampu mengakomodasi seluruh proses operasional SDM secara menyeluruh, khususnya pada aspek \textit{payroll}, manajemen struktur organisasi, dan otentikasi pengguna.
+
+Salah satu permasalahan yang muncul adalah proses penggajian yang masih dilakukan secara manual atau menggunakan aplikasi terpisah, yang rentan menimbulkan kesalahan perhitungan dan redundansi data. Menurut Ahmed dan Ali (2023), digitalisasi modul \textit{payroll} dapat mengurangi kesalahan penghitungan gaji hingga 85\% dan mempercepat proses pembayaran \cite{ahmed2023web}. Oleh karena itu, integrasi modul \textit{Payroll} yang mampu menghitung gaji secara otomatis berdasarkan data tunjangan dan absensi menjadi sangat krusial.
+
+Selain itu, sistem pengajuan cuti atau Leave Permit yang digunakan sebelumnya memiliki keterbatasan dalam mendukung alur persetujuan yang merefleksikan struktur organisasi perusahaan. Proses perizinan masih bersifat statis, hanya mengizinkan atasan tertentu untuk menyetujui permohonan cuti, tanpa mempertimbangkan dinamika hubungan struktural antar pegawai. Kelemahan ini berdampak pada kurangnya fleksibilitas serta potensi keterlambatan dalam proses persetujuan. Penyesuaian terhadap logika hierarchy-based approval menjadi penting guna memperkuat kontrol, meningkatkan akuntabilitas, dan memastikan bahwa setiap permohonan ditinjau oleh pihak yang tepat sesuai dengan struktur jabatan.
+
+Penelitian oleh Ujianto et al. (2024) menunjukkan bahwa ketiadaan sistem yang terkomputerisasi dalam proses cuti dan lembur menyebabkan karyawan tidak mengetahui status pengajuan yang telah dilakukan, dan pihak HRD mengalami kesulitan dalam mengontrol proses kepegawaian. Sistem yang masih mengandalkan formulir manual memperlambat proses dan meningkatkan risiko miskomunikasi antar bagian. Oleh karena itu, pengembangan HRIS dengan alur pengajuan cuti berbasis digital dan terstruktur secara hierarkis sangat diperlukan demi mendukung efisiensi dan efektivitas proses operasional perusahaan secara menyeluruh \cite{ujianto2024human}.
+
+Aspek kenyamanan dan keamanan sistem juga menjadi fokus utama dalam pengembangan CHRIS\@, terutama dengan diperkenalkannya aplikasi mobile CHRISM\@. Untuk memperkuat keamanan dan kenyamanan akses, autentikasi biometrik berbasis sidik jari diimplementasikan. Teknologi ini dinilai lebih aman dan praktis dibandingkan metode tradisional berbasis kata sandi.
+
+Masalah lain yang ditemukan adalah kurangnya normalisasi data pada tabel-tabel utama, seperti status kepegawaian dan data bank. Sebelumnya, data seperti status kepegawaian ditulis secara \textit{hardcoded} dalam bentuk \textit{string}, yang berpotensi menimbulkan inkonsistensi data. Dengan diterapkannya referensi tabel untuk \textit{employment\_status} dan \textit{bank}, sistem kini lebih fleksibel dan mendukung pengelolaan data yang lebih terstruktur.
+
+Lebih lanjut, kebutuhan akan struktur organisasi yang dinamis mendorong implementasi sistem hierarki berbasis pohon atau tree hierarchy. Sistem ini digunakan untuk mendefinisikan hubungan antara pegawai dan atasan secara fleksibel, yang tidak hanya berguna dalam pengelolaan alur cuti, tetapi juga dapat diperluas ke fitur-fitur lain seperti evaluasi kinerja, distribusi tugas, dan pelaporan. Struktur organisasi semacam ini memungkinkan sistem untuk menelusuri hubungan antar-entitas dengan efisien dan menetapkan tanggung jawab berdasarkan posisi dalam hierarki. Menurut Evrendilek et al. (2017), struktur pohon dalam organisasi menciptakan tantangan dan peluang tersendiri dalam hal penugasan kerja karena setiap entitas yang diberi tugas akan mempengaruhi keseluruhan sub-struktur di bawahnya \cite{evrendilek2017task}. Pendekatan ini memberikan fondasi logis untuk pengembangan sistem yang mempertimbangkan keterhubungan antar pegawai secara hierarkis.
+
+
+Pengembangan sistem CHRIS selama masa kerja praktik ini bertujuan untuk mengatasi berbagai permasalahan di atas dengan mengimplementasikan modul-modul baru yang terintegrasi, memperkuat validasi input, serta menyusun ulang struktur data yang ada. Proyek ini merupakan kelanjutan dari sistem yang telah dikembangkan sebelumnya oleh tim internal PT Ganda Visi Jayatama. Pengembangan dilakukan secara iteratif menggunakan prinsip Agile dan dilakukan bersama dengan tim backend, frontend, dan desainer, untuk memastikan integrasi sistem yang solid dan relevan dengan kebutuhan pengguna akhir \cite{jahan2014human, wandhe2020role}.
+% Sistem ini dikembangkan menggunakan arsitektur PERN Stack (PostgreSQL, Express.js, React.js, Node.js). Pemilihan PostgreSQL didasarkan pada kemampuannya menangani relasi kompleks dan transaksi skala enterprise, sesuai dengan standar yang digunakan dalam pengembangan sistem informasi perusahaan modern \cite{arnold2019hrdbms}.
+
+
+    % KONTEN BAB 3
+    % Sebagai Backend Engineer yang melanjutkan pengembangan sistem CHRIS, penulis telah 
+    % berkontribusi pada beberapa pengembangan krusial:
+
+    % \begin{enumerate}
+    %     \item \textbf{Pembuatan struktur \textit{Hierarchy Tree}}, yang berfungsi 
+    %     untuk menetapkan struktur supervisi antarpegawai dan mempermudah logika 
+    %     bisnis seperti persetujuan cuti.
+        
+    %     \item \textbf{Pengembangan modul Payroll dan Slip Gaji}, yang secara otomatis 
+    %     menghitung gaji berdasarkan data status kepegawaian dan kehadiran, 
+    %     meningkatkan efisiensi dan mengurangi kesalahan.
+        
+    %     \item \textbf{Refactor dan validasi ulang sistem User Management}, termasuk 
+    %     pengelolaan data pegawai dan status pekerjaan untuk mendukung integrasi data 
+    %     secara menyeluruh.
+    % \end{enumerate}
+
+    % Ketiga kontribusi tersebut merupakan bagian penting dalam mewujudkan sistem 
+    % pengelolaan sumber daya manusia yang adaptif terhadap pertumbuhan perusahaan 
+    % dan selaras dengan praktik terbaik pengembangan sistem informasi kepegawaian.
 
 % %-----------------------------------------------------------------------------%
 % \section{Permasalahan}
@@ -20,14 +60,68 @@
 %-----------------------------------------------------------------------------%
 \section{Maksud dan Tujuan Kerja Magang}
 %-----------------------------------------------------------------------------%
-\todo{Tuliskan Maksud dan Tujuan Kerja Magang}
+
+Pelaksanaan kerja magang di PT Ganda Visi Jayatama bertujuan untuk memberikan pengalaman langsung kepada mahasiswa dalam menghadapi permasalahan riil di industri, serta berkontribusi terhadap pengembangan sistem informasi yang sedang berjalan. Melalui kegiatan magang ini, peserta memperoleh pemahaman yang lebih mendalam mengenai praktik terbaik dalam pengembangan perangkat lunak, khususnya dalam konteks pengelolaan sistem kepegawaian berbasis web.
+
+Secara khusus, maksud dari kerja magang ini adalah:
+
+\begin{itemize}
+    \item Mengimplementasikan pengetahuan akademik yang telah diperoleh selama masa perkuliahan dalam lingkungan kerja profesional.
+    \item Mengasah keterampilan teknis dan kolaboratif melalui kerja tim lintas divisi dalam proyek pengembangan perangkat lunak yang kompleks.
+    \item Mengamati, mempelajari, dan memahami alur kerja profesional dalam pengembangan sistem backend yang terstruktur dan terdokumentasi.
+\end{itemize}
+
+Adapun tujuan utama dari pelaksanaan magang ini, yang difokuskan pada pengembangan sistem CHRIS, meliputi:
+
+\begin{enumerate}
+    \item Mengembangkan dan menyempurnakan modul \textbf{Payroll}, agar proses penggajian dapat dilakukan secara otomatis, terstandarisasi, dan efisien.
+    \item Mengoptimalkan modul \textbf{Leave Permit} agar mendukung alur persetujuan berdasarkan struktur organisasi dan menyediakan fitur pembatalan cuti yang fleksibel.
+    \item Meningkatkan \textbf{keamanan akses sistem} melalui penerapan autentikasi biometrik pada aplikasi mobile CHRISM.
+    \item Menyusun dan menerapkan struktur \textbf{hierarki supervisi} berbasis pohon (\textit{tree hierarchy}) untuk mendukung proses persetujuan yang lebih fleksibel.
+    \item Melakukan \textbf{refaktor dan validasi form input} pada modul \textbf{User Management} untuk meningkatkan akurasi dan integritas data pegawai.
+    \item Mengembangkan \textbf{RESTful API} yang mendukung integrasi antara frontend dan backend secara optimal.
+\end{enumerate}
+
+Dengan pencapaian tujuan-tujuan tersebut, diharapkan sistem CHRIS dapat mendukung operasional perusahaan secara lebih efisien, aman, dan terukur, serta memberikan kontribusi nyata dalam peningkatan kualitas pengelolaan sumber daya manusia di PT Ganda Visi Jayatama.
+
+% MAKSUD DAN TUJUAN HARUS MENJAWAB JUDUL
+% Program kerja magang ini dilaksanakan dengan maksud untuk menerapkan berbagai 
+% \textit{hardskill} dan \textit{softskill} yang telah diperoleh selama masa 
+% perkuliahan ke dalam lingkungan kerja profesional. Adapun tujuan dari program 
+% kerja magang ini adalah untuk memperluas dan memperdalam \textit{hardskill} 
+% melalui berbagai tugas yang diemban, serta mengembangkan \textit{softskill} 
+% dalam berkoordinasi dan bekerja sama sebagai bagian dari tim. Secara spesifik, 
+% tujuan pelaksanaan kerja magang ini adalah untuk berkontribusi dalam 
+% pengembangan \textit{Human Resource Information System} (HRIS) pada 
+% PT Ganda Visi Jayatama.
+
+
 
 
 
 %-----------------------------------------------------------------------------%
 \section{Waktu dan Prosedur Pelaksanaan Kerja Magang}
 %-----------------------------------------------------------------------------%
-\todo{Jelaskan Waktu dan Prosedur Pelaksanaan Kerja Magang.}
 
+Pelaksanaan kerja magang berlangsung dari tanggal 13 Januari 2025 sampai dengan 
+13 Juli 2025 berdasarkan kontrak kerja yang telah disepakati dengan perusahaan. Selama periode magang ini dibimbing oleh seorang pembimbing lapangan yaitu Bapak Edo Setiawan yang menjabat sebagai Head Of Development di PT Ganda Visi Jayatama. Jadwal kerja magang di PT Ganda Visi Jayatama diatur sebagai berikut:
 
+\begin{enumerate}
+    \item Aktivitas kerja magang dilaksanakan setiap hari Senin hingga Jumat, 
+    dengan jam kerja mulai pukul 09.00 WIB sampai dengan 18.00 WIB.
+    \item Pelaksanaan kerja magang dilakukan secara \textit{Work From Office} (WFO).
+\end{enumerate}
 
+Selama menjalani program kerja magang, terdapat sejumlah prosedur yang telah ditetapkan, antara lain:
+
+\begin{enumerate}
+    \item Mengikuti sesi orientasi (\textit{onboarding}) pada minggu pertama kerja magang.
+    \item Melakukan presensi harian dengan mencatat tugas yang telah diselesaikan 
+    pada hari sebelumnya (\textit{yesterday tasks}), rencana aktivitas untuk hari ini 
+    (\textit{today tasks}), serta kendala yang dihadapi dalam pengerjaan sebelumnya (\textit{blocking}).
+    \item Berpartisipasi dalam rapat mingguan yang diadakan setiap hari Jumat 
+    untuk membahas perkembangan proyek HRIS yang sedang dikerjakan.
+    \item Menghadiri pertemuan bulanan untuk mendiskusikan pengembangan 
+    \textit{boilerplate} perusahaan.
+    \item Berkomunikasi dengan sesama karyawan melalui \textit{platform Discord}.
+\end{enumerate}
