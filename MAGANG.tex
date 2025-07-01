@@ -18,6 +18,14 @@
 % Load konfigurasi LaTeX untuk tipe laporan thesis
 \usepackage{_internals/umnthesis}
 
+\usepackage{pdfpages}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+\usepackage{background}
+
+
 % Daftar pemenggalan suku kata dan istilah dalam LaTeX
 \input{_internals/hype.indonesia}
 
@@ -61,8 +69,8 @@
 
 % %
 % % load halaman persetujuan (jika untuk maju sidang)
-\addChapter{HALAMAN PERSETUJUAN}
-\input{src/1.Awal/03a-Persetujuan}
+% \addChapter{HALAMAN PERSETUJUAN}
+% \input{src/1.Awal/03a-Persetujuan}
 
 % %
 % % load halaman pengesahan (jika sesudah selesai sidang) menggantikan halaman persetujuan
