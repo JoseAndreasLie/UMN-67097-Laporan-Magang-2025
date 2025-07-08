@@ -5,7 +5,7 @@
 %---------------------------------------------------------------
 Selama pelaksanaan kerja praktik di PT Ganda Visi Jayatama, pengembangan lanjutan backend pada sistem informasi kepegawaian CHRIS telah berhasil diselesaikan dengan mencakup beberapa modul penting, seperti \textit{User Management}, \textit{Leave Permit}, Sistem Hierarki Supervisi, serta modul \textit{Payroll}. Pengembangan dilakukan melalui penambahan fitur baru, refaktorisasi struktur data, validasi \textit{form input}, serta optimalisasi logika sistem sesuai kebutuhan bisnis.
 
-Pengembangan ini menghasilkan berbagai endpoint API yang telah diuji secara manual dan terintegrasi secara fungsional dengan sisi frontend. Salah satu pencapaian utama adalah penyempurnaan alur cuti berbasis sistem hierarki jabatan, penambahan fitur cancel leave permit, serta perhitungan gaji otomatis berdasarkan konfigurasi payroll dan data tunjangan. Selain itu, fitur otentikasi biometrik juga telah berhasil diimplementasikan guna meningkatkan kecepatan akses pada aplikasi mobile CHRIS (CHRISM).
+Pengembangan ini menghasilkan berbagai endpoint API yang telah diuji secara manual dan terintegrasi secara fungsional dengan sisi frontend. Sebagian besar modul, seperti User Management, Leave Permit, dan sistem hierarki supervisi telah berhasil diterapkan pada lingkungan produksi. Sementara itu, modul Payroll saat ini masih berada pada tahap staging dan dalam proses evaluasi lebih lanjut sebelum diimplementasikan secara penuh. Salah satu pencapaian utama lainnya adalah penyempurnaan alur cuti berbasis sistem hierarki jabatan, penambahan fitur cancel leave permit, serta perhitungan gaji otomatis berdasarkan konfigurasi payroll dan data tunjangan. Selain itu, fitur otentikasi biometrik juga telah berhasil diimplementasikan guna meningkatkan kecepatan akses pada aplikasi mobile CHRIS (CHRISM).
 
 Secara keseluruhan, pengembangan ini berkontribusi dalam meningkatkan efisiensi proses internal, memperkuat keamanan sistem, dan memastikan transparansi serta keterlacakan data kepegawaian secara lebih terstruktur dan terintegrasi.
 
@@ -17,6 +17,6 @@ Ada beberapa saran yang dapat dipertimbangkan untuk pengembangan sistem CHRIS ke
 
 \begin{enumerate}
 	\item \textbf{Otomasi Pengujian}: Disarankan untuk menambahkan unit testing dan integrasi testing otomatis pada setiap modul yang dikembangkan. Hal ini akan memastikan bahwa setiap perubahan kode dapat langsung tervalidasi, sehingga meminimalkan risiko bug yang tidak terdeteksi.
-	\item \textbf{Standarisasi Kode}: Perlu dilakukan standarisasi terhadap penulisan kode dan struktur direktori backend. Hal ini akan membantu menjaga konsistensi dalam pengembangan di masa mendatang, sehingga memudahkan pemeliharaan dan kolaborasi antar pengembang.
+	\item \textbf{Monitoring Produksi}: Disarankan untuk menerapkan sistem monitoring pada server produksi untuk memantau performa layanan, mendeteksi error secara real-time, serta memastikan ketersediaan layanan bagi pengguna akhir.
 	\item \textbf{Integrasi Notifikasi}: Modul seperti Leave Permit atau Payroll dapat dikembangkan lebih lanjut dengan integrasi sistem notifikasi real-time (misal: email atau push notification). Hal ini akan meningkatkan responsivitas pengguna terhadap pembaruan status, sehingga mereka dapat segera mengambil tindakan yang diperlukan.
 \end{enumerate}
