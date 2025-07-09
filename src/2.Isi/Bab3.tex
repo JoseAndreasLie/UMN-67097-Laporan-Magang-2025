@@ -995,7 +995,7 @@ Pada gambar \ref{fig:params_payroll_configuration_by_id_patch}, terlihat paramet
     \caption{Contoh struktur \textit{request} untuk GET \texttt{/users/{:user\_id}/payroll-configuration}}
     \label{fig:response_payroll_configuration_by_user_id_get}
 \end{figure}
-\begin{figure}
+\begin{figure}p
     \centering
     \fbox{\includegraphics[width=0.8\textwidth]{assets/pics/fig_response_users_payroll_configuration_by_user_id_get.png}}
     \caption{Contoh struktur \textit{response} untuk GET \texttt{/users/{:user\_id}/payroll-configuration}}
@@ -1079,7 +1079,7 @@ Pada gambar \ref{fig:request_salary_slip_all_get}, terlihat struktur \textit{req
 \end{figure}
 \begin{figure}
     \centering
-    \fbox{\includegraphics[width=0.8\textwidth]{assets/pics/fig_response_salary_slip_by_user_id_get.png}}
+    \fbox{\includegraphics[height=0.85\textheight]{assets/pics/fig_response_salary_slip_by_user_id_get.png}}
     \caption{Contoh struktur \textit{response} untuk GET \texttt{/salary-slip/{:user\_id}}}
     \label{fig:response_salary_slip_by_id_get}
 \end{figure}
@@ -1095,12 +1095,118 @@ Pada gambar \ref{fig:request_salary_slip_by_id_get}, terlihat struktur \textit{r
 \end{figure}
 \begin{figure}
     \centering
-    \fbox{\includegraphics[width=0.8\textwidth]{assets/pics/fig_response_salary_slip_get.png}}
+    \fbox{\includegraphics[height=0.85\textheight]{assets/pics/fig_response_salary_slip_get.png}}
     \caption{Contoh struktur \textit{response} untuk GET \texttt{/salary-slip?date=YYYY-MM}}
     \label{fig:response_salary_slip_get}
 \end{figure}
 
 Pada gambar \ref{fig:request_salary_slip_get}, terlihat struktur \textit{request} yang dikirimkan ke \textit{endpoint} \texttt{/salary-slip}, yang berisi query parameter \texttt{date=YYYY-MM} untuk menyaring slip gaji pada bulan dan tahun tertentu. Setelah \textit{request} berhasil diproses, sistem akan mengembalikan respons seperti pada gambar \ref{fig:response_salary_slip_get}, yang menunjukkan data slip gaji pengguna yang sedang aktif pada periode waktu yang diminta, dengan kode status 200 (\textit{OK}) dan pesan yang sesuai.
+
+% ---------------------------------------- %
+\section{Hasil Implementasi}
+% -------------------- %
+Bagian ini menjelaskan hasil implementasi dari pengembangan \textit{backend} yang telah diintegrasikan dengan antarmuka pengguna (\textit{frontend}). Implementasi meliputi fitur-fitur baru dan perbaikan pada sistem yang sebelumnya telah ada, termasuk modul \textit{User Management}, \textit{Leave Permit}, dan \textit{Payroll}. Seluruh integrasi diuji secara manual, dan tangkapan layar (\textit{screenshot}) berikut ini menggambarkan respons visual dari sistem setelah proses integrasi dilakukan.
+
+\subsection{User Management}
+
+Modul \textit{User Management} telah diperbarui dengan validasi input form yang lebih ketat untuk memastikan konsistensi dan keakuratan data pegawai. Validasi mencakup beberapa aturan berikut:
+
+\begin{itemize}
+    \item Email wajib menggunakan domain \texttt{@concise.co.id}
+    \item Nomor kontak atau kontak darurat hanya diperbolehkan angka dengan awalan \texttt{+62} atau \texttt{0}
+    \item Nama lengkap dan nama pemegang rekening bank harus berupa karakter alfabet atau alfanumerik
+    \item NIK terdiri dari 16 digit numerik
+    \item Field wajib lainnya tidak boleh kosong
+\end{itemize}
+Validasi juga diterapkan pada sisi \textit{frontend} untuk memberikan umpan balik secara langsung kepada pengguna saat mengisi formulir. Apabila terdapat isian yang tidak valid, sistem akan menolak penyimpanan data dan menampilkan pesan kesalahan yang sesuai. Pendekatan ini bertujuan untuk meminimalkan kesalahan input yang berpotensi mengganggu proses bisnis. Namun, untuk skenario tertentu yang tidak dapat ditangani oleh validasi \textit{frontend}, proses validasi tetap dilanjutkan pada sisi \textit{backend} guna menjamin integritas dan konsistensi data secara menyeluruh.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{assets/pics/fig_user_management_validation_form.png}
+\caption{Validasi Form Input pada Modul User Management}
+\label{fig:user_management_validation}
+\end{figure}
+
+
+\subsection{Leave Permit}
+Modul \textit{Leave Permit} telah diperbarui untuk meningkatkan pengalaman pengguna dalam mengajukan permohonan cuti. Perubahan utama meliputi:
+\begin{itemize}
+    \item Penambahan fitur untuk menampilkan daftar pegawai yang melakukan cuti per minggu dari sekarang.
+    \item Penambahan field untuk memilih officer in charge yang berlaku sebagai pengganti dari pegawai yang sedang cuti untuk kebutuhan bisnis.
+    \item Penambahan fitur untuk membatalkan permohonan yang belum disetujui.
+\end{itemize}
+Contoh tampilan antarmuka pengguna untuk modul \textit{Leave Permit} dapat dilihat pada gambar \ref{fig:leave_permit_dashboard}, gambar \ref{fig:leave_permit_cancel}, dan gambar \ref{fig:leave_permit_oic}.
+
+\begin{figure}[H]
+\centering
+\fbox{\includegraphics[width=0.8\textwidth]{assets/pics/fig_leave_permit_dashboard.png}}
+\caption{Tampilan Antarmuka Pengguna untuk Modul Leave Permit pada dashboard}
+\label{fig:leave_permit_dashboard}
+\end{figure}
+
+\begin{figure}
+\centering
+\fbox{\includegraphics[width=0.8\textwidth]{assets/pics/fig_leave_permit_oic.png}}
+\caption{Tampilan Antarmuka Pengguna untuk Modul Leave Permit pada form pengajuan cuti}
+\label{fig:leave_permit_oic}
+\end{figure}
+
+\begin{figure}
+\centering
+\fbox{\includegraphics[width=0.8\textwidth]{assets/pics/fig_leave_permit_cancel.png}}
+\caption{Tampilan Antarmuka Pengguna untuk Modul Leave Permit pada form pembatalan permohonan cuti}
+\label{fig:leave_permit_cancel}
+\end{figure}
+
+\subsection{Payroll}
+Modul \textit{Payroll} telah diperbarui dengan penambahan fitur-fitur baru yang mendukung pengelolaan gaji pegawai secara lebih efisien. Fitur-fitur baru yang ditambahkan meliputi:
+\begin{itemize}
+    \item Penambahan konfigurasi penggajian yang dapat disesuaikan dengan kebutuhan perusahaan, termasuk tunjangan-tunjangan yang dapat ditambahkan atau dihapus sesuai dengan kebijakan perusahaan.
+    \item Penambahan fitur untuk menyimpan data pegawai, gaji, dan tunjangan-tunjangan dalam satu proses, sehingga memudahkan pengelolaan data pegawai.
+    \item Penambahan fitur untuk menghasilkan slip gaji pegawai secara otomatis berdasarkan konfigurasi penggajian yang telah ditentukan.
+\end{itemize}
+Contoh tampilan antarmuka pengguna untuk modul \textit{Payroll} dapat dilihat pada gambar \ref{fig:payroll_configuration_list}, gambar  \ref{fig:payroll_configuration_form}, gambar  \ref{fig:payroll_information}, gambar \ref{fig:salary_slip_list}, dan gambar \ref{fig:salary_slip_detail}.
+
+\begin{figure}[H]
+\centering
+\fbox{\includegraphics[width=0.8\textwidth]{assets/pics/fig_payroll_configuration_list.png}}
+\caption{Tampilan Antarmuka Pengguna untuk Modul Payroll pada daftar konfigurasi penggajian}
+\label{fig:payroll_configuration_list}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\fbox{\includegraphics[width=0.8\textwidth]{assets/pics/fig_payroll_configuration_form.png}}
+\caption{Tampilan Antarmuka Pengguna untuk Modul Payroll pada form konfigurasi penggajian}
+\label{fig:payroll_configuration_form}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\fbox{\includegraphics[width=0.8\textwidth]{assets/pics/fig_payroll_information.png}}
+\caption{Tampilan Antarmuka Pengguna untuk Modul Payroll pada informasi gaji pegawai}
+\label{fig:payroll_information}
+\end{figure}    
+
+\begin{figure}
+\centering
+\fbox{\includegraphics[width=0.8\textwidth]{assets/pics/fig_salary_slip_list.png}}
+\caption{Tampilan Antarmuka Pengguna untuk Modul Payroll pada daftar slip gaji pegawai}
+\label{fig:salary_slip_list}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\fbox{\includegraphics[width=0.8\textwidth]{assets/pics/fig_salary_slip_detail.png}}
+\caption{Tampilan Antarmuka Pengguna untuk Modul Payroll pada slip gaji pegawai}
+\label{fig:salary_slip_detail}
+\end{figure}
+
+
+
+
+
+
 
 % ---------------------------------------- %
 \section{Kendala dan Solusi yang Ditemukan}
